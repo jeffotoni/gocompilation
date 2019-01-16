@@ -73,7 +73,10 @@ and here the package [Package](https://golang.org/src/).
       - [Pointer to a struct](#structpointer)
       - [Type Struct Json](#structjson)
       - [Anonymus Struct](#structanonymus)
-      
+  - [Methods](#methods)
+      - [Methods x Func](#methodsfunc)
+      - [Interface](#interface)
+
    - [Defer](#defer)  
       
    
