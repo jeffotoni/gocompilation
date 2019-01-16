@@ -14,5 +14,16 @@ There are thousands of references today when it comes to Golang, let's start at 
 This site is one of the most important, it is here that we find and we take a lot of our doubts [Blog Golang] (https://blog.golang.org/) it is simply fantastic.
 
 Here is where we will find all the documentation [Doc Golang] (https://golang.org/doc/) on this page is complete with everything we need in Golang, here is the faq [Faq Golang] (https://golang.org/ doc / faq) here we will find several cool things.
+And this page is where we found all the specifications of Golang, it is very complete [Spec Golang] (https://golang.org/ref/spec)
 
 ## Contents
+- [overview](#overview)
+- [overview](#overview)
+- [installation](#installation)
+  - [Go Workspace](#goworkspace)
+  - [Go commands](#gocommands)
+  - [Packages](#package)
+  - [variables](#variables)
+    - [scopo](#scopo)
+    
+   
