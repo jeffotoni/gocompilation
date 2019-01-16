@@ -67,7 +67,15 @@ and here the package [Package](https://golang.org/src/).
       - [Variadic Functions](#variadicfunc) 
       - [functions as a parameter](#funcparameter) 
       - [Closures](#closures)
- - [Defer](#defer)
+  - [Struct](#struct)
+      - [Allocation New](#allocationnew)
+      - [Initializing a struct](#structinit)
+      - [Pointer to a struct](#structpointer)
+      - [Type Struct Json](#structjson)
+      - [Anonymus Struct](#structanonymus)
+      
+   - [Defer](#defer)  
+      
    
     
    
