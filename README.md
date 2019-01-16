@@ -43,6 +43,17 @@ and here the package [Package](https://golang.org/src/).
        - [go mod graph](#gomodgraph)
  - [C-style](#cstyle)
  - [Package](#package)
+    - [fmt](#fmt)
+    - [log](#log)
+    - [time](#time)
+    - [encoding/json](#encodingjson)
+    - [os](#os)
+    - [io/ioutil](#ioutil)
+    -[bufio](#bufio)
+    - [flag](#flag)
+    -[strconv](#strconv)
+    -[strings](#strings)
+    -[net/http](#nethttp)
  - [Printing on the screen](#printingscreen)
  - [Variables](#variables)
        - [Scopo](#scopo)
@@ -56,6 +67,7 @@ and here the package [Package](https://golang.org/src/).
       - [Variadic Functions](#variadicfunc) 
       - [functions as a parameter](#funcparameter) 
       - [Closures](#closures)
+- [Defer](#defer)
    
     
    
