@@ -15,7 +15,7 @@ This site is one of the most important, it is here that we find and we take a lo
 
 Here is where we will find all the documentation [Doc Golang] (https://golang.org/doc/) on this page is complete with everything we need in Golang, here is the faq [Faq Golang] (https://golang.org/ doc / faq) here we will find several cool things.
 And this page is where we found all the specifications of Golang, it is very complete [Spec Golang] (https://golang.org/ref/spec)
-
+and here the package [Package](https://golang.org/src/).
 ## Contents
 
 - [Overview](#overview)
@@ -41,8 +41,21 @@ And this page is where we found all the specifications of Golang, it is very com
        - [go mod download](#gomoddownload)
        - [go mod vendor](#gomodvendor)
        - [go mod graph](#gomodgraph)
-  - [Packages](#package)
-  - [variables](#variables)
-    - [scopo](#scopo)
+ - [C-style](#cstyle)
+ - [Package](#package)
+ - [Printing on the screen](#printingscreen)
+ - [Variables](#variables)
+       - [Scopo](#scopo)
+ - [Constants](#constants)
+ - [Control structures](#controlstructures)
+      - [if/else](#ifelse)
+      - [for](#for)
+      - [range](#range)
+ - [Functions](#functions)
+      - [return multi](#returnmulti) 
+      - [Variadic Functions](#variadicfunc) 
+      - [functions as a parameter](#funcparameter) 
+      - [Closures](#closures)
+   
     
    
