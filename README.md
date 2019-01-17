@@ -48,6 +48,7 @@ and here the package [Package](https://golang.org/src/).
   - [go tool](#gotool)
   - [go doc](#godoc)
   - [Go mod](#gomod)
+       - [GO111MODULE](#)
        - [go mod init](#gomodinit)
        - [go mod verify](#gomodverify)
        - [go mod download](#gomoddownload)
@@ -88,7 +89,16 @@ and here the package [Package](https://golang.org/src/).
     - [Type Struct Json](#structjson)
     - [Anonymus Struct](#structanonymus)
     - [Struct Reflect](#structreflect)
-  - [package](#package)
+  - [Erros](#erros)
+     - [How Error Control Works](#)
+     - [Log.fatal](#)
+     - [Log.panic](#)
+     - [panic](#panic)
+     - [Custom Errors](#customerrors)
+     - [Interface Errors](#)
+     - [Errors.New](#)
+     - [fmt.Errorf](#)
+  - [My first packages](#package)
     - [fmt](#fmt)
     - [log](#log)
     - [time](#time)
@@ -100,6 +110,7 @@ and here the package [Package](https://golang.org/src/).
     - [strconv](#strconv)
     - [strings](#strings)
     - [net/http](#nethttp)
+    - [errors](#packageerros)
   - [Pointer](#pointer)
     - [How Pointers in Go Works](#howpointers)
     - [When using pointers](#whenusingpointers)
@@ -129,6 +140,34 @@ and here the package [Package](https://golang.org/src/).
      - [Toml](#jsontoml)
      - [Yaml](#jsonyaml)
      - [Gcfg](#jsongcfg)
-      
-    
+   - [net/http Server](#)
+     - [http.NewServeMux](#)
+     - [http.HandlerFunc](#)
+     - [http.Handle](#)
+     - [http.Handler](#)
+     - [http.Server](#)
+     - [http.FileServer](#)
+     - [next.ServeHTTP](#)
+     - [http.NotFound](#)
+     - [Disable http.FileServer](#)
+        ├── main.go
+        └── static
+          ├── css
+          │   ├── index.html
+          │   └── main.css
+          ├── img
+          │   ├── index.html
+          │   └── logo.png
+          ├── index.html
+          └── robots.txt
+     - [http.Dir](#)
+     - [http.StripPrefix](#)
+     - [ListenAndServe](#)
+     - [Middleware](#)
+   - [net/http Client](#)
+     - [http.Transport](#)
+     - [http.Client](#)
+     - [http.Get](#)
+     - [http,Post](#)
+     - [http.NewRequest](#)
    
