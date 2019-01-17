@@ -148,6 +148,8 @@ and here the package [Package](https://golang.org/src/).
      - [http.Server](#)
      - [next.ServeHTTP](#)
      - [ListenAndServe](#)
+     - [ListenAndServeTLS](#)
+     - [Server.Shutdown](#)
      - [Middleware](#)
    - [net/http Server Pages](#)
      - [http.FileServer](#)
