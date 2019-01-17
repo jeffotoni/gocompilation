@@ -150,16 +150,16 @@ and here the package [Package](https://golang.org/src/).
      - [next.ServeHTTP](#)
      - [http.NotFound](#)
      - [Disable http.FileServer](#)
-        ├── main.go
-        └── static
-          ├── css
-          │   ├── index.html
-          │   └── main.css
-          ├── img
-          │   ├── index.html
-          │   └── logo.png
-          ├── index.html
-          └── robots.txt
+        -├── main.go
+        -└── static
+          -├── css
+          -│   ├── index.html
+          -│   └── main.css
+          -├── img
+          -│   ├── index.html
+          -│   └── logo.png
+          -├── index.html
+          -└── robots.txt
      - [http.Dir](#)
      - [http.StripPrefix](#)
      - [ListenAndServe](#)
