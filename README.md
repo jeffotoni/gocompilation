@@ -323,31 +323,31 @@ Let's create our directory in our workspace and test to see if everything went w
 #### Linux
 
 ```bash
-
 $ sudo rm -rf /usr/local/go
 $ wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
 $ sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
-
 ```
 
 #### $GOPATH
 
-Add /usr/local/go/bin to the PATH environment variable. You can do this by adding this line to your /etc/profile (for a system-wide installation) or $HOME/.profile: 
+$GOPATH is the golang in your $HOME, this is necessary for your projects to use pkg and build properly. This was mandatory for all versions before version 1.11. The cool thing is that from now on we will not have to create projects in $GOPATH, we can create in any other directory that is not in $GOPATH.
+
+Here is the link to the versioning proposal [Proposal: Versioned Go Modules](https://go.googlesource.com/proposal/+/master/design/24301-versioned-go.md/) or [Go 1.11 Modules](https://github.com/golang/go/wiki/Modules/)
+
+We'll detail how to work with **go mod**, it was one of the best experiences I had for versioning projects using Golang.
+
+Let's set up our environment to run Go. Add **/usr/local/go/bin** to the PATH environment variable. You can do this by adding this line to your **/etc/profile** (for a system-wide installation) or **$HOME/.profile**. 
 
 ```bash
-
 $ export PATH=$PATH:/usr/local/go/bin
-
 ```
 
 **Note**: changes made to a profile file may not apply until the next time you log into your computer. To apply the changes immediately, just run the shell commands directly or execute them from the profile using a command such as source $HOME/.profile. 
 
 ```bash
-
 $ echo "export GOPATH=$HOME/go" >> $HOME/.profile
 $ echo "export PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
 $ echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.profile
-
 ```
 
 #### Test your installation
@@ -355,10 +355,8 @@ $ echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.profile
 Let's run go version to see if everything is correct.
 
 ```bash
-
 $ go version
 go version go1.11.4 linux/amd64
-
 ```
 
 Check that Go is installed correctly by setting up a workspace and building a simple program, as follows. 
@@ -369,19 +367,33 @@ Next, make the directory src/hello inside your workspace, and in that directory 
 
 #### Workspace
 
-```bash
+Workspace is our place of work, where we will organize our directories with our projects. As shown above, until version 1.11 we were forced to do everything under the Workspace.
 
+$GOPATH Down Projects
+
+**Example hello**
+
+```bash
 $ mkdir $HOME/go
 $ mkdir $HOME/go/src
 $ mkdir $HOME/go/src/hello
 $ vim $HOME/go/src/hello/hello.go
-
 ```
+
+**Example Project**
+
+```bash
+$ mkdir $HOME/go/src/project
+$ mkdir $HOME/go/src/project/my-pkg
+$ mkdir $HOME/go/src/project/my-cmd
+$ mkdir $HOME/go/src/project/my-logs
+$ mkdir $HOME/go/src/project/my-models
+```
+
 
 #### Func Main
 
 ```go
-
 package main
 
 import "fmt"
@@ -395,27 +407,22 @@ func main() {
 Then **build** it with the **go tool**: 
 
 ```go
-
 $ cd $HOME/go/src/hello
 $ go build
-
 ```
 
 The command above will build an executable named hello in the directory alongside your source code. Execute it to see the greeting: 
 
 ```go
-
 $ ./hello
 hello, Gophers
-
 ```
+
 Check also the command **run** it with the go: 
 
 ```go
-
 $ go run hello.go
 hello, Gophers
-
 ```
 
 If you see the "hello, Gophers" message then your Go installation **is working**.
@@ -423,7 +430,6 @@ If you see the "hello, Gophers" message then your Go installation **is working**
 You can run **go install** to install the binary into your workspace's **bin** directory or **go clean -i** to remove it.
 
 ```go
-
 $ pwd
 $ $HOME/go/src/hello
 $ cd $HOME/go/src/hello
@@ -432,5 +438,4 @@ $ ls -lhs $HOME/go/bin
 -rwxrwxr-x 1 user user 2,9M nov  8 03:11 hello
 $ go clean -i 
 $ ls -lhs $HOME/go/bin
-
 ```
