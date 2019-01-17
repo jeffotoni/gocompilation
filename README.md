@@ -27,8 +27,9 @@ and here the package [Package](https://golang.org/src/).
      - [Workspace](#workspace)
      - [Outside GOPATH](#outside-gopath)
      - [Func Main](#func-main)
-- [Clean structure](#clean-structure)
-  - [directory organization](#)
+- [Clean Architecture](#clean-architecture)
+  - [Introduction](#introduction)
+    - [directory organization](#)
     - [src](#)
     - [pkg](#)
     - [cmd](#)
@@ -461,3 +462,21 @@ $ ls -lhs $HOME/go/bin
 $ go clean -i 
 $ ls -lhs $HOME/go/bin
 ```
+### Clean Architecture
+---
+
+#### Introduction
+
+The term came about when the book "Clean Architecture: A Craftsman's Guide to Software Structure and Design" was published in 2017 by Robert C. Martin that aims to present what he calls universal rules that are applied in the current architectures you can improve drastically during the life of any software system.
+Are they:
+
+- Independent of Frameworks.
+- Testable.
+- Independent of UI.
+- Independent of Database.
+- Independent of any external agency.
+
+We can read an article that becomes popular on the internet [The Clean Architecture] (https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+
+The cool thing about this theme is that you can apply directly to our projects using Golang.
+
