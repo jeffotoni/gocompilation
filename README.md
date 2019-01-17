@@ -28,9 +28,9 @@ and here the package [Package](https://golang.org/src/).
     - [Outside GOPATH](#outside-gopath)
     - [Func Main](#func-main)
 - [Clean Architecture](#clean-architecture)
-  - [Introduction](#introduction)
-    - [directory organization](#)
-    - [src](#)2121
+  - [Introduction Clean Architecture](#introduction-clean-architecture)
+    - [directory organization](#directory-organization)
+    - [src](#)
     - [pkg](#)
     - [cmd](#)
     - [mocks](#)
@@ -465,7 +465,7 @@ $ ls -lhs $HOME/go/bin
 ### Clean Architecture
 ---
 
-#### Introduction
+#### Introduction Clean Architecture
 
 The term came about when the book "Clean Architecture: A Craftsman's Guide to Software Structure and Design" was published in 2017 by Robert C. Martin that aims to present what he calls universal rules that are applied in the current architectures you can improve drastically during the life of any software system.
 Are they:
@@ -497,12 +497,17 @@ In Golang we have many ways of organizing our projects, everything will depend o
 
 We can not use just one model or just one standard for everything. In Golang we make systems of different types that have totally different needs and realities. Golang is a general-purpose language, which means it can be applied to thousands of totally different and diverse business models.
 
-Some types:
-
+**Some types:**
 - Systems to serve web front-end
 - Systems to serve web back-end
 - Microservices
 - Functions as a service
+- Creating APIs using rEST in General
+- Creating APIs using rEST in General
+- Creating APIs using GraphQL in General
+- Creating APIs using SOAP in General
+- Creation of protocols in General
+- Creating and Using Sockets in General
 - Embedded systems
 - Systems for automation
 - Packages to be consumed (libs)
@@ -515,3 +520,19 @@ Some types:
 
 It is a multitude of different ways of organizing our structure in Golagn.
 What we must do is always to use good practices and this is independent of the type of project and its purpose.
+
+The most common scenarios that use Clean Architecture are projects aimed at microservices and the web.
+
+Below I have described some directories that are used very frequently in Web projects in General.
+
+#### src
+#### pkg
+#### cmd
+#### mocks
+#### repo
+#### model
+#### views/template
+#### handler/controller
+#### middleware
+#### config
+#### loggs
