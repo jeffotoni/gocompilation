@@ -19,23 +19,24 @@ and here the package [Package](https://golang.org/src/).
 ## Contents
 
 - [Overview](#overview)
-  - [Installation](#installation)
+- [Installation](#installation)
+  - [Introduction]
      - [Linux](#linux)
      - [$GOPATH](#gopath)
      - [Go Workspace](#goworkspace)
-   - [Clean structure](#cleanstructure)
-      - [directory organization](#)
-      - [src](#)
-      - [pkg](#)
-      - [cmd](#)
-      - [mocks](#)
-      - [repo](#)
-      - [model](#)
-      - [views/template](#)
-      - [handler](#)
-      - [middleware](#)
-      - [config](#)
-      - [loggs](#)
+- [Clean structure](#cleanstructure)
+  - [directory organization](#)
+    - [src](#)
+    - [pkg](#)
+    - [cmd](#)
+    - [mocks](#)
+    - [repo](#)
+    - [model](#)
+    - [views/template](#)
+    - [handler](#)
+    - [middleware](#)
+    - [config](#)
+    - [loggs](#)
 - [Go commands](#gocommands)
   - [go run](#gorun) 
   - [go build](#gobuild)
@@ -303,4 +304,76 @@ and here the package [Package](https://golang.org/src/).
      - [Microservices](#)
      - [databases](#)     
      
-     
+### Overview
+---
+Go is a powerful language when it comes to competition and high performance, with a clean and efficient architecture Go grow growing year after year and each day their communities get bigger.
+Some paradigms have been shattered to make it a high performance language where competition is one of its strengths. Go facilitates the creation of programs that take full advantage of multicore and networked machines, while the new type system allows the construction of flexible and modular programs.
+It is a fast, statically compiled language that looks like a dynamically interpreted language. This characteristic becomes Golang a unique language as the subject is web.
+
+#### Installation
+
+#### Linux
+
+```bash
+$ wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
+$ sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+```
+Add /usr/local/go/bin to the PATH environment variable. You can do this by adding this line to your /etc/profile (for a system-wide installation) or $HOME/.profile: 
+
+```bash
+
+$ export PATH=$PATH:/usr/local/go/bin
+
+```
+**Note**: changes made to a profile file may not apply until the next time you log into your computer. To apply the changes immediately, just run the shell commands directly or execute them from the profile using a command such as source $HOME/.profile. 
+
+#### Test your installation
+
+Check that Go is installed correctly by setting up a workspace and building a simple program, as follows. 
+
+Create your workspace directory, $HOME/go. (If you'd like to use a different directory, you will need to set the GOPATH environment variable.)
+
+Next, make the directory src/hello inside your workspace, and in that directory create a file named hello.go that looks like:
+
+```go
+
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Printf("hello, Gophers\n")
+}
+
+```
+
+Then build it with the go tool: 
+
+```go
+
+$ cd $HOME/go/src/hello
+$ go build
+
+```
+
+The command above will build an executable named hello in the directory alongside your source code. Execute it to see the greeting: 
+
+```go
+
+$ ./hello
+hello, Gophers
+
+```
+
+If you see the "hello, Gophers" message then your Go installation **is working**.
+
+You can run **go install** to install the binary into your workspace's bin directory or **go clean -i** to remove it.
+
+Then **run** it with the go: 
+
+```go
+
+$ go run hello.go
+hello, Gophers
+
+```
