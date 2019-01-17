@@ -20,10 +20,12 @@ and here the package [Package](https://golang.org/src/).
 
 - [Overview](#overview)
 - [Installation](#installation)
-  - [Introduction]
+  - [Introduction](#introduction-installation)
      - [Linux](#linux)
+     - [Test your installation](#testyourinstallation)
      - [$GOPATH](#gopath)
      - [Go Workspace](#goworkspace)
+     - [Func Main](#funcmain)
 - [Clean structure](#cleanstructure)
   - [directory organization](#)
     - [src](#)
@@ -310,14 +312,25 @@ Go is a powerful language when it comes to competition and high performance, wit
 Some paradigms have been shattered to make it a high performance language where competition is one of its strengths. Go facilitates the creation of programs that take full advantage of multicore and networked machines, while the new type system allows the construction of flexible and modular programs.
 It is a fast, statically compiled language that looks like a dynamically interpreted language. This characteristic becomes Golang a unique language as the subject is web.
 
-#### Installation
+### Installation
+
+#### Introduction
+---
+We will download the file, unpack it and install it in /usr/local/go, if we have golang already installed in the machine we will have to remove the existing one to leave our installation as unique.
+Let's create our directory in our workspace and test to see if everything went well
 
 #### Linux
 
 ```bash
+
+$ sudo rm -rf /usr/local/go
 $ wget https://dl.google.com/go/go1.11.4.linux-amd64.tar.gz
 $ sudo tar -C /usr/local -xzf go$VERSION.$OS-$ARCH.tar.gz
+
 ```
+
+#### $GOPATH
+
 Add /usr/local/go/bin to the PATH environment variable. You can do this by adding this line to your /etc/profile (for a system-wide installation) or $HOME/.profile: 
 
 ```bash
@@ -325,15 +338,38 @@ Add /usr/local/go/bin to the PATH environment variable. You can do this by addin
 $ export PATH=$PATH:/usr/local/go/bin
 
 ```
+
 **Note**: changes made to a profile file may not apply until the next time you log into your computer. To apply the changes immediately, just run the shell commands directly or execute them from the profile using a command such as source $HOME/.profile. 
 
 #### Test your installation
 
+Let's run go version to see if everything is correct.
+
+```bash
+
+$ go version
+go version go1.11.4 linux/amd64
+
+```
+
 Check that Go is installed correctly by setting up a workspace and building a simple program, as follows. 
 
-Create your workspace directory, $HOME/go. (If you'd like to use a different directory, you will need to set the GOPATH environment variable.)
+Create your **workspace** directory, $HOME/go. (If you'd like to use a different directory, you will need to set the GOPATH environment variable.)
 
 Next, make the directory src/hello inside your workspace, and in that directory create a file named hello.go that looks like:
+
+#### Workspace
+
+```bash
+
+$ mkdir $HOME/go
+$ mkdir $HOME/go/src
+$ mkdir $HOME/go/src/hello
+$ vim $HOME/go/src/hello/hello.go
+
+```
+
+#### Func Main
 
 ```go
 
@@ -347,7 +383,7 @@ func main() {
 
 ```
 
-Then build it with the go tool: 
+Then **build** it with the **go tool**: 
 
 ```go
 
