@@ -342,6 +342,14 @@ $ export PATH=$PATH:/usr/local/go/bin
 
 **Note**: changes made to a profile file may not apply until the next time you log into your computer. To apply the changes immediately, just run the shell commands directly or execute them from the profile using a command such as source $HOME/.profile. 
 
+```bash
+
+$ echo "export GOPATH=$HOME/go" >> $HOME/.profile
+$ echo "export PATH=$PATH:/usr/local/go/bin" >> $HOME/.profile
+$ echo "export PATH=$PATH:$GOPATH/bin" >> $HOME/.profile
+
+```
+
 #### Test your installation
 
 Let's run go version to see if everything is correct.
