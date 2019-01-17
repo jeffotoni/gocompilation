@@ -22,10 +22,10 @@ and here the package [Package](https://golang.org/src/).
 - [Installation](#installation)
   - [Introduction](#introduction-installation)
      - [Linux](#linux)
-     - [Test your installation](#testyourinstallation)
+     - [Test your installation](#Test your installation)
      - [$GOPATH](#gopath)
-     - [Go Workspace](#goworkspace)
-     - [Func Main](#funcmain)
+     - [Go Workspace](#Go Workspace)
+     - [Func Main](#Func Main)
 - [Clean structure](#cleanstructure)
   - [directory organization](#)
     - [src](#)
@@ -313,9 +313,10 @@ Some paradigms have been shattered to make it a high performance language where 
 It is a fast, statically compiled language that looks like a dynamically interpreted language. This characteristic becomes Golang a unique language as the subject is web.
 
 ### Installation
+---
 
 #### Introduction
----
+
 We will download the file, unpack it and install it in /usr/local/go, if we have golang already installed in the machine we will have to remove the existing one to leave our installation as unique.
 Let's create our directory in our workspace and test to see if everything went well
 
