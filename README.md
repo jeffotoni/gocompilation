@@ -41,6 +41,7 @@ and here the package [Package](https://golang.org/src/).
     - [middleware](#)
     - [config](#)
     - [loggs](#)
+    - [vendor](#)
 - [Go commands](#gocommands)
   - [go run](#gorun) 
   - [go build](#gobuild)
@@ -380,24 +381,51 @@ $ mkdir $HOME/go/src
 $ mkdir $HOME/go/src/hello
 $ vim $HOME/go/src/hello/hello.go
 ```
-
+**$GOPATH**
+  |-src
+    |-hello
+      |-hello.go
+    
 **Example Project**
 
 ```bash
 $ export GOPATH=$HOME/go
-$ mkdir $HOME/go/src/project
-$ mkdir $HOME/go/src/project/my-pkg
-$ mkdir $HOME/go/src/project/my-cmd
-$ mkdir $HOME/go/src/project/my-logs
-$ mkdir $HOME/go/src/project/my-models
-$ mkdir $HOME/go/src/project/my-repo
-$ mkdir $HOME/go/src/project/my-handler
+$ mkdir $HOME/go/src/project1
+$ mkdir $HOME/go/src/project1/my-pkg
+$ mkdir $HOME/go/src/project1/my-cmd
+$ mkdir $HOME/go/src/project1/my-vendor
+$ mkdir $HOME/go/src/project1/my-logs
+$ mkdir $HOME/go/src/project1/my-models
+$ mkdir $HOME/go/src/project1/my-repo
+$ mkdir $HOME/go/src/project1/my-handler
 ```
-In the scenario above everything would have to stay in our $ GOPATH so that our projects worked correctly.
+**$GOPATH/**
+  |-src
+    |-github.com/user/project1/
+      	|-cmd (of project1)
+        	|-main.go
+      	|-vendor
+      	|-logs
+      	|-models
+      	|-repo
+      	|-handler
+    |-github.com/user/project2/
+      ....
+      ....
+	
+The GOPATH environment variable tells the Go tool where your workspace is located. 
+
+```go
+$ go get github.com/user/project1
+```
+The **go get** command fetches source repositories from the internet and places them in your workspace.
+Package paths matter to the Go tool. Using "github.com/..." means the tool knows how to fetch your repository. 
+
+In the scenario above everything would have to stay in our **$GOPATH** so that our projects worked correctly.
 
 #### Outside $GOPATH
 
-Now we can do our projects without being in GOPATH, we can, for example, do it in any directory.
+Now we can do our projects without being in $GOPATH, we can, for example, do it in any directory.
 
 **Project outside GOPATH**
 
@@ -412,7 +440,35 @@ $ mkdir $HOME/2019/project1/my-repo
 $ mkdir $HOME/2019/project1/my-handler
 ```
 
+**$HOME**
+  |-2019
+    |-github.com/user/project1/
+      |-cmd
+        |-main.go
+      |-vendor
+      |-logs
+      |-models
+      |-repo
+      |-handler
+
+We can put our project in any directory now.
+
+**$HOME**
+  |-any-directory
+    |-github.com/user/project1/
+      |-cmd
+        |-main.go
+      |-vendor
+      |-logs
+      |-models
+      |-repo
+      |-handler
+
 For the above scenario, we will have to use go mod in our project so that all external packages can work correctly, in this way we will be able to manage them correctly and version...
+
+```go
+$ go mod init github.com/user/project1
+```
 
 #### Func Main
 
@@ -523,16 +579,31 @@ What we must do is always to use good practices and this is independent of the t
 
 The most common scenarios that use Clean Architecture are projects aimed at microservices and the web.
 
-Below I have described some directories that are used very frequently in Web projects in General.
+This article shows us one of the ways to organize our codes in Golang.[Organizing Go code 2012](https://blog.golang.org/organizing-go-code) and [slide 2014 presentation](https://talks.golang.org/2014/organizeio.slide).
+Very cool this video, worth checking:  [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0).
+
+Below I have described some directories that are used very frequently in **Web projects in General**.
 
 #### src
+
 #### pkg
+
 #### cmd
+
 #### mocks
+
 #### repo
+
 #### model
+
 #### views/template
+
 #### handler/controller
+
 #### middleware
+
 #### config
+
 #### loggs
+
+#### vendor
