@@ -535,6 +535,19 @@ We divide our architecture into 4 layers:
 - Controller
 - Framework & Driver
 
+The structure would look like below as clean architecture
+
+```bash
+$HOME/
+  |-any-directory
+    |-github.com/user/project/
+      |-cmd
+      |-models
+      |-repository
+      |-service
+      |-vendor
+```
+
 We can read an article that becomes popular on the internet [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 The cool thing about this theme is that you can apply directly to our projects using Golang.
