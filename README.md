@@ -30,18 +30,6 @@ and here the package [Package](https://golang.org/src/).
 - [Clean Architecture](#clean-architecture)
   - [Introduction Clean Architecture](#introduction-clean-architecture)
     - [directory organization](#directory-organization)
-    - [src](#)
-    - [pkg](#)
-    - [cmd](#)
-    - [mocks](#)
-    - [repo](#)
-    - [model](#)
-    - [views/template](#)
-    - [handler](#)
-    - [middleware](#)
-    - [config](#)
-    - [loggs](#)
-    - [vendor](#)
 - [Go commands](#gocommands)
   - [go run](#gorun) 
   - [go build](#gobuild)
@@ -584,26 +572,20 @@ Very cool this video, worth checking:  [GopherCon 2018: Kat Zien - How Do You St
 
 Below I have described some directories that are used very frequently in **Web projects in General**.
 
-#### src
-
-#### pkg
-
-#### cmd
-
-#### mocks
-
-#### repo
-
-#### model
-
-#### views/template
-
-#### handler/controller
-
-#### middleware
-
-#### config
-
-#### loggs
-
-#### vendor
+**$HOME**
+  |-any-directory
+    |-github.com/user/project/
+      |-cmd
+        |-main.go
+      |-vendor
+      |-logs
+      |-models
+      |-repo
+      |-handler/controller
+      |-middleware
+      |-pkg
+      |-mocks
+      |-model
+      |-views/template
+      |-loggs
+      |-vendor
