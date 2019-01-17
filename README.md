@@ -401,16 +401,28 @@ $ ./hello
 hello, Gophers
 
 ```
-
-If you see the "hello, Gophers" message then your Go installation **is working**.
-
-You can run **go install** to install the binary into your workspace's bin directory or **go clean -i** to remove it.
-
-Then **run** it with the go: 
+Check also the command **run** it with the go: 
 
 ```go
 
 $ go run hello.go
 hello, Gophers
+
+```
+
+If you see the "hello, Gophers" message then your Go installation **is working**.
+
+You can run **go install** to install the binary into your workspace's **bin** directory or **go clean -i** to remove it.
+
+```go
+
+$ pwd
+$ $HOME/go/src/hello
+$ cd $HOME/go/src/hello
+$ go install
+$ ls -lhs $HOME/go/bin
+-rwxrwxr-x 1 user user 2,9M nov  8 03:11 hello
+$ go clean -i 
+$ ls -lhs $HOME/go/bin
 
 ```
