@@ -146,28 +146,20 @@ and here the package [Package](https://golang.org/src/).
      - [http.Handle](#)
      - [http.Handler](#)
      - [http.Server](#)
-     - [http.FileServer](#)
      - [next.ServeHTTP](#)
-     - [http.NotFound](#)
-     - [Disable http.FileServer](#)
-        - ├── main.go
-        - └── static
-          - ├── css
-          - │   ├── index.html
-          - │   └── main.css
-          - ├── img
-          - │   ├── index.html
-          - │   └── logo.png
-          - ├── index.html
-          - └── robots.txt
-     - [http.Dir](#)
-     - [http.StripPrefix](#)
      - [ListenAndServe](#)
      - [Middleware](#)
+   - [net/http Server Pages](#)
+     - [http.FileServer](#)
+     - [http.NotFound](#)
+     - [Disable http.FileServer](#)
+     - [http.Dir](#)
+     - [http.StripPrefix](#)     
    - [net/http Client](#)
      - [http.Transport](#)
      - [http.Client](#)
      - [http.Get](#)
      - [http,Post](#)
      - [http.NewRequest](#)
+     - [Context.WithCancel](#)
    
