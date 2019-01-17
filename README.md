@@ -373,6 +373,7 @@ Workspace is our place of work, where we will organize our directories with our 
 **Example hello**
 
 ```bash
+$ export GOPATH=$HOME/go
 $ mkdir $HOME/go
 $ mkdir $HOME/go/src
 $ mkdir $HOME/go/src/hello
@@ -382,17 +383,35 @@ $ vim $HOME/go/src/hello/hello.go
 **Example Project**
 
 ```bash
+$ export GOPATH=$HOME/go
 $ mkdir $HOME/go/src/project
 $ mkdir $HOME/go/src/project/my-pkg
 $ mkdir $HOME/go/src/project/my-cmd
 $ mkdir $HOME/go/src/project/my-logs
 $ mkdir $HOME/go/src/project/my-models
+$ mkdir $HOME/go/src/project/my-repo
+$ mkdir $HOME/go/src/project/my-handler
 ```
 In the scenario above everything would have to stay in our $ GOPATH so that our projects worked correctly.
 
 #### Outside $GOPATH
-Now we can make our projects out of $GOPATH, we can for example do so.
 
+Now we can do our projects without being in GOPATH, we can, for example, do it in any directory.
+
+**Project outside GOPATH**
+
+```bash
+$ export GOPATH=$HOME/go
+$ mkdir $HOME/2019/project1
+$ mkdir $HOME/2019/project1/my-pkg
+$ mkdir $HOME/2019/project1/my-cmd
+$ mkdir $HOME/2019/project1/my-logs
+$ mkdir $HOME/2019/project1/my-models
+$ mkdir $HOME/2019/project1/my-repo
+$ mkdir $HOME/2019/project1/my-handler
+```
+
+For the above scenario, we will have to use go mod in our project so that all external packages can work correctly, in this way we will be able to manage them correctly and version...
 
 #### Func Main
 
