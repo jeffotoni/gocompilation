@@ -535,13 +535,13 @@ We divide our architecture into 4 layers:
 - Controller
 - Framework & Driver
 
-We can read an article that becomes popular on the internet [The Clean Architecture] (https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+We can read an article that becomes popular on the internet [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 The cool thing about this theme is that you can apply directly to our projects using Golang.
 
 We can organize our directories as per Clean Architecture.
 There are some organizational models that are already very common in projects in Golang, which can help us to organize our projects in a healthy way.
-In this link you will find a good approach on [Standards Project] (https://github.com/golang-standards/project-layout)
+In this link you will find a good approach on [Standards Project](https://github.com/golang-standards/project-layout)
 
 #### Directory organization
 
