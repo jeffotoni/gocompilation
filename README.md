@@ -369,11 +369,13 @@ $ mkdir $HOME/go/src
 $ mkdir $HOME/go/src/hello
 $ vim $HOME/go/src/hello/hello.go
 ```
+```bash
 **$GOPATH**
   |-src
     |-hello
       |-hello.go
-    
+```
+
 **Example Project**
 
 ```bash
@@ -387,6 +389,8 @@ $ mkdir $HOME/go/src/project1/my-models
 $ mkdir $HOME/go/src/project1/my-repo
 $ mkdir $HOME/go/src/project1/my-handler
 ```
+
+```bash
 **$GOPATH/**
   |-src
     |-github.com/user/project1/
@@ -400,7 +404,8 @@ $ mkdir $HOME/go/src/project1/my-handler
     |-github.com/user/project2/
       ....
       ....
-	
+```
+
 The GOPATH environment variable tells the Go tool where your workspace is located. 
 
 ```go
@@ -427,7 +432,7 @@ $ mkdir $HOME/2019/project1/my-models
 $ mkdir $HOME/2019/project1/my-repo
 $ mkdir $HOME/2019/project1/my-handler
 ```
-
+```bash
 **$HOME**
   |-2019
     |-github.com/user/project1/
@@ -438,9 +443,11 @@ $ mkdir $HOME/2019/project1/my-handler
       |-models
       |-repo
       |-handler
+```
 
 We can put our project in any directory now.
 
+```bash
 **$HOME**
   |-any-directory
     |-github.com/user/project1/
@@ -451,6 +458,7 @@ We can put our project in any directory now.
       |-models
       |-repo
       |-handler
+```
 
 For the above scenario, we will have to use go mod in our project so that all external packages can work correctly, in this way we will be able to manage them correctly and version...
 
@@ -572,6 +580,7 @@ Very cool this video, worth checking:  [GopherCon 2018: Kat Zien - How Do You St
 
 Below I have described some directories that are used very frequently in **Web projects in General**.
 
+```bash
 **$HOME**
   |-any-directory
     |-github.com/user/project/
@@ -589,3 +598,4 @@ Below I have described some directories that are used very frequently in **Web p
       |-views/template
       |-loggs
       |-vendor
+```
