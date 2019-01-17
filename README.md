@@ -38,7 +38,7 @@ and here the package [Package](https://golang.org/src/).
       - [loggs](#)
 - [Go commands](#gocommands)
   - [go run](#gorun) 
-    - [go build](#gobuild)
+  - [go build](#gobuild)
       - [Build modes](#gobuildmodes)
       - [Go and C](#goandc)
   - [go install](#goinstall)
@@ -47,7 +47,7 @@ and here the package [Package](https://golang.org/src/).
   - [go get](#goget)
   - [go tool](#gotool)
   - [go doc](#godoc)
-    - [Go mod](#gomod)
+  - [Go mod](#gomod)
        - [go mod init](#gomodinit)
        - [go mod verify](#gomodverify)
        - [go mod download](#gomoddownload)
@@ -114,7 +114,7 @@ and here the package [Package](https://golang.org/src/).
      - [Methods and Interfaces](#methodsandinterfaces)
      - [Conversion vs. Assertion](#conversionvsassertion)
      - [Sets Methods](#setmethods)
-   - Maps
+   - [Maps]
      - [Make](#)
      - [Type Int, string, interfaces](#)
      - [Struct](#)
