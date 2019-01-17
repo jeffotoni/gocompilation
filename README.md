@@ -25,6 +25,7 @@ and here the package [Package](https://golang.org/src/).
      - [Test your installation](#test-your-installation)
      - [$GOPATH](#gopath)
      - [Workspace](#workspace)
+     - [Outside GOPATH](#outside-gopath)
      - [Func Main](#func-main)
 - [Clean structure](#clean-structure)
   - [directory organization](#)
@@ -367,9 +368,7 @@ Next, make the directory src/hello inside your workspace, and in that directory 
 
 #### Workspace
 
-Workspace is our place of work, where we will organize our directories with our projects. As shown above, until version 1.11 we were forced to do everything under the Workspace.
-
-$GOPATH Down Projects
+Workspace is our place of work, where we will organize our directories with our projects. As shown above, until **Go version 1.11** we were forced to do everything under the Workspace. $GOPATH Down Projects.
 
 **Example hello**
 
@@ -389,6 +388,10 @@ $ mkdir $HOME/go/src/project/my-cmd
 $ mkdir $HOME/go/src/project/my-logs
 $ mkdir $HOME/go/src/project/my-models
 ```
+In the scenario above everything would have to stay in our $ GOPATH so that our projects worked correctly.
+
+#### Outside $GOPATH
+Now we can make our projects out of $GOPATH, we can for example do so.
 
 
 #### Func Main
