@@ -24,7 +24,7 @@ and here the package [Package](https://golang.org/src/).
      - [Linux](#linux)
      - [Test your installation](#test-your-installation)
      - [$GOPATH](#gopath)
-     - [Go Workspace](#go-workspace)
+     - [Workspace](#workspace)
      - [Func Main](#func-main)
 - [Clean structure](#clean-structure)
   - [directory organization](#)
