@@ -57,6 +57,18 @@ and here the package [Package](https://golang.org/src/).
       - [Closures](#closures)
       - [Recursion](#recursion)
       - [Asynchronous Functions](#asynchromous)
+   - [Array](#array)
+      - [Declaring Array](#)
+      - [Initializing Array](#)
+      - [Accessing Array Elements](#)
+      - [Array can not be resized](#)
+   - [Slice](#slice)
+      - [Slices - make](#)
+      - [Slices - append](#)
+      - [Slices - range](#)
+      - [Slices of Slices](#)
+      - [Nil Slices](#)
+      - [Slice len () and cap ()](#)21
   - [Struct](#struct)
       - [Allocation New](#allocationnew)
       - [Initializing a struct](#structinit)
@@ -99,5 +111,6 @@ and here the package [Package](https://golang.org/src/).
       - [Toml](#jsontoml)
       - [Yaml](#jsonyaml)
       - [Gcfg](#jsongcfg)
+      
     
    
