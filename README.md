@@ -370,7 +370,7 @@ $ mkdir $HOME/go/src/hello
 $ vim $HOME/go/src/hello/hello.go
 ```
 ```bash
-**$GOPATH**
+$GOPATH/
   |-src
     |-hello
       |-hello.go
@@ -391,7 +391,7 @@ $ mkdir $HOME/go/src/project1/my-handler
 ```
 
 ```bash
-**$GOPATH/**
+$GOPATH/
   |-src
     |-github.com/user/project1/
       	|-cmd (of project1)
@@ -433,7 +433,7 @@ $ mkdir $HOME/2019/project1/my-repo
 $ mkdir $HOME/2019/project1/my-handler
 ```
 ```bash
-**$HOME**
+$HOME/
   |-2019
     |-github.com/user/project1/
       |-cmd
@@ -448,7 +448,7 @@ $ mkdir $HOME/2019/project1/my-handler
 We can put our project in any directory now.
 
 ```bash
-**$HOME**
+$HOME/
   |-any-directory
     |-github.com/user/project1/
       |-cmd
@@ -581,7 +581,7 @@ Very cool this video, worth checking:  [GopherCon 2018: Kat Zien - How Do You St
 Below I have described some directories that are used very frequently in **Web projects in General**.
 
 ```bash
-**$HOME**
+$HOME/
   |-any-directory
     |-github.com/user/project/
       |-cmd
