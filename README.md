@@ -673,6 +673,7 @@ Use "go help <command>" for more information about a command.
  
 The Go language has always been defined by a spec, not an implementation. The Go team has written two different compilers that implement that [spec](https://golang.org/ref/spec): [gc and gccgo](https://golang.org/doc/install/gccgo).
 
+```bash
  - Gc is the original compiler, and the go tool uses it by default.
  - Gccgo is a different implementation with a different focus.
  - Compared to gc, gccgo is slower to compile code but supports more powerful optimizations, so a CPU-bound program built by gccgo will usually run faster.
@@ -680,6 +681,7 @@ The Go language has always been defined by a spec, not an implementation. The Go
  - Gccgo, however, supports all the processors that GCC supports.
  - Not all those processors have been thoroughly tested for gccgo, but many have, including x86 (32-bit and 64-bit), SPARC, MIPS, PowerPC and even Alpha.
  - Gccgo has also been tested on operating systems that the gc compiler does not support, notably Solaris.
+```
 
 if you install the go command from a standard Go release, it already supports gccgo via the -compiler option: go build -compiler gccgo myprog.go 
 
@@ -806,6 +808,7 @@ The 'go build' and 'go install' commands take a -buildmode argument which
 indicates which kind of object file is to be built. Currently supported values
 are:
 
+```bash
 -buildmode=archive
 	Build the listed non-main packages into .a files. Packages named
 	main are ignored.
@@ -844,7 +847,7 @@ are:
 -buildmode=plugin
 	Build the listed main packages, plus all packages that they
 	import, into a Go plugin. Packages not named main are ignored.
-
+```
 
 #### Go Plugin
 
