@@ -838,10 +838,43 @@ Com1piling and forcing a rebuilding and for linux platforms, disabling cgo and s
 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o hello hello.go
 ```
 
-Leaving the file a bit smaller, using "-s -w" options has the same effect as the strip command
+You can omit debugging information by passing the '-w' flag to the linker and you can omit the symbol table by passing '-s'
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	fmt.Println("vim-go, hello.")
+}
+```
+
+Compilation with ldflags
 
 ```go
 go build -ldflags="-s -w" hello.go
+```
+
+output
+
+```bash
+$ ls -lh 
+-rwxrwxr-x 1 root root 1,3M jan 18 12:42 hello
+-rw-rw-r-- 1 root root   75 jan 17 12:04 hello.go
+```
+
+Normal compilation
+
+```go
+go build -o hello hello.go
+```
+output
+
+```bash
+$ ls -lh 
+-rwxrwxr-x 1 root root 1,9M jan 18 12:42 hello
+-rw-rw-r-- 1 root root   75 jan 17 12:04 hello.go
 ```
 
 #### Buildmode
