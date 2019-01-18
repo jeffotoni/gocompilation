@@ -534,23 +534,27 @@ $ ls -lhs $HOME/go/bin
 
 #### Introduction Clean Architecture
 
-The term came about when the book "Clean Architecture: A Craftsman's Guide to Software Structure and Design" was published in 2017 by Robert C. Martin that aims to present what he calls universal rules that are applied in the current architectures you can improve drastically during the life of any software system.
+The term came about when the book __"Clean Architecture: A Craftsman's Guide to Software Structure and Design"__ was published in 2017 by Robert C. Martin that aims to present what he calls universal rules that are applied in the current architectures you can improve drastically during the life of any software system.
 Are they:
 
+```bash
 - Independent of Frameworks.
 - Testable.
 - Independent of UI.
 - Independent of Database.
 - Independent of any external agency.
+```
 
 We divide our architecture into 4 layers:
 
+```bash
 - Entities
 - Use cases
 - Controller
 - Framework & Driver
+```
 
-The structure would look like below as clean architecture
+The structure would look like below as **Clean Architecture**
 
 ```bash
 $HOME/
@@ -603,7 +607,7 @@ We can not use just one model or just one standard for everything. In Golang we 
 It is a multitude of different ways of organizing our structure in Golagn.
 What we must do is always to use good practices and this is independent of the type of project and its purpose.
 
-The most common scenarios that use Clean Architecture are projects aimed at microservices and the web.
+The most common scenarios that use __Clean Architecture__ are projects aimed at microservices and the web.
 
 This article shows us one of the ways to organize our codes in Golang.[Organizing Go code 2012](https://blog.golang.org/organizing-go-code) and [slide 2014 presentation](https://talks.golang.org/2014/organizeio.slide).
 Very cool this video, worth checking:  [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0).
@@ -633,7 +637,7 @@ $HOME/
       |-Makefile
 ```
 
-#### Small example API Web Front-end
+#### Small example Clean Architecture
 
 ```bash
 $HOME/
@@ -641,6 +645,7 @@ $HOME/
     |-github.com/user/project2/
       |-config
       |-data
+      |-pkg
       |-screenshots
       |-script
       |-static
