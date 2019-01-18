@@ -961,9 +961,93 @@ As of **Go 1.8**, there is a new Go plug-in system. This feature allows programm
 
 You can check here some comments: [Go Plugin](https://golang.org/pkg/plugin/)
 
+Check out the example below (lower.go):
+
 ```go
-$ go build -buildmode=plugin -o goplugin.go method-plugin.go
+// Go in action
+// @jeffotoni
+// 2019-01-18
+
+package main
+
+import (
+	"strings"
+)
+
+type lower string
+
+func (t lower) MustLower(name string) string {
+
+	return strings.ToLower(name)
+}
 ```
+
+```go
+$ go build -buildmode=plugin -o lower.so lower.go
+```
+
+Check out the example below (main.go):
+
+```go
+// Go in action
+// @jeffotoni
+// 2019-01-18
+
+package main
+
+import (
+	"fmt"
+	"os"
+	"plugin"
+)
+
+var (
+	mod = "./tolower.so"
+)
+
+type Tolower interface {
+	MustLower(name string) string
+}
+
+func main() {
+	// load module
+	// 1. open the so file to load the symbols
+	plug, err := plugin.Open(mod)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	// 2. look up a symbol (an exported function or variable)
+	// in this case, variable Greeter
+	l, err := plug.Lookup("Tolower")
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
+
+	// 3. Assert that loaded symbol is of a desired type
+	// in this case interface type Greeter (defined above)
+	var lower Tolower
+	lower, ok := l.(Tolower)
+	if !ok {
+		fmt.Println("unexpected type from module symbol")
+		os.Exit(1)
+	}
+
+	// 4. use the module
+	fmt.Println(lower.MustLower("@JEFFOTONI/LAMBDAMAN"))
+}
+```
+```go
+$ go run main.go
+```
+output
+
+```bash
+@jeffotoni/lambdaman
+```
+
 
 Let's discuss Exploring shared objects in Go in the next topics, it's an interesting subject to understand how to create libs using Go but using **-buildmode = shared-linksshared.**
 
