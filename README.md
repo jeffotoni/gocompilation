@@ -30,6 +30,9 @@ and here the package [Package](https://golang.org/src/).
 - [Clean Architecture](#clean-architecture)
   - [Introduction Clean Architecture](#introduction-clean-architecture)
     - [directory organization](#directory-organization)
+    - [Types of systems in Go](#Types-of-systems-in-Go)
+    - [Small example API Web](#Small-example-API-Web)
+    - [Small example API Web Front-end](#Small-example-API-Web-Front-end)
 - [Go commands](#go-commands)
   - [Go commands introduction](#go-commands-introduction)
   - [GC and GCCGO](#gc-and-gccgo)
@@ -574,7 +577,9 @@ In Golang we have many ways of organizing our projects, everything will depend o
 
 We can not use just one model or just one standard for everything. In Golang we make systems of different types that have totally different needs and realities. Golang is a general-purpose language, which means it can be applied to thousands of totally different and diverse business models.
 
-**Some types:**
+#### Types of systems in Go
+
+```bash
 - Systems to serve web front-end
 - Systems to serve web back-end
 - Microservices
@@ -593,6 +598,7 @@ We can not use just one model or just one standard for everything. In Golang we 
 - Integration with UI of various types
 - Webassembly 
 - Systems for terminals
+```
 
 It is a multitude of different ways of organizing our structure in Golagn.
 What we must do is always to use good practices and this is independent of the type of project and its purpose.
@@ -603,6 +609,8 @@ This article shows us one of the ways to organize our codes in Golang.[Organizin
 Very cool this video, worth checking:  [GopherCon 2018: Kat Zien - How Do You Structure Your Go Apps](https://www.youtube.com/watch?v=oL6JBUk6tj0).
 
 Below I have described some directories that are used very frequently in **Web projects in General**.
+
+#### Small example API Web
 
 ```bash
 $HOME/
@@ -625,7 +633,7 @@ $HOME/
       |-Makefile
 ```
 
-**Web Design with Front End**
+#### Small example API Web Front-end
 
 ```bash
 $HOME/
@@ -851,7 +859,7 @@ are:
 
 #### Go Plugin
 
-As of Go 1.8, there is a new Go plug-in system. This feature allows programmers to create loosely coupled modular programs using packages compiled as shared object libraries that can be loaded and dynamically linked at run time.
+As of **Go 1.8**, there is a new Go plug-in system. This feature allows programmers to create loosely coupled modular programs using packages compiled as shared object libraries that can be loaded and dynamically linked at run time.
 
 You can check here some comments: [Go Plugin](https://golang.org/pkg/plugin/)
 
