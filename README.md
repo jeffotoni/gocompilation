@@ -768,6 +768,33 @@ The build flags are shared by the build, clean, get, install, list, run, and tes
 #### Some Examples
 
 Compiling to run on AWS platform, lambda.
+package main
+
+```go
+// @jeffotoni
+// aws lambda
+import (
+	"github.com/aws/aws-lambda-go/lambda"
+)
+
+type MyResponse struct {
+	Body string `json:"body"`
+}
+
+type MyEvent struct {
+	Name string `json:"name"`
+}
+
+func HandleRequest(event MyEvent) (*MyResponse, error) {
+
+	return &MyResponse{Body: event.Name}, nil
+}
+
+func main() {
+
+	lambda.Start(HandleRequest)
+}
+```
 
 ```go
 $ GOOS=linux GOARCH=amd64 go build -o lambda lambda.go
