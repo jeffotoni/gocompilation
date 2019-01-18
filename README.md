@@ -32,6 +32,7 @@ and here the package [Package](https://golang.org/src/).
     - [directory organization](#directory-organization)
 - [Go commands](#go-commands)
   - [Go commands introduction](#go-commands-introduction)
+  - [GC and GCCGO](#gc-and-gccgo)2
   - [go run](#go-run) 
   - [go build](#go-build)
     - [Build modes](#gobuildmodes)
@@ -467,6 +468,14 @@ More information can be found here: [Wiki Go Modules](https://github.com/golang/
 ```go
 $ go mod init github.com/user/project1
 ```
+**Note**: 
+When we use go mod in $GOPATH we will have to enable using GO111MODULE=on, so that it can work within the $GOPATH structure.
+So our program can compile successfully.
+
+```go
+$ GO111MODULE=on go run cmd/main.go
+$ GO111MODULE=on go build -o project1 cmd/main.go
+```
 
 #### Func Main
 
@@ -548,8 +557,8 @@ $HOME/
       |-repository
       |-service
       |-vendor
+      |-Makefile
 ```
-
 We can read an article that becomes popular on the internet [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 
 The cool thing about this theme is that you can apply directly to our projects using Golang.
@@ -598,9 +607,9 @@ Below I have described some directories that are used very frequently in **Web p
 $HOME/
   |-any-directory
     |-github.com/user/project/
+      |-config
       |-cmd
         |-main.go
-      |-vendor
       |-logs
       |-models
       |-repo
@@ -612,7 +621,25 @@ $HOME/
       |-views/template
       |-loggs
       |-vendor
+      |-Makefile
 ```
+
+**Web Design with Front End**
+
+```bash
+$HOME/
+  |-any-directory
+    |-github.com/user/project2/
+      |-config
+      |-data
+      |-screenshots
+      |-script
+      |-static
+      |-vendor
+      |-main.go
+      |-Makefile
+```
+
 ### Go commands
 ---
 #### Go commands introduction
@@ -640,7 +667,21 @@ vet         report likely mistakes in packages
 ```
  
 Use "go help <command>" for more information about a command. 
+
+#### GC and GCCGO
  
+The Go language has always been defined by a spec, not an implementation. The Go team has written two different compilers that implement that [spec](https://golang.org/ref/spec): [gc and gccgo](https://golang.org/doc/install/gccgo).
+
+ - Gc is the original compiler, and the go tool uses it by default.
+ - Gccgo is a different implementation with a different focus.
+ - Compared to gc, gccgo is slower to compile code but supports more powerful optimizations, so a CPU-bound program built by gccgo will usually run faster.
+ - The gc compiler supports only the most popular processors: x86 (32-bit and 64-bit) and ARM.
+ - Gccgo, however, supports all the processors that GCC supports.
+ - Not all those processors have been thoroughly tested for gccgo, but many have, including x86 (32-bit and 64-bit), SPARC, MIPS, PowerPC and even Alpha.
+ - Gccgo has also been tested on operating systems that the gc compiler does not support, notably Solaris.
+
+if you install the go command from a standard Go release, it already supports gccgo via the -compiler option: go build -compiler gccgo myprog.go 
+
 #### go bug
 
 Bug opens the default browser and starts a new bug report. The report includes useful system information.
@@ -667,10 +708,8 @@ $ go build [-o output] [-i] [build flags] [packages]
 The build flags are shared by the build, clean, get, install, list, run, and test commands:
 
 ```bash
-a
+- a
 	force rebuilding of packages that are already up-to-date.
--n
-	print the commands but do not run them.
 	
 -race
 	enable data race detection.
@@ -692,14 +731,6 @@ a
 -gcflags '[pattern=]arg list'
 	arguments to pass on each go tool compile invocation.
 
--installsuffix suffix
-	a suffix to use in the name of the package installation directory,
-	in order to keep output separate from default builds.
-	If using the -race flag, the install suffix is automatically set to race
-	or, if set explicitly, has _race appended to it. Likewise for the -msan
-	flag. Using a -buildmode option that requires non-default compile flags
-	has a similar effect.
-
 -ldflags '[pattern=]arg list'
 	arguments to pass on each go tool link invocation.
 
@@ -711,20 +742,108 @@ a
 	module download mode to use: readonly or vendor.
 	See 'go help modules' for more.
 
--pkgdir dir
-	install and load all packages from dir instead of the usual locations.
-	For example, when building with a non-standard configuration,
-	use -pkgdir to keep generated packages in a separate location.
-
 -tags 'tag list'
 	a space-separated list of build tags to consider satisfied during the
 	build. For more information about build tags, see the description of
 	build constraints in the documentation for the go/build package.
+ 
+```
 
--toolexec 'cmd args'
-	a program to use to invoke toolchain programs like vet and asm.
-	For example, instead of running asm, the go command will run
-	'cmd args /path/to/asm <arguments for asm>'.
- 
- 
- 
+**Some examples**
+
+Compiling to run on AWS platform, lambda.
+
+```go
+$ GOOS=linux GOARCH=amd64 go build -o lambda lambda.go
+```
+
+Compiling for WebAssembly
+
+```go
+$ go build GOARCH=wasm GOOS=js go build -o test.wasm hello.go
+```
+
+Compiling and generating an .o file, it generates the assembly
+
+```go
+$ GOOS=linux GOARCH=amd64 go tool compile -S hello.go 
+```
+
+```go
+$ go tool compile -S hello.go > hello.S
+```
+
+```go
+$ go build -gcflags -S hello.go
+```
+
+The objdump tool shows references to the line numbers of the original code for what is executing.
+
+```go
+$ go tool objdump hello > ref-assembly
+```
+
+This is in the code for when we compile it to differentiate and compile only those that contain these tags.
+
+```go
+// +build dev
+```
+
+```go
+$ go build -tags dev -o hello hello.go
+``
+
+```go
+$ go help buildmode
+```
+
+The 'go build' and 'go install' commands take a -buildmode argument which
+indicates which kind of object file is to be built. Currently supported values
+are:
+
+-buildmode=archive
+	Build the listed non-main packages into .a files. Packages named
+	main are ignored.
+
+-buildmode=c-archive
+	Build the listed main package, plus all packages it imports,
+	into a C archive file. The only callable symbols will be those
+	functions exported using a cgo //export comment. Requires
+	exactly one main package to be listed.
+
+-buildmode=c-shared
+	Build the listed main package, plus all packages it imports,
+	into a C shared library. The only callable symbols will
+	be those functions exported using a cgo //export comment.
+	Requires exactly one main package to be listed.
+
+-buildmode=default
+	Listed main packages are built into executables and listed
+	non-main packages are built into .a files (the default
+	behavior).
+
+-buildmode=shared
+	Combine all the listed non-main packages into a single shared
+	library that will be used when building with the -linkshared
+	option. Packages named main are ignored.
+
+-buildmode=exe
+	Build the listed main packages and everything they import into
+	executables. Packages not named main are ignored.
+
+-buildmode=pie
+	Build the listed main packages and everything they import into
+	position independent executables (PIE). Packages not named
+	main are ignored.
+
+-buildmode=plugin
+	Build the listed main packages, plus all packages that they
+	import, into a Go plugin. Packages not named main are ignored.
+
+As of Go 1.8, there is a new Go plug-in system. This feature allows programmers to create loosely coupled modular programs using packages compiled as shared object libraries that can be loaded and dynamically linked at run time.
+
+You can check here some comments: [Go Plugin](https://golang.org/pkg/plugin/)
+
+```go
+$ go build -buildmode=plugin -o goplugin.go method-plugin.go
+```
