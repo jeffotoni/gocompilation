@@ -32,11 +32,12 @@ and here the package [Package](https://golang.org/src/).
     - [directory organization](#directory-organization)
 - [Go commands](#go-commands)
   - [Go commands introduction](#go-commands-introduction)
-  - [GC and GCCGO](#gc-and-gccgo)2
+  - [GC and GCCGO](#gc-and-gccgo)
   - [go run](#go-run) 
   - [go build](#go-build)
-    - [Build modes](#gobuildmodes)
-    - [Go and C](#go-and-c)
+    - [Some Examples](#some-examples)
+    - [Build modes](#buildmode)
+    - [Go Plugin](#go-plugin)
   - [go install](#go-install)
   - [go test](#go-test)
   - [go clean](#goclean)
@@ -749,7 +750,7 @@ The build flags are shared by the build, clean, get, install, list, run, and tes
  
 ```
 
-**Some examples**
+#### Some Examples
 
 Compiling to run on AWS platform, lambda.
 
@@ -789,9 +790,13 @@ This is in the code for when we compile it to differentiate and compile only tho
 // +build dev
 ```
 
+When compiling just inform the tag you put in your code
+
 ```go
 $ go build -tags dev -o hello hello.go
-``
+```
+
+#### Buildmode
 
 ```go
 $ go help buildmode
@@ -840,6 +845,9 @@ are:
 	Build the listed main packages, plus all packages that they
 	import, into a Go plugin. Packages not named main are ignored.
 
+
+#### Go Plugin
+
 As of Go 1.8, there is a new Go plug-in system. This feature allows programmers to create loosely coupled modular programs using packages compiled as shared object libraries that can be loaded and dynamically linked at run time.
 
 You can check here some comments: [Go Plugin](https://golang.org/pkg/plugin/)
@@ -847,3 +855,34 @@ You can check here some comments: [Go Plugin](https://golang.org/pkg/plugin/)
 ```go
 $ go build -buildmode=plugin -o goplugin.go method-plugin.go
 ```
+
+Let's discuss Exploring shared objects in Go in the next topics, it's an interesting subject to understand how to create libs using Go but using **-buildmode = shared-linksshared.**
+
+It would be something like this:
+
+```go
+$ go install -buildmode=shared -linkshared github.com/user/dso/lib
+```
+
+Let's create a topic just to deal with objects and shareds in Go.
+
+### Go Install
+---
+
+### Go Test
+---
+
+### Go Clean
+---
+
+### Go Get
+---
+
+### Go tool
+---
+
+### Go doc
+---
+
+### Go mod
+---
