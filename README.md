@@ -811,6 +811,39 @@ When compiling just inform the tag you put in your code
 $ go build -tags dev -o hello hello.go
 ```
 
+Passing parameter, passing values to variables in code
+
+```go
+package main
+
+import "fmt"
+
+var (
+	version string
+	date    string
+)
+
+func main() {
+	fmt.Printf("version=%s, date=%s", version, date)
+}
+```
+
+```go
+$ go build -ldflags "-X main.version=0.0.1 -X main.date=2019-01-18" version.go
+```
+
+Com1piling and forcing a rebuilding and for linux platforms, disabling cgo and saying that it is static
+
+```go
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o hello hello.go
+```
+
+Leaving the file a bit smaller, using options "-s -w"
+
+```go
+go build -ldflags="-s -w" hello.go
+```
+
 #### Buildmode
 
 ```go
