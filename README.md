@@ -838,7 +838,7 @@ Com1piling and forcing a rebuilding and for linux platforms, disabling cgo and s
 CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -ldflags '-extldflags "-static"' -o hello hello.go
 ```
 
-Leaving the file a bit smaller, using options "-s -w"
+Leaving the file a bit smaller, using "-s -w" options has the same effect as the strip command
 
 ```go
 go build -ldflags="-s -w" hello.go
