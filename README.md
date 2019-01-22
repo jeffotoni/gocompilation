@@ -55,7 +55,7 @@ and here the package [Package](https://golang.org/src/).
     - [go mod verify](#go-mod-verify)
     - [go mod vendor](#go-mod-vendor)
     - [go mod why](#go-mod-why)
-- [Environment variables](environment-variables)
+- [Environment variables](#environment-variables)
 - [C-style](#cstyle)
   - [println](#println)
     - [Variables](#variables)
@@ -1399,6 +1399,7 @@ The output is a sequence of stanzas, one for each package or module name on the 
 
 For example:
 
+```bash
 $ go mod why golang.org/x/text/language golang.org/x/text/encoding
  golang.org/x/text/language
 rsc.io/quote
@@ -1407,7 +1408,7 @@ golang.org/x/text/language
 
 golang.org/x/text/encoding
 (main module does not need package golang.org/x/text/encoding)
-
+```
 
 ### Environment variables
 ---
