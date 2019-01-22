@@ -1400,12 +1400,12 @@ The output is a sequence of stanzas, one for each package or module name on the 
 For example:
 
 $ go mod why golang.org/x/text/language golang.org/x/text/encoding
-# golang.org/x/text/language
+ golang.org/x/text/language
 rsc.io/quote
 rsc.io/sampler
 golang.org/x/text/language
 
-# golang.org/x/text/encoding
+golang.org/x/text/encoding
 (main module does not need package golang.org/x/text/encoding)
 
 
