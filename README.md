@@ -48,12 +48,14 @@ and here the package [Package](https://golang.org/src/).
   - [go tool](#go-tool)
   - [go doc](#go-doc)
   - [Go mod](#go-mod)
-    - [GO111MODULE](#)
+    - [GO111MODULE](#go111module)
     - [go mod init](#gomodinit)
-    - [go mod verify](#gomodverify)
-    - [go mod download](#gomoddownload)
-    - [go mod vendor](#gomodvendor)
-    - [go mod graph](#gomodgraph)
+    - [edit go.mod](#edit-go.mod-from-tools-or-scripts)
+    - [download modules to local cache](#download-modules-to-local-cache )
+    - [go mod verify](#go-mod-verify)
+    - [go mod vendor](#go-mod-vendor)
+    - [go mod why](#go-mod-why)
+- [Environment variables](environment-variables)
 - [C-style](#cstyle)
   - [println](#println)
     - [Variables](#variables)
@@ -1062,12 +1064,87 @@ Let's create a topic just to deal with objects and shareds in Go.
 ### Go Install
 ---
 
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+Install packages and dependencies
+
+Usage:
+
+```go
+go install [-i] [build flags] [packages]
+```
+Install compiles and installs the packages named by the import paths.
+
+The -i flag installs the dependencies of the named packages as well.
+
+For more about the build flags, see 'go help build'. For more about specifying packages, see 'go help packages'.
+
 
 ### Go Test
 ---
 
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+Test packages
+
+Usage:
+
+```go
+go test [build/test flags] [packages] [build/test flags & test binary flags]
+```
+
+Go **test** automates testing the packages named by the import paths. It prints a summary of the test results in the format: 
+
+```bash
+ok   archive/tar   0.011s
+FAIL archive/zip   0.022s
+ok   compress/gzip 0.033s
+```
+ followed by detailed output for each failed package.
+
+'Go test' recompiles each package along with any files with names matching the file pattern "*_test.go". These additional files can contain test functions, benchmark functions, and example functions. See 'go help testfunc' for more. Each listed package causes the execution of a separate test binary. Files whose names begin with "_" (including "_test.go") or "." are ignored.
+
+Test files that declare a package with the suffix "_test" will be compiled as a separate package, and then linked and run with the main test binary.
+
+The go tool will ignore a directory named "testdata", making it available to hold ancillary data needed by the tests. 
+
+As part of building a test binary, go test runs go vet on the package and its test source files to identify significant problems. If go vet finds any problems, go test reports those and does not run the test binary. Only a high-confidence subset of the default go vet checks are used. That subset is: 'atomic', 'bool', 'buildtags', 'nilfunc', and 'printf'. You can see the documentation for these and other vet tests via "go doc cmd/vet". To disable the running of go vet, use the -vet=off flag. 
+
+ All test output and summary lines are printed to the go command's standard output, even if the test printed them to its own standard error. (The go command's standard error is reserved for printing errors building the tests.)
+
+ Go test runs in two different modes:
+
+The first, called local directory mode, occurs when go test is invoked with no package arguments (for example, 'go test' or 'go test -v'). In this mode, go test compiles the package sources and tests found in the current directory and then runs the resulting test binary. In this mode, caching (discussed below) is disabled. After the package test finishes, go test prints a summary line showing the test status ('ok' or 'FAIL'), package name, and elapsed time.
+
+The second, called package list mode, occurs when go test is invoked with explicit package arguments (for example 'go test math', 'go test ./...', and even 'go test .'). In this mode, go test compiles and tests each of the packages listed on the command line. If a package test passes, go test prints only the final 'ok' summary line. If a package test fails, go test prints the full test output. If invoked with the -bench or -v flag, go test prints the full output even for passing package tests, in order to display the requested benchmark results or verbose logging. 
+
+In addition to the build flags, the flags handled by 'go test' itself are: 
+
+```bash
+-args
+    Pass the remainder of the command line (everything after -args)
+    to the test binary, uninterpreted and unchanged.
+    Because this flag consumes the remainder of the command line,
+    the package list (if present) must appear before this flag.
+
+-c
+    Compile the test binary to pkg.test but do not run it
+    (where pkg is the last element of the package's import path).
+    The file name can be changed with the -o flag.
+
+-exec xprog
+    Run the test binary using xprog. The behavior is the same as
+    in 'go run'. See 'go help run' for details.
+
+-i
+    Install packages that are dependencies of the test.
+    Do not run the test.
+
+-json
+    Convert test output to JSON suitable for automated processing.
+    See 'go doc test2json' for the encoding details.
+
+-o file
+    Compile the test binary to the named file.
+    The test still runs (unless -c or -i is specified).
+```
+For more about build flags, see 'go help build'. For more about specifying packages, see 'go help packages'. 
 
 ### Go Clean
 ---
@@ -1077,19 +1154,317 @@ Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de te
 ### Go Get
 ---
 
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+The 'go get' command changes behavior depending on whether the go command is running in module-aware mode or legacy **GOPATH** mode. This help text, accessible as 'go help module-get' even in legacy **GOPATH mode**, describes **'go get'** as it operates in module-aware mode.
+
+```bash
+Usage: go get [-d] [-m] [-u] [-v] [-insecure] [build flags] [packages]
+```
+
+Get downloads the packages named by the import paths, along with their dependencies. It then installs the named packages, like 'go install'.
+
+The -d flag instructs get to stop after downloading the packages; that is, it instructs get not to install the packages.
+
+The -f flag, valid only when -u is set, forces get -u not to verify that each package has been checked out from the source control repository implied by its import path. This can be useful if the source is a local fork of the original.
+
+The -fix flag instructs get to run the fix tool on the downloaded packages before resolving dependencies or building the code.
+
+The -insecure flag permits fetching from repositories and resolving custom domains using insecure schemes such as HTTP. Use with caution.
+
+The -t flag instructs get to also download the packages required to build the tests for the specified packages.
+
+The -u flag instructs get to use the network to update the named packages and their dependencies. By default, get uses the network to check out missing packages but does not use it to look for updates to existing packages.
+
+The -v flag enables verbose progress and debug output. 
+
+When checking out a new package, get creates the target directory GOPATH/src/<import-path>. If the GOPATH contains multiple entries, get uses the first one. For more details see: 'go help gopath'.
+
+When checking out or updating a package, get looks for a branch or tag that matches the locally installed version of Go. The most important rule is that if the local installation is running version "go1", get searches for a branch or tag named "go1". If no such version exists it retrieves the default branch of the package.
+
+When go get checks out or updates a Git repository, it also updates any git submodules referenced by the repository.
+
+Get never checks out or updates code stored in vendor directories. 
 
 ### Go tool
 ---
 
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+Usage:
+
+```bash
+go tool [-n] command [args...]
+```
+
+Tool runs the go tool command identified by the arguments. With no arguments it prints the list of known tools.
+
+The -n flag causes tool to print the command that would be executed but not execute it.
+
+For more about each tool command, see [Go CMD](https://golang.org/cmd/)
 
 ### Go doc
 ---
 
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+Usage:
+
+```bash
+go doc [-u] [-c] [package|[package.]symbol[.methodOrField]]
+```
+
+Doc prints the documentation comments associated with the item identified by its arguments (a package, const, func, type, var, method, or struct field) followed by a one-line summary of each of the first-level items "under" that item (package-level declarations for a package, methods for a type, etc.).
+
+Doc accepts zero, one, or two arguments.
+
+Given no arguments, that is, when run as 
+
+```bash
+go doc
+```
+
+it prints the package documentation for the package in the current directory. If the package is a command (package main), the exported symbols of the package are elided from the presentation unless the -cmd flag is provided.
+
+When run with one argument, the argument is treated as a Go-syntax-like representation of the item to be documented. What the argument selects depends on what is installed in GOROOT and GOPATH, as well as the form of the argument, which is schematically one of these: 
+
+```bash
+go doc <pkg>
+go doc <sym>[.<methodOrField>]
+go doc [<pkg>.]<sym>[.<methodOrField>]
+go doc [<pkg>.][<sym>.]<methodOrField>
+```
+
+The first item in this list matched by the argument is the one whose documentation is printed. (See the examples below.) However, if the argument starts with a capital letter it is assumed to identify a symbol or method in the current directory.
+
+For packages, the order of scanning is determined lexically in breadth-first order. That is, the package presented is the one that matches the search and is nearest the root and lexically first at its level of the hierarchy. The GOROOT tree is always scanned in its entirety before GOPATH.
+
+If there is no package specified or matched, the package in the current directory is selected, so "go doc Foo" shows the documentation for symbol Foo in the current package. 
 
 ### Go mod
 ---
 
-Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas "Letraset", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.
+A module is a collection of related Go packages. Modules are the unit of source code interchange and versioning. The go command has direct support for working with modules, including recording and resolving dependencies on other modules. Modules replace the old GOPATH-based approach to specifying which source files are used in a given build. 
+
+Usage:
+
+```bash
+go mod <command> [arguments]
+```
+A module is defined by a tree of Go source files with a **go.mod** file in the tree's root directory. The directory containing the go.mod file is called the module root. Typically the module root will also correspond to a source code repository root (but in general it need not). The module is the set of all Go packages in the module root and its subdirectories, but excluding subtrees with their own go.mod files.
+
+The "module path" is the import path prefix corresponding to the module root. The go.mod file defines the module path and lists the specific versions of other modules that should be used when resolving imports during a build, by giving their module paths and versions.
+
+For example, this go.mod declares that the directory containing it is the root of the module with path example.com/m, and it also declares that the module depends on specific versions of golang.org/x/text and gopkg.in/yaml.v2: 
+
+```bash
+go mod init github.com/user/gomyproject
+
+require (
+	golang.org/x/text v0.3.0
+	gopkg.in/yaml.v2 v2.1.0
+)
+```
+The go.mod file can also specify replacements and excluded versions that only apply when building the module directly; they are ignored when the module is incorporated into a larger build. For more about the go.mod file, see 'go help go.mod'.
+
+To start a new module, simply create a go.mod file in the root of the module's directory tree, containing only a module statement. The 'go mod init' command can be used to do this: 
+
+```bash
+go mod init github.com/user/gomyproject
+```
+In a project already using an existing dependency management tool like **godep, glide, or dep, 'go mod init'** will also add require statements matching the existing configuration.
+
+Once the go.mod file exists, no additional steps are required: go commands like **'go build'**, **'go test'**, or even **'go list'** will automatically add new dependencies as needed to satisfy imports.
+
+The commands are: 
+
+```bash
+download    download modules to local cache
+edit        edit go.mod from tools or scripts
+graph       print module requirement graph
+init        initialize new module in current directory
+tidy        add missing and remove unused modules
+vendor      make vendored copy of dependencies
+verify      verify dependencies have expected content
+why         explain why packages or modules are needed
+```
+Use "go help mod <command>" for more information about a command.
+
+#### GO111MODULE
+
+Go 1.11 includes preliminary support for Go modules, including a new module-aware 'go get' command. We intend to keep revising this support, while preserving compatibility, until it can be declared official (no longer preliminary), and then at a later point we may remove support for work in GOPATH and the old 'go get' command.
+
+The quickest way to take advantage of the new Go 1.11 module support is to check out your repository into a directory outside GOPATH/src, create a go.mod file (described in the next section) there, and run go commands from within that file tree.
+
+For more fine-grained control, the module support in Go 1.11 respects a temporary environment variable, GO111MODULE, which can be set to one of three string values: off, on, or auto (the default). If GO111MODULE=off, then the go command never uses the new module support. Instead it looks in vendor directories and GOPATH to find dependencies; we now refer to this as "GOPATH mode." If GO111MODULE=on, then the go command requires the use of modules, never consulting GOPATH. We refer to this as the command being module-aware or running in "module-aware mode". If GO111MODULE=auto or is unset, then the go command enables or disables module support based on the current directory. Module support is enabled only when the current directory is outside GOPATH/src and itself contains a go.mod file or is below a directory containing a go.mod file.
+
+In module-aware mode, GOPATH no longer defines the meaning of imports during a build, but it still stores downloaded dependencies (in GOPATH/pkg/mod) and installed commands (in GOPATH/bin, unless GOBIN is set).
+
+#### Go Init
+
+Initialize new module in current directory
+
+Usage:
+
+```bash
+go mod init [module]
+```
+
+Init initializes and writes a new **go.mod** to the current directory, in effect creating a new module rooted at the current directory. The file go.mod must not already exist. If possible, init will guess the module path from import comments (see 'go help importpath') or from version control configuration. To override this guess, supply the module path as an argument. 
+
+
+```bash
+go mod init github.com/user/gomyproject2
+
+require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/didip/tollbooth v4.0.0+incompatible
+	github.com/go-sql-driver/mysql v1.4.1
+	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
+	golang.org/x/crypto v0.0.0-20190103213133-ff983b9c42bc
+	golang.org/x/time v0.0.0-20181108054448-85acf8d2951c // indirect
+)
+```
+
+#### Edit go.mod from tools or scripts 
+
+Usage:
+
+```bash
+go mod edit [editing flags] [go.mod]
+```
+
+#### Download modules to local cache 
+
+Usage:
+
+```bash
+go mod download [-json] [modules]
+```
+
+Download downloads the named modules, which can be module patterns selecting dependencies of the main module or module queries of the form path@version. With no arguments, download applies to all dependencies of the main module.
+
+The go command will automatically download modules as needed during ordinary execution. The "go mod download" command is useful mainly for pre-filling the local cache or to compute the answers for a Go module proxy. 
+
+By default, download reports errors to standard error but is otherwise silent. The -json flag causes download to print a sequence of JSON objects to standard output, describing each downloaded module (or failure), corresponding to this Go struct: 
+
+```go
+type Module struct {
+    Path     string // module path
+    Version  string // module version
+    Error    string // error loading module
+    Info     string // absolute path to cached .info file
+    GoMod    string // absolute path to cached .mod file
+    Zip      string // absolute path to cached .zip file
+    Dir      string // absolute path to cached source root directory
+    Sum      string // checksum for path, version (as in go.sum)
+    GoModSum string // checksum for go.mod (as in go.sum)
+}
+```
+#### Go mod Verify
+
+Verify dependencies have expected content.
+
+Usage:
+
+```bash
+go mod verify
+```
+
+Verify checks that the dependencies of the current module, which are stored in a local downloaded source cache, have not been modified since being downloaded. If all the modules are unmodified, verify prints "all modules verified." Otherwise it reports which modules have been changed and causes 'go mod' to exit with a non-zero status. 
+
+#### Go mod Vendor
+
+Make vendored copy of dependencies
+
+Usage:
+
+```bash
+go mod vendor [-v]
+```
+
+Vendor resets the main module's vendor directory to include all packages needed to build and test all the main module's packages. It does not include test code for vendored packages.
+
+The -v flag causes vendor to print the names of vendored modules and packages to standard error.
+
+Explain why packages or modules are needed
+
+#### Go mod why
+
+Usage:
+
+```bash
+go mod why [-m] [-vendor] packages...
+```
+
+Why shows a shortest path in the import graph from the main module to each of the listed packages. If the -m flag is given, why treats the arguments as a list of modules and finds a path to any package in each of the modules.
+
+By default, why queries the graph of packages matched by "go list all", which includes tests for reachable packages. The -vendor flag causes why to exclude tests of dependencies.
+
+The output is a sequence of stanzas, one for each package or module name on the command line, separated by blank lines. Each stanza begins with a comment line "# package" or "# module" giving the target package or module. Subsequent lines give a path through the import graph, one package per line. If the package or module is not referenced from the main module, the stanza will display a single parenthesized note indicating that fact.
+
+For example:
+
+$ go mod why golang.org/x/text/language golang.org/x/text/encoding
+# golang.org/x/text/language
+rsc.io/quote
+rsc.io/sampler
+golang.org/x/text/language
+
+# golang.org/x/text/encoding
+(main module does not need package golang.org/x/text/encoding)
+
+
+### Environment variables
+---
+The go command, and the tools it invokes, examine a few different environment variables. For many of these, you can see the default value of on your system by running 'go env NAME', where NAME is the name of the variable.
+
+General-purpose environment variables: 
+
+```bash
+GCCGO
+	The gccgo command to run for 'go build -compiler=gccgo'.
+GOARCH
+	The architecture, or processor, for which to compile code.
+	Examples are amd64, 386, arm, ppc64.
+GOBIN
+	The directory where 'go install' will install a command.
+GOCACHE
+	The directory where the go command will store cached
+	information for reuse in future builds.
+GOFLAGS
+	A space-separated list of -flag=value settings to apply
+	to go commands by default, when the given flag is known by
+	the current command. Flags listed on the command-line
+	are applied after this list and therefore override it.
+GOOS
+	The operating system for which to compile code.
+	Examples are linux, darwin, windows, netbsd.
+GOPATH
+	For more details see: 'go help gopath'.
+GOPROXY
+	URL of Go module proxy. See 'go help goproxy'.
+GORACE
+	Options for the race detector.
+	See https://golang.org/doc/articles/race_detector.html.
+GOROOT
+	The root of the go tree.
+GOTMPDIR
+	The directory where the go command will write
+	temporary source files, packages, and binaries.
+```
+
+Each entry in the GOFLAGS list must be a standalone flag. Because the entries are space-separated, flag values must not contain spaces. In some cases, you can provide multiple flag values instead: for example, to set '-ldflags=-s -w' you can use 'GOFLAGS=-ldflags=-s -ldflags=-w'.
+
+Architecture-specific environment variables:
+
+```bash
+GOARM
+	For GOARCH=arm, the ARM architecture for which to compile.
+	Valid values are 5, 6, 7.
+GO386
+	For GOARCH=386, the floating point instruction set.
+	Valid values are 387, sse2.
+GOMIPS
+	For GOARCH=mips{,le}, whether to use floating point instructions.
+	Valid values are hardfloat (default), softfloat.
+GOMIPS64
+	For GOARCH=mips64{,le}, whether to use floating point instructions.
+	Valid values are hardfloat (default), softfloat.
+```
+
+
