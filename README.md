@@ -57,7 +57,7 @@ and here the package [Package](https://golang.org/src/).
     - [go mod why](#go-mod-why)
 - [Environment variables](#environment-variables)
 - [Comments and C-style](#comments-and-c-style)
-  - [println, print](#println-print-and-fmt.Println)
+  - [println, print and fmt.Println](#println-print-and-fmt.Println)
     - [Variables](#variables)
     - [Scopo](#scopo)
 - [Constants](#constants)
