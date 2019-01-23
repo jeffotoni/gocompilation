@@ -57,7 +57,7 @@ and here the package [Package](https://golang.org/src/).
     - [go mod why](#go-mod-why)
 - [Environment variables](#environment-variables)
 - [Comments and C-style](#comments-and-c-style)
-  - [println, print and fmt.Println](#println-,-print-and-fmt.Println)
+  - [Writing on the screen with print](#Writing-on-the-screen-with-print)
     - [Variables](#variables)
     - [Scopo](#scopo)
 - [Constants](#constants)
@@ -1499,7 +1499,11 @@ var (
 */
 ```
 
-### println, print and fmt.Println
+### Writing on the screen with print
+
+Let's learn how to send data to screen which is actually **stdout** standard output we will see more ahead with details on **stdout** and **stdin**.
+
+Let's know **print, println and fmt.Println**
 
 Current implementations provide several built-in functions useful during bootstrapping. These functions are documented for completeness but are not guaranteed to stay in the language. They do not return a result. 
 
@@ -1515,15 +1519,7 @@ print      prints all arguments; formatting of arguments is implementation-speci
 println    like print but prints spaces between arguments and a newline at the end
 ```
 
-```go
-// test println
-package main
-
-func main() {
-   println("debugging my system")
-}
-```
-
+using print:
 ```go
 // test print
 package main
@@ -1533,7 +1529,17 @@ func main() {
 }
 ```
 
+using println:
+```go
+// test println
+package main
 
+func main() {
+   println("debugging my system")
+}
+```
+
+using fmt.Println:
 ```go
 package main
 
