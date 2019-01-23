@@ -56,7 +56,7 @@ and here the package [Package](https://golang.org/src/).
     - [go mod vendor](#go-mod-vendor)
     - [go mod why](#go-mod-why)
 - [Environment variables](#environment-variables)
-- [C-style](#cstyle)
+- [Comments and C-style](#comments-and-c-style)
   - [println](#println)
     - [Variables](#variables)
     - [Scopo](#scopo)
@@ -1468,4 +1468,81 @@ GOMIPS64
 	Valid values are hardfloat (default), softfloat.
 ```
 
+### Comments and C-style
+
+Go provides C-style /* */ block comments and C++-style // line comments. Line comments are the norm; block comments appear mostly as package comments, but are useful within an expression or to disable large swaths of code.
+
+```go
+// Go in action
+// @jeffotoni
+// 2019-01-16
+
+/**
+package main
+
+import (
+	"flag"
+	"fmt"
+	"os"
+
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/awserr"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/ec2"
+)
+
+// define flags
+var (
+	flagRegion   = flag.String("region", "", "example: us-east-1")
+	flagInstance = flag.String("instance", "", "example: i-05bef719c14d68d10")
+)
+*/
+```
+
+### println
+
+Current implementations provide several built-in functions useful during bootstrapping. These functions are documented for completeness but are not guaranteed to stay in the language. They do not return a result. 
+
+Implementation restriction: **print** and **println** need not accept arbitrary argument types, but printing of boolean, numeric, and string types must be supported. 
+
+**println is an built-in function** (into the runtime) which may eventually be removed, while the **fmt package** is in the standard library, which will persist.
+
+
+```bash
+Function   Behavior
+
+print      prints all arguments; formatting of arguments is implementation-specific
+println    like print but prints spaces between arguments and a newline at the end
+```
+
+```go
+// test println
+package main
+
+func main() {
+   println("debugging my system")
+}
+```
+
+```go
+// test print
+package main
+
+func main() {
+   print("debugging my system")
+}
+```
+
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+   fmt.Println("debugging my system")
+}
+```
+
+The goal of starting and running the print, println or fmt.Println command is to help us with the tests we will be performing from now on at every step of our Go learning. 
 
