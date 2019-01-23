@@ -1525,7 +1525,7 @@ using print:
 package main
 
 func main() {
-   print("debugging my system")
+   print("debugging my system with print")
 }
 ```
 
@@ -1535,7 +1535,7 @@ using println:
 package main
 
 func main() {
-   println("debugging my system")
+   println("debugging my system with println")
 }
 ```
 
@@ -1546,7 +1546,7 @@ package main
 import "fmt"
 
 func main() {
-   fmt.Println("debugging my system")
+   fmt.Println("debugging my system with fmt.Println")
 }
 ```
 
