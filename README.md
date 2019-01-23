@@ -57,7 +57,7 @@ and here the package [Package](https://golang.org/src/).
     - [go mod why](#go-mod-why)
 - [Environment variables](#environment-variables)
 - [Comments and C-style](#comments-and-c-style)
-  - [println, print...](#println-print-fmt-println)
+  - [println, print](#println-print)
     - [Variables](#variables)
     - [Scopo](#scopo)
 - [Constants](#constants)
@@ -1499,7 +1499,7 @@ var (
 */
 ```
 
-### println, print, fmt.Println
+### println, print and fmt.Println
 
 Current implementations provide several built-in functions useful during bootstrapping. These functions are documented for completeness but are not guaranteed to stay in the language. They do not return a result. 
 
