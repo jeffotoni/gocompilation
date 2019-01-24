@@ -1914,9 +1914,27 @@ A string type represents the set of string values. A string value is a (possibly
 The length of a string s (its size in bytes) can be discovered using the built-in function len. The length is a compile-time constant if the string is a constant. A string's bytes can be accessed by integer indices 0 through len(s)-1. It is illegal to take the address of such an element; if s[i] is the i'th byte of a string, &s[i] is invalid. 
 
 ```go
-var name string
-var := "your-name"
-type P struct { 
-    Name string 
+package main
+
+import "fmt"
+
+type S string
+
+var (
+	String = "@jeffotoni"
+)
+
+func main() {
+	var text string
+	var str S
+
+	mypicture := "@Photograph-jeffotoni"
+	str = "@workshop-devOpsBh"
+	text = "@jeffotoni-golang"
+
+	fmt.Println(str)
+	fmt.Println(String)
+	fmt.Println(text)
+	fmt.Println(mypicture)
 }
 ```
