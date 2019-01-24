@@ -57,9 +57,29 @@ and here the package [Package](https://golang.org/src/).
     - [go mod why](#go-mod-why)
 - [Environment variables](#environment-variables)
 - [Comments and C-style](#comments-and-c-style)
-  - [Writing on the screen with print](#Writing-on-the-screen-with-print)
-    - [Variables](#variables)
-    - [Scopo](#scopo)
+- [Writing on the screen with print](#Writing-on-the-screen-with-print)
+- [Introduction Golang](#introduction-golang)
+  - [Golang language](#Golang-language)
+    - [Keywords](#Keywords)
+    - [Operators and punctuation](#Operators-and-punctuation)
+    - [Rune literals](#Rune-literals)
+    - [String literals](#String-literals)
+    - [Constants](#Constants)
+    - [Variables](#Variables)
+   - [Types](#Types)
+     - [Data Type](#data-type)
+     - [Numeric Types](#numeric-type)
+     - [String Type](#string-type)
+     - [Array Type](#string-type)
+     - [Slice Type](#string-type)
+     - [Struct Type](#string-type)
+     - [Pointer Type](#string-type)
+     - [Function Type](#string-type)
+     - [Interface Type](#string-type)
+     - [Map Type](#string-type)
+     - [Channel Type](#string-type)
+     - [Boolean Type](#string-type)
+  - [Scopo](#scopo)
 - [Constants](#constants)
   - [Control structures](#controlstructures)
     - [if/else](#ifelse)
@@ -308,7 +328,9 @@ and here the package [Package](https://golang.org/src/).
 ### Overview
 ---
 Go is a powerful language when it comes to competition and high performance, with a clean and efficient architecture Go grow growing year after year and each day their communities get bigger.
+
 Some paradigms have been shattered to make it a high performance language where competition is one of its strengths. Go facilitates the creation of programs that take full advantage of multicore and networked machines, while the new type system allows the construction of flexible and modular programs.
+
 It is a fast, statically compiled language that looks like a dynamically interpreted language. This characteristic becomes Golang a unique language as the subject is web.
 
 ### Installation
@@ -1552,3 +1574,11 @@ func main() {
 
 The goal of starting and running the print, println or fmt.Println command is to help us with the tests we will be performing from now on at every step of our Go learning. 
 
+
+### Introduction golang
+---
+
+Go is a general-purpose language designed with systems programming in mind. It is strongly typed and garbage-collected and has explicit support for concurrent programming. 
+Programs are constructed from packages, whose properties allow efficient management of dependencies.
+
+The grammar is compact and regular, allowing for easy analysis by automatic tools such as integrated development environments.
