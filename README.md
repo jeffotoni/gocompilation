@@ -2240,6 +2240,7 @@ BaseType    = Type .
 *Point
 *[4]int
 ```
+
 Example:
 ```go
 package main
@@ -2264,4 +2265,25 @@ Output:
 {1000000000 2}
 2
 ```
+For every type that is declared, either by you or the language itself, you get for free a complement pointer type you can use for sharing. There already exists a built-in type named int so there is a complement pointer type called *int.
 
+All pointer types have the same two characteristics. First, they start with the character *. Second, they all have the same memory size and representation, which is a 4 or 8 bytes that represent an address. On 32bit architectures (like the playground), pointers require 4 bytes of memory and on 64bit architectures (like your machine), they require 8 bytes of memory.
+
+Example:
+```go
+package main
+
+func main() {
+
+	var a int
+	inc := &a
+	*inc = 2
+	*inc++
+	println("inc:\tValue Of[", inc, "]\tAddr Of[", &inc, "]\tValue Points To[", *inc, "]")
+}
+```
+
+Output:
+```bash
+inc:	Value Of[ 0xc000036778 ]  Addr Of[ 0xc000036780 ]  Value Points To[ 3 ]
+```
