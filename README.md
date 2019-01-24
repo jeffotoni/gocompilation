@@ -70,15 +70,15 @@ and here the package [Package](https://golang.org/src/).
    - [Types](#Types)
      - [Numeric Types](#numeric-type)
      - [String Type](#string-type)
-     - [Array Type](#string-type)
-     - [Slice Type](#string-type)
-     - [Struct Type](#string-type)
-     - [Pointer Type](#string-type)
-     - [Function Type](#string-type)
-     - [Interface Type](#string-type)
-     - [Map Type](#string-type)
-     - [Channel Type](#string-type)
-     - [Boolean Type](#string-type)
+     - [Array Type](#array-type)
+     - [Slice Type](#slice-type)
+     - [Struct Type](#struct-type)
+     - [Pointer Type](#pointer-type)
+     - [Function Type](#function-type)
+     - [Interface Type](#interface-type)
+     - [Map Type](#map-type)
+     - [Channel Type](#channel-type)
+     - [Boolean Type](#boolean-type)
   - [Scopo](#scopo)
 - [Constants](#constants)
   - [Control structures](#controlstructures)
@@ -2064,4 +2064,147 @@ func main() {
 Output:
 ```bash
 [5 4 3 2 1]
+```
+
+##### Slice Type
+
+A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array. A slice type denotes the set of all slices of arrays of its element type. The value of an uninitialized slice is nil. 
+
+An array has a fixed size. A slice, on the other hand, is a dynamically-sized, flexible view into the elements of an array. In practice, slices are much more common than arrays.
+
+The type **[]T** is a slice with elements of **type T**.
+
+A slice is formed by specifying two indices, a low and high bound, separated by a colon:
+
+```bash
+a[low : high]
+```
+
+This selects a half-open range which includes the first element, but excludes the last one.
+
+The following expression creates a slice which includes elements 1 through 3 of a: 
+
+```bash
+a[1:4]
+```
+A new, initialized slice value for a given element type T is made using the built-in function make, which takes a slice type and parameters specifying the length and optionally the capacity. A slice created with make always allocates a new, hidden array to which the returned slice value refers. That is, executing
+
+```bash
+make([]T, length, capacity)
+```
+
+Produces the same slice as allocating an array and slicing it, so these two expressions are equivalent:
+
+```bash
+make([]int, 50, 100)
+new([100]int)[0:50]
+```
+
+Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects. With arrays of arrays, the inner arrays are, by construction, always the same length; however with slices of slices (or arrays of slices), the inner lengths may vary dynamically. Moreover, the inner slices must be initialized individually.
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	primes := [7]int{2, 3, 5, 7, 11, 13, 14}
+
+	var p []int = primes[2:5]
+	fmt.Println(p)
+}
+```
+ Slices can be created with the built-in make function; this is how you create dynamically-sized arrays.
+
+The make function allocates a zeroed array and returns a slice that refers to that array: 
+
+```go
+a := make([]int, 4)  // len(a)=4
+```
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	a := make([]int,4)
+	a[0]=12
+	fmt.Println("a", a)
+
+	b := make([]int, 0, 5)
+	fmt.Println("b", b)
+
+	c := b[:2]
+	fmt.Println("c", c)
+}
+```
+##### Struct types
+
+A struct is a sequence of named elements, called fields, each of which has a name and a type. Field names may be specified explicitly (IdentifierList) or implicitly (EmbeddedField). Within a struct, non-blank field names must be unique.
+
+```bash
+StructType    = "struct" "{" { FieldDecl ";" } "}" .
+FieldDecl     = (IdentifierList Type | EmbeddedField) [ Tag ] .
+EmbeddedField = [ "*" ] TypeName .
+Tag           = string_lit .
+
+// An empty struct.
+struct {}
+
+// A struct with 6 fields.
+struct {
+	x, y int
+	u float32
+	_ float32  // padding
+	A *[]int
+	F func()
+}
+```
+
+A field declared with a type but no explicit field name is called an embedded field. An embedded field must be specified as a type name T or as a pointer to a non-interface type name *T, and T itself may not be a pointer type. The unqualified type name acts as the field name.
+
+```bash
+// A struct with four embedded fields of types T1, *T2, P.T3 and *P.T4
+struct {
+	T1        // field name is T1
+	*T2       // field name is T2
+	P.T3      // field name is T3
+	*P.T4     // field name is T4
+	x, y int  // field names are x and y
+}
+```
+
+The following declaration is illegal because field names must be unique in a struct type:
+
+```bash
+struct {
+	T     // conflicts with embedded field *T and *P.T
+	*T    // conflicts with embedded field T and *P.T
+	*P.T  // conflicts with embedded field T and *T
+}
+```
+A struct is a collection of fields. 
+
+```go
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X int
+	Y int
+}
+
+func main() {
+	fmt.Println(Vertex{10, 201})
+}
+```
+
+Output:
+```bash
+{10 201}
 ```
