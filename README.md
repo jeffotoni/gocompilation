@@ -68,7 +68,6 @@ and here the package [Package](https://golang.org/src/).
     - [Iota](#iota)
     - [Variables](#Variables)
    - [Types](#Types)
-     - [Data Type](#data-type)
      - [Numeric Types](#numeric-type)
      - [String Type](#string-type)
      - [Array Type](#string-type)
@@ -1840,7 +1839,7 @@ func main() {
 	fmt.Println(vx)
 }
 ```
-##### Type
+##### Types
 ---
 
 A type determines a set of values together with operations and methods specific to those values. A type may be denoted by a type name, if it has one, or specified using a type literal, which composes a type from existing types. 
@@ -1865,10 +1864,7 @@ type (
 
 The underlying type of string, A1, A2, B1, and B2 is string. The underlying type of []B1, B3, and B4 is []B1. 
 
-##### Data Type
----
-
-###### Numeric Types
+##### Numeric Types
 
 A numeric type represents sets of integer or floating-point values. The predeclared architecture-independent numeric types are: 
 
