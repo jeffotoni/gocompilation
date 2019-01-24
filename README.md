@@ -65,6 +65,7 @@ and here the package [Package](https://golang.org/src/).
     - [Rune literals](#Rune-literals)
     - [String literals](#String-literals)
     - [Constants](#Constants)
+    - [Iota](#iota)
     - [Variables](#Variables)
    - [Types](#Types)
      - [Data Type](#data-type)
@@ -1678,7 +1679,6 @@ In general, complex constants are a form of constant expression and are discusse
 ```go
 package main
 
-// DECLARING CONSTANTS
 const (
 	PATH        = "/myhome/app"
 	KB     int  = 1 << (10 * iota) // 1Kb
@@ -1708,9 +1708,37 @@ const m = string(k)     // m == "x"   (type string)
 const Σ = 1 - 0.707i     //            (untyped complex constant)
 const Δ = Σ + 2.0e-4     //            (untyped complex constant)
 const Φ = iota*1i - 1/1i //            (untyped complex constant)
+const (
+	Sunday = iota
+	Monday
+	Tuesday
+	Wednesday
+	Thursday
+	Friday
+	Partyday
+	numberOfDays // this constant is not exported
+)
+
+const Pi float64 = 3.14159265358979323846
+const zero = 0.0 // untyped floating-point constant
+const (
+	size int64 = 1024
+	eof        = -1 // untyped integer constant
+)
+const xa, xb, xc = 3, 4, "foo" // a = 3, b = 4, c = "foo", untyped integer and string constants
+const xu, xv float32 = 0, 3    // u = 0.0, v = 3.0
 
 func main() {
+
 	println("###############")
+	println(Sunday)
+	println(Monday)
+	println(Tuesday)
+	println(Wednesday)
+	println(Thursday)
+	println(Friday)
+	println(Partyday)
+	println(numberOfDays)
 	println(PATH)
 	println(KB)
 	println(MB)
@@ -1736,4 +1764,30 @@ func main() {
 	println("###############")
 }
 ```
+##### Iota
 
+Within a constant declaration, the predeclared identifier iota represents successive untyped integer constants. Its value is the index of the respective ConstSpec in that constant declaration, starting at zero. It can be used to construct a set of related constants:
+
+```bash
+const (
+	c0 = iota  // c0 == 0
+	c1 = iota  // c1 == 1
+	c2 = iota  // c2 == 2
+)
+
+const (
+	a = 1 << iota  // a == 1  (iota == 0)
+	b = 1 << iota  // b == 2  (iota == 1)
+	c = 3          // c == 3  (iota == 2, unused)
+	d = 1 << iota  // d == 8  (iota == 3)
+)
+
+const (
+	u         = iota * 42  // u == 0     (untyped integer constant)
+	v float64 = iota * 42  // v == 42.0  (float64 constant)
+	w         = iota * 42  // w == 84    (untyped integer constant)
+)
+
+const x = iota  // x == 0
+const y = iota  // y == 0
+```
