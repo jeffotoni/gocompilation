@@ -1791,3 +1791,40 @@ const (
 const x = iota  // x == 0
 const y = iota  // y == 0
 ```
+##### Variable
+
+ A variable is a storage location for holding a value. The set of permissible values is determined by the variable's type.
+ 
+  A variable declaration or, for function parameters and results, the signature of a function declaration or function literal reserves storage for a named variable. Calling the built-in function new or taking the address of a composite literal allocates storage for a variable at run time. Such an anonymous variable is referred to via a (possibly implicit) pointer indirection.
+
+Structured variables of array, slice, and struct types have elements and fields that may be addressed individually. Each such element acts like a variable.
+
+The static type (or just type) of a variable is the type given in its declaration, the type provided in the new call or composite literal, or the type of an element of a structured variable. Variables of interface type also have a distinct dynamic type, which is the concrete type of the value assigned to the variable at run time (unless the value is the predeclared identifier nil, which has no type). The dynamic type may vary during execution but values stored in interface variables are always assignable to the static type of the variable. 
+
+```go
+package main
+
+import "fmt"
+
+type T struct{ y int }
+
+var x interface{} // x is nil and has static type interface{}
+var v *T          // v has value nil, static type *T
+
+type tv T
+
+func main() {
+
+	x = 42 // x has value 42 and dynamic type int
+	fmt.Println(x)
+
+	x = v // x has value (*T)(nil) and dynamic type *T
+	fmt.Println(x)
+
+	x = T{y: 2}
+	fmt.Println(x)
+
+	vx := tv{y: 10}
+	fmt.Println(vx)
+}
+```
