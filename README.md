@@ -1944,3 +1944,167 @@ func main() {
 	fmt.Printf("Unicode codepoint: %U\n", []rune(s))
 }
 ```
+
+#### Array types
+
+An array is a numbered sequence of elements of a single type, called the element type. The number of elements is called the length and is never negative.
+
+```bash
+ArrayType   = "[" ArrayLength "]" ElementType .
+ArrayLength = Expression .
+ElementType = Type .
+```
+
+The length is part of the array's type; it must evaluate to a non-negative constant representable by a value of type int. The length of array a can be discovered using the built-in function len. The elements can be addressed by integer indices 0 through len(a)-1. Array types are always one-dimensional but may be composed to form multi-dimensional types.
+
+```
+[32]byte
+[2*N] struct { x, y int32 }
+[1000]*float64
+[3][5]int
+[2][2][2]float64  // same as [2]([2]([2]float64))
+```
+
+An array's length is part of its type, so arrays cannot be resized. This seems limiting, but don't worry; Go provides a convenient way of working with arrays. 
+
+##### Declaring an Array in Golang
+
+```go
+var a[n]T
+```
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	// var a []string // wrong
+
+	// An array of 10 integers
+	var a1 [10]int
+	a1[0] = 10
+	fmt.Println(a1)
+
+	// An array of 3 strings
+	var a2 [3]string
+	a2[0] = "Jeff"
+	a2[1] = "Lambda"
+	fmt.Println(a2)
+	fmt.Println(a2[0], a2[1])
+
+	// An array of 3 strings
+	var a3 [5]string
+	fmt.Println(a3)
+}
+```
+
+Output:
+
+```bash
+[10 0 0 0 0 0 0 0 0 0]
+[Jeff Lambda ]
+Jeff Lambda
+[    ]
+```
+
+##### Initializing an array using an array literal
+
+You can declare and initialize an array at the same time like this -
+
+Example:
+
+```go
+
+package main
+
+import "fmt"
+
+func main() {
+
+	// Declaring and initializing an array at the same time
+	var a = [5]int{12, 24, 64, 55, 99}
+	fmt.Println(a)
+
+	// Declaring and initializing an array type string
+	var a2 = [3]string{"lambda", "serverless", "Go"}
+	fmt.Println(a2)
+
+	// Short hand declaration
+	a3 := [2]string{"2019", "Golang"}
+	fmt.Println(a3)
+}
+```
+Output:
+
+```bash
+[12 24 64 55 99]
+[lambda serverless Go]
+[2019 Golang]
+```
+##### Golang compiler infer the length of the array
+
+An array has a fixed size. Even using [...] to declare values without determining size, the Golang compiler will increment positions, but you will not be able to make changes like adding or changing non-existent features.
+
+Example:
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	// Letting Go compiler infer the length of the array
+	a := [...]string{"C", "C++", "B", "Fortran", "Lisp", "Pascal", "Assembly"}
+	fmt.Println(a)
+
+	// Letting Go compiler infer the length of the array
+	a2 := [...]string{}
+	// a2[0] = "" // error invalid array index 0
+	fmt.Println(a2)
+	// a2 = append(a2, "Cloud") // error must be slice
+	//
+	a3 := [...]string{"@go_br", "@awsbrasil"}
+	a3[0] = "Golang is life!"
+	fmt.Println(a3)
+}
+```
+If we do this a2: = [...] string {} we will not be able to add elements in this array anymore.
+
+##### Array Dimensional
+
+We can also make dimensional arrays row and column [row] [column], and can also use this way [column].
+
+Example:
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	a := [2][2]int{
+		{33, 51},
+		{72, 92}, // This trailing comma is mandatory
+	}
+
+	fmt.Println(a)
+	fmt.Println(a[0][0])
+	fmt.Println(a[0][1])
+	fmt.Println(a[1][0])
+	fmt.Println(a[1][1])
+
+	a3 := [...][3]int{
+		{10, 11, 20},
+		{12, 14, 22},
+		{30, 15, 24},
+		{32, 16, 26},
+		{34, 17, 28},
+		{36, 18, 30},
+	}
+	fmt.Println(a3)
+}
+```
