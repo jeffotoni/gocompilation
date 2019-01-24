@@ -1551,6 +1551,11 @@ func main() {
 }
 ```
 
+Output:
+```bash
+debugging my system with print
+```
+
 using println:
 ```go
 // test println
@@ -1561,6 +1566,12 @@ func main() {
 }
 ```
 
+Output:
+```bash
+debugging my system with println
+```
+
+
 using fmt.Println:
 ```go
 package main
@@ -1570,6 +1581,11 @@ import "fmt"
 func main() {
    fmt.Println("debugging my system with fmt.Println")
 }
+```
+
+Output:
+```bash
+debugging my system with fmt.Println
 ```
 
 The goal of starting and running the print, println or fmt.Println command is to help us with the tests we will be performing from now on at every step of our Go learning. 
@@ -1765,6 +1781,43 @@ func main() {
 	println("###############")
 }
 ```
+
+Output:
+```bash
+###############
+0
+1
+2
+3
+4
+5
+6
+7
+/myhome/app
+1024
+1048576
+1073741824
+true
+true
++3.990000e+000
+###############
+
++5.000000e+000
+3
++3.750000e+000
+8
+8
+true
+true
+120
+hi
+x
+(+1.000000e+000-7.070000e-001i)
+(+1.000200e+000-7.070000e-001i)
+(+0.000000e+000+1.000000e+000i)
+###############
+```
+
 ##### Iota
 
 Within a constant declaration, the predeclared identifier iota represents successive untyped integer constants. Its value is the index of the respective ConstSpec in that constant declaration, starting at zero. It can be used to construct a set of related constants:
@@ -1845,6 +1898,15 @@ func main() {
 	fmt.Println(vx)
 }
 ```
+
+Output:
+```bash
+42
+<nil>
+{2}
+{10}
+```
+
 
 ##### Types
 ---
@@ -1944,6 +2006,17 @@ func main() {
 	fmt.Printf("Unicode codepoint: %U\n", []rune(s))
 }
 ```
+Output:
+
+```go
+@workshop-devOpsBh
+@jeffotoni
+@jeffotoni-golang
+@Photograph-jeffotoni
+Glyph:             "日本語"
+UTF-8:             [e6 97 a5 e6 9c ac e8 aa 9e]
+Unicode codepoint: [U+65E5 U+672C U+8A9E]
+```
 
 #### Array types
 
@@ -2003,7 +2076,6 @@ func main() {
 ```
 
 Output:
-
 ```bash
 [10 0 0 0 0 0 0 0 0 0]
 [Jeff Lambda ]
@@ -2038,8 +2110,8 @@ func main() {
 	fmt.Println(a3)
 }
 ```
-Output:
 
+Output:
 ```bash
 [12 24 64 55 99]
 [lambda serverless Go]
@@ -2072,6 +2144,15 @@ func main() {
 	fmt.Println(a3)
 }
 ```
+
+
+Output:
+```bash
+[C C++ B Fortran Lisp Pascal Assembly]
+[]
+[Golang is life! @awsbrasil]
+```
+
 If we do this a2: = [...] string {} we will not be able to add elements in this array anymore.
 
 ##### Array Dimensional
@@ -2107,4 +2188,14 @@ func main() {
 	}
 	fmt.Println(a3)
 }
+```
+
+Output:
+```bash
+[[33 51] [72 92]]
+33
+51
+72
+92
+[[10 11 20] [12 14 22] [30 15 24] [32 16 26] [34 17 28] [36 18 30]]
 ```
