@@ -1969,7 +1969,7 @@ uintptr  an unsigned integer large enough to store the uninterpreted bits of a p
 
 To avoid portability issues all numeric types are defined types and thus distinct except byte, which is an alias for uint8, and rune, which is an alias for int32. Conversions are required when different numeric types are mixed in an expression or assignment. For instance, int32 and int are not the same type even though they may have the same size on a particular architecture. 
 
-##### String types
+##### String type
 
 A string type represents the set of string values. A string value is a (possibly empty) sequence of bytes. Strings are immutable: once created, it is impossible to change the contents of a string. The predeclared string type is string; it is a defined type.
 
@@ -2018,7 +2018,7 @@ UTF-8:             [e6 97 a5 e6 9c ac e8 aa 9e]
 Unicode codepoint: [U+65E5 U+672C U+8A9E]
 ```
 
-##### Array types
+##### Array type
 
 An array is a numbered sequence of elements of a single type, called the element type. The number of elements is called the length and is never negative.
 
