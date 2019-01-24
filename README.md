@@ -1582,3 +1582,158 @@ Go is a general-purpose language designed with systems programming in mind. It i
 Programs are constructed from packages, whose properties allow efficient management of dependencies.
 
 The grammar is compact and regular, allowing for easy analysis by automatic tools such as integrated development environments.
+
+#### Golang language
+---
+
+##### Keywords
+
+The following keywords are reserved and may not be used as identifiers. 
+
+```bash
+break        default      func         interface    select
+case         defer        go           map          struct
+chan         else         goto         package      switch
+const        fallthrough  if           range        type
+continue     for          import       return       var
+```
+
+##### Operators and punctuation
+
+The following character sequences represent operators (including assignment operators) and punctuation: 
+
+```bash
++    &     +=    &=     &&    ==    !=    (    )
+-    |     -=    |=     ||    <     <=    [    ]
+*    ^     *=    ^=     <-    >     >=    {    }
+/    <<    /=    <<=    ++    =     :=    ,    ;
+%    >>    %=    >>=    --    !     ...   .    :
+     &^          &^=
+```
+
+##### Rune literals
+
+A rune literal represents a rune constant, an integer value identifying a Unicode code point. A rune literal is expressed as one or more characters enclosed in single quotes, as in 'x' or '\n'. Within the quotes, any character may appear except newline and unescaped single quote. A single quoted character represents the Unicode value of the character itself, while multi-character sequences beginning with a backslash encode values in various formats.
+
+The simplest form represents the single character within the quotes; since Go source text is Unicode characters encoded in UTF-8, multiple UTF-8-encoded bytes may represent a single integer value. For instance, the literal 'a' holds a single byte representing a literal a, Unicode U+0061, value 0x61, while 'ä' holds two bytes (0xc3 0xa4) representing a literal a-dieresis, U+00E4, value 0xe4.
+
+Several backslash escapes allow arbitrary values to be encoded as ASCII text. There are four ways to represent the integer value as a numeric constant: \x followed by exactly two hexadecimal digits; \u followed by exactly four hexadecimal digits; \U followed by exactly eight hexadecimal digits, and a plain backslash \ followed by exactly three octal digits. In each case the value of the literal is the value represented by the digits in the corresponding base.
+
+Although these representations all result in an integer, they have different valid ranges. Octal escapes must represent a value between 0 and 255 inclusive. Hexadecimal escapes satisfy this condition by construction. The escapes \u and \U represent Unicode code points so within them some values are illegal, in particular those above 0x10FFFF and surrogate halves.
+
+After a backslash, certain single-character escapes represent special values:
+
+```bash
+\a   U+0007 alert or bell
+\b   U+0008 backspace
+\f   U+000C form feed
+\n   U+000A line feed or newline
+\r   U+000D carriage return
+\t   U+0009 horizontal tab
+\v   U+000b vertical tab
+\\   U+005c backslash
+\'   U+0027 single quote  (valid escape only within rune literals)
+\"   U+0022 double quote  (valid escape only within string literals)
+```
+
+##### String literals
+
+ A string literal represents a string constant obtained from concatenating a sequence of characters. There are two forms: raw string literals and interpreted string literals.
+
+Raw string literals are character sequences between back quotes, as in `foo`. Within the quotes, any character may appear except back quote. The value of a raw string literal is the string composed of the uninterpreted (implicitly UTF-8-encoded) characters between the quotes; in particular, backslashes have no special meaning and the string may contain newlines. Carriage return characters ('\r') inside raw string literals are discarded from the raw string value. 
+
+Interpreted string literals are character sequences between double quotes, as in "bar". Within the quotes, any character may appear except newline and unescaped double quote. The text between the quotes forms the value of the literal, with backslash escapes interpreted as they are in rune literals (except that \' is illegal and \" is legal), with the same restrictions. The three-digit octal (\nnn) and two-digit hexadecimal (\xnn) escapes represent individual bytes of the resulting string; all other escapes represent the (possibly multi-byte) UTF-8 encoding of individual characters. Thus inside a string literal \377 and \xFF represent a single byte of value 0xFF=255, while ÿ, \u00FF, \U000000FF and \xc3\xbf represent the two bytes 0xc3 0xbf of the UTF-8 encoding of character U+00FF.
+
+```bash
+`abc`                // same as "abc"
+`\n
+\n`                  // same as "\\n\n\\n"
+"\n"
+"\""                 // same as `"`
+"Hello, world!\n"
+"日本語"
+"\u65e5本\U00008a9e"
+"\xff\u00FF"
+"\uD800"             // illegal: surrogate half
+"\U00110000"         // illegal: invalid Unicode code point
+```
+
+These examples all represent the same string: 
+
+```bash
+"日本語"                                 // UTF-8 input text
+`日本語`                                 // UTF-8 input text as a raw literal
+"\u65e5\u672c\u8a9e"                    // the explicit Unicode code points
+"\U000065e5\U0000672c\U00008a9e"        // the explicit Unicode code points
+"\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e"  // the explicit UTF-8 bytes
+```
+##### Constants
+
+There are boolean constants, rune constants, integer constants, floating-point constants, complex constants, and string constants. Rune, integer, floating-point, and complex constants are collectively called numeric constants.
+
+A constant value is represented by a rune, integer, floating-point, imaginary, or string literal, an identifier denoting a constant, a constant expression, a conversion with a result that is a constant, or the result value of some built-in functions such as unsafe.Sizeof applied to any value, cap or len applied to some expressions, real and imag applied to a complex constant and complex applied to numeric constants. The boolean truth values are represented by the predeclared constants true and false. The predeclared identifier iota denotes an integer constant.
+
+In general, complex constants are a form of constant expression and are discussed in that section. 
+
+```go
+package main
+
+// DECLARING CONSTANTS
+const (
+	PATH        = "/myhome/app"
+	KB     int  = 1 << (10 * iota) // 1Kb
+	MB     int  = 1 << (10 * iota) // 1MB
+	GB     int  = 1 << (10 * iota) // 1G
+	MALE   bool = true
+	FEMALE      = true
+	DOLLAR      = 3.99
+)
+
+// EXPRESSIONS PERMITTED
+const a = 2 + 3.0        // a == 5.0   (untyped floating-point constant)
+const b = 15 / 4         // b == 3     (untyped integer constant)
+const c = 15 / 4.0       // c == 3.75  (untyped floating-point constant)
+const Θ float64 = 3 / 2  // Θ == 1.0   (type float64, 3/2 is integer division)
+const Π float64 = 3 / 2. // Π == 1.5   (type float64, 3/2. is float division)
+const d = 1 << 3.0       // d == 8     (untyped integer constant)
+const e = 1.0 << 3       // e == 8     (untyped integer constant)
+//const f = int32(1) << 33 // illegal    (constant 8589934592 overflows int32)
+//const g = float64(2) >> 1 // illegal    (float64(2) is a typed floating-point constant)
+const h = "foo" > "bar" // h == true  (untyped boolean constant)
+const j = true          // j == true  (untyped boolean constant)
+const k = 'w' + 1       // k == 'x'   (untyped rune constant)
+const l = "hi"          // l == "hi"  (untyped string constant)
+const m = string(k)     // m == "x"   (type string)
+
+const Σ = 1 - 0.707i     //            (untyped complex constant)
+const Δ = Σ + 2.0e-4     //            (untyped complex constant)
+const Φ = iota*1i - 1/1i //            (untyped complex constant)
+
+func main() {
+	println("###############")
+	println(PATH)
+	println(KB)
+	println(MB)
+	println(GB)
+	println(MALE)
+	println(FEMALE)
+	println(DOLLAR)
+	println("###############")
+	println("")
+	println(a)
+	println(b)
+	println(c)
+	println(d)
+	println(e)
+	println(h)
+	println(j)
+	println(k)
+	println(l)
+	println(m)
+	println(Σ)
+	println(Δ)
+	println(Φ)
+	println("###############")
+}
+```
+
