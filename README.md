@@ -1602,7 +1602,7 @@ The grammar is compact and regular, allowing for easy analysis by automatic tool
 #### Golang language
 ---
 
-##### Keywords
+#### Keywords
 
 The following keywords are reserved and may not be used as identifiers. 
 
@@ -1614,7 +1614,7 @@ const        fallthrough  if           range        type
 continue     for          import       return       var
 ```
 
-##### Operators and punctuation
+#### Operators and punctuation
 
 The following character sequences represent operators (including assignment operators) and punctuation: 
 
@@ -1627,7 +1627,7 @@ The following character sequences represent operators (including assignment oper
      &^          &^=
 ```
 
-##### Rune literals
+#### Rune literals
 
 A rune literal represents a rune constant, an integer value identifying a Unicode code point. A rune literal is expressed as one or more characters enclosed in single quotes, as in 'x' or '\n'. Within the quotes, any character may appear except newline and unescaped single quote. A single quoted character represents the Unicode value of the character itself, while multi-character sequences beginning with a backslash encode values in various formats.
 
@@ -1652,7 +1652,7 @@ After a backslash, certain single-character escapes represent special values:
 \"   U+0022 double quote  (valid escape only within string literals)
 ```
 
-##### String literals
+#### String literals
 
  A string literal represents a string constant obtained from concatenating a sequence of characters. There are two forms: raw string literals and interpreted string literals.
 
@@ -1683,7 +1683,7 @@ These examples all represent the same string:
 "\U000065e5\U0000672c\U00008a9e"        // the explicit Unicode code points
 "\xe6\x97\xa5\xe6\x9c\xac\xe8\xaa\x9e"  // the explicit UTF-8 bytes
 ```
-##### Constants
+#### Constants
 
 There are boolean constants, rune constants, integer constants, floating-point constants, complex constants, and string constants. Rune, integer, floating-point, and complex constants are collectively called numeric constants.
 
@@ -1818,7 +1818,7 @@ x
 ###############
 ```
 
-##### Iota
+#### Iota
 
 Within a constant declaration, the predeclared identifier iota represents successive untyped integer constants. Its value is the index of the respective ConstSpec in that constant declaration, starting at zero. It can be used to construct a set of related constants:
 
@@ -1847,7 +1847,7 @@ const (
 const x = iota  // x == 0
 const y = iota  // y == 0
 ```
-##### Variable
+#### Variable
 
  A variable is a storage location for holding a value. The set of permissible values is determined by the variable's type.
  
@@ -1908,7 +1908,7 @@ Output:
 ```
 
 
-##### Types
+#### Types
 ---
 
 A type determines a set of values together with operations and methods specific to those values. A type may be denoted by a type name, if it has one, or specified using a type literal, which composes a type from existing types. 
@@ -1933,7 +1933,7 @@ type (
 
 The underlying type of string, A1, A2, B1, and B2 is string. The underlying type of []B1, B3, and B4 is []B1. 
 
-##### Numeric Types
+#### Numeric Types
 
 A numeric type represents sets of integer or floating-point values. The predeclared architecture-independent numeric types are: 
 
@@ -1969,7 +1969,7 @@ uintptr  an unsigned integer large enough to store the uninterpreted bits of a p
 
 To avoid portability issues all numeric types are defined types and thus distinct except byte, which is an alias for uint8, and rune, which is an alias for int32. Conversions are required when different numeric types are mixed in an expression or assignment. For instance, int32 and int are not the same type even though they may have the same size on a particular architecture. 
 
-##### String type
+#### String type
 
 A string type represents the set of string values. A string value is a (possibly empty) sequence of bytes. Strings are immutable: once created, it is impossible to change the contents of a string. The predeclared string type is string; it is a defined type.
 
@@ -2018,7 +2018,7 @@ UTF-8:             [e6 97 a5 e6 9c ac e8 aa 9e]
 Unicode codepoint: [U+65E5 U+672C U+8A9E]
 ```
 
-##### Array type
+#### Array type
 
 An array is a numbered sequence of elements of a single type, called the element type. The number of elements is called the length and is never negative.
 
@@ -2066,7 +2066,7 @@ Output:
 [5 4 3 2 1]
 ```
 
-##### Slice Type
+#### Slice Type
 
 A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array. A slice type denotes the set of all slices of arrays of its element type. The value of an uninitialized slice is nil. 
 
@@ -2155,7 +2155,7 @@ b []
 c [0 0]
 ```
 
-#### Struct types
+#### Struct type
 
 A struct is a sequence of named elements, called fields, each of which has a name and a type. Field names may be specified explicitly (IdentifierList) or implicitly (EmbeddedField). Within a struct, non-blank field names must be unique.
 
