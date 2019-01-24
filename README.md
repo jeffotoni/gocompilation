@@ -30,7 +30,7 @@ and here the package [Package](https://golang.org/src/).
 - [Clean Architecture](#clean-architecture)
   - [Introduction Clean Architecture](#introduction-clean-architecture)
     - [directory organization](#directory-organization)
-    - [Types of systems in Go](#Types-of-systems-in-Go)
+    - [Types of systems in Go](#types-of-systems-in-go)
     - [Small example API Web](#Small-example-API-Web)
     - [Small example API Web Front-end](#Small-example-API-Web-Front-end)
 - [Go commands](#go-commands)
