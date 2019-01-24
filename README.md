@@ -1813,6 +1813,18 @@ var v *T          // v has value nil, static type *T
 
 type tv T
 
+var (
+	Float32    float32
+	Float64    float64
+	Boolean    bool
+	Int        int
+	String     = "@jeffotoni"
+	Byte       = []byte("string here")
+	Uint8      uint8
+	Rune       rune
+	Complex128 complex128
+)
+
 func main() {
 
 	x = 42 // x has value 42 and dynamic type int
@@ -1828,3 +1840,68 @@ func main() {
 	fmt.Println(vx)
 }
 ```
+##### Type
+---
+
+A type determines a set of values together with operations and methods specific to those values. A type may be denoted by a type name, if it has one, or specified using a type literal, which composes a type from existing types. 
+
+The language predeclares certain type names. Others are introduced with type declarations. Composite types—array, struct, pointer, function, interface, slice, map, and channel types—may be constructed using type literals.
+
+Each type T has an underlying type: If T is one of the predeclared boolean, numeric, or string types, or a type literal, the corresponding underlying type is T itself. Otherwise, T's underlying type is the underlying type of the type to which T refers in its type declaration. 
+
+```bash
+type (
+    A1 = string
+    A2 = A1
+)
+
+type (
+    B1 string
+    B2 B1
+    B3 []B1
+    B4 B3
+)
+```
+
+The underlying type of string, A1, A2, B1, and B2 is string. The underlying type of []B1, B3, and B4 is []B1. 
+
+##### Data Type
+---
+
+###### Numeric Types
+
+A numeric type represents sets of integer or floating-point values. The predeclared architecture-independent numeric types are: 
+
+```bash
+uint8       the set of all unsigned  8-bit integers (0 to 255)
+uint16      the set of all unsigned 16-bit integers (0 to 65535)
+uint32      the set of all unsigned 32-bit integers (0 to 4294967295)
+uint64      the set of all unsigned 64-bit integers (0 to 18446744073709551615)
+
+int8        the set of all signed  8-bit integers (-128 to 127)
+int16       the set of all signed 16-bit integers (-32768 to 32767)
+int32       the set of all signed 32-bit integers (-2147483648 to 2147483647)
+int64       the set of all signed 64-bit integers (-9223372036854775808 to 9223372036854775807)
+
+float32     the set of all IEEE-754 32-bit floating-point numbers
+float64     the set of all IEEE-754 64-bit floating-point numbers
+
+complex64   the set of all complex numbers with float32 real and imaginary parts
+complex128  the set of all complex numbers with float64 real and imaginary parts
+
+byte        alias for uint8
+rune        alias for int32
+```
+The value of an n-bit integer is n bits wide and represented using two's complement arithmetic.
+
+There is also a set of predeclared numeric types with implementation-specific sizes:
+
+```bash
+uint     either 32 or 64 bits
+int      same size as uint
+uintptr  an unsigned integer large enough to store the uninterpreted bits of a pointer value
+```
+
+To avoid portability issues all numeric types are defined types and thus distinct except byte, which is an alias for uint8, and rune, which is an alias for int32. Conversions are required when different numeric types are mixed in an expression or assignment. For instance, int32 and int are not the same type even though they may have the same size on a particular architecture. 
+
+
