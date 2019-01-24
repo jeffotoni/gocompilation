@@ -2213,11 +2213,55 @@ type Vertex struct {
 }
 
 func main() {
-	fmt.Println(Vertex{10, 201})
+	v := Vertex{10, 201}
+	v.X = 4
+	fmt.Println(v)
 }
 ```
 
 Output:
 ```bash
-{10 201}
+{4 201}
 ```
+#### Pointer type
+
+Struct fields can be accessed through a struct pointer.
+
+To access the field X of a struct when we have the struct pointer p we could write (*p).X. However, that notation is cumbersome, so the language permits us instead to write just p.X, without the explicit dereference.
+
+A pointer type denotes the set of all pointers to variables of a given type, called the base type of the pointer. The value of an uninitialized pointer is nil.
+
+```bash
+PointerType = "*" BaseType .
+BaseType    = Type .
+```
+
+```bash
+*Point
+*[4]int
+```
+Example:
+```go
+package main
+
+import "fmt"
+
+type Vertex struct {
+	X int
+	Y int
+}
+
+func main() {
+	v := Vertex{1, 2}
+	p := &v
+	p.X = 1e9
+	fmt.Println(v)
+	fmt.Println(p.Y)
+}
+```
+Output:
+```bash
+{1000000000 2}
+2
+```
+
