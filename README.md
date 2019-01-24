@@ -68,7 +68,7 @@ and here the package [Package](https://golang.org/src/).
     - [Iota](#iota)
     - [Variables](#Variables)
    - [Types](#Types)
-     - [Numeric Types](#numeric-type)
+     - [Numeric Types](#numeric-types)
      - [String Type](#string-type)
      - [Array Type](#array-type)
      - [Slice Type](#slice-type)
@@ -1969,7 +1969,7 @@ uintptr  an unsigned integer large enough to store the uninterpreted bits of a p
 
 To avoid portability issues all numeric types are defined types and thus distinct except byte, which is an alias for uint8, and rune, which is an alias for int32. Conversions are required when different numeric types are mixed in an expression or assignment. For instance, int32 and int are not the same type even though they may have the same size on a particular architecture. 
 
-##### String types
+#### String types
 
 A string type represents the set of string values. A string value is a (possibly empty) sequence of bytes. Strings are immutable: once created, it is impossible to change the contents of a string. The predeclared string type is string; it is a defined type.
 
@@ -2066,7 +2066,7 @@ Output:
 [5 4 3 2 1]
 ```
 
-##### Slice Type
+#### Slice Type
 
 A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array. A slice type denotes the set of all slices of arrays of its element type. The value of an uninitialized slice is nil. 
 
@@ -2087,7 +2087,27 @@ The following expression creates a slice which includes elements 1 through 3 of 
 ```bash
 a[1:4]
 ```
-A new, initialized slice value for a given element type T is made using the built-in function make, which takes a slice type and parameters specifying the length and optionally the capacity. A slice created with make always allocates a new, hidden array to which the returned slice value refers. That is, executing
+
+Example:
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+	primes := [7]int{2, 3, 5, 7, 11, 13, 14}
+	
+	var p []int = primes[2:5]
+	fmt.Println(p)
+}
+```
+Output:
+```bash
+[5 7 11]
+```
+
+A new, initialized slice value for a given element type T is made using the built-in function make, which takes a slice type and parameters specifying the length and optionally the capacity. A slice created with make always allocates a new, hidden array to which the returned slice value refers. That is, executing.
 
 ```bash
 make([]T, length, capacity)
@@ -2102,20 +2122,6 @@ new([100]int)[0:50]
 
 Like arrays, slices are always one-dimensional but may be composed to construct higher-dimensional objects. With arrays of arrays, the inner arrays are, by construction, always the same length; however with slices of slices (or arrays of slices), the inner lengths may vary dynamically. Moreover, the inner slices must be initialized individually.
 
-Example:
-
-```go
-package main
-
-import "fmt"
-
-func main() {
-	primes := [7]int{2, 3, 5, 7, 11, 13, 14}
-
-	var p []int = primes[2:5]
-	fmt.Println(p)
-}
-```
  Slices can be created with the built-in make function; this is how you create dynamically-sized arrays.
 
 The make function allocates a zeroed array and returns a slice that refers to that array: 
@@ -2137,12 +2143,19 @@ func main() {
 
 	b := make([]int, 0, 5)
 	fmt.Println("b", b)
-
+	
 	c := b[:2]
 	fmt.Println("c", c)
 }
 ```
-##### Struct types
+Output:
+```bash
+a [12 0 0 0]
+b []
+c [0 0]
+```
+
+#### Struct types
 
 A struct is a sequence of named elements, called fields, each of which has a name and a type. Field names may be specified explicitly (IdentifierList) or implicitly (EmbeddedField). Within a struct, non-blank field names must be unique.
 
