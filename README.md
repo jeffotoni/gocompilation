@@ -1675,6 +1675,8 @@ A constant value is represented by a rune, integer, floating-point, imaginary, o
 
 In general, complex constants are a form of constant expression and are discussed in that section. 
 
+Example: 
+
 ```go
 package main
 
@@ -1767,6 +1769,8 @@ func main() {
 
 Within a constant declaration, the predeclared identifier iota represents successive untyped integer constants. Its value is the index of the respective ConstSpec in that constant declaration, starting at zero. It can be used to construct a set of related constants:
 
+Example:
+
 ```bash
 const (
 	c0 = iota  // c0 == 0
@@ -1799,6 +1803,8 @@ const y = iota  // y == 0
 Structured variables of array, slice, and struct types have elements and fields that may be addressed individually. Each such element acts like a variable.
 
 The static type (or just type) of a variable is the type given in its declaration, the type provided in the new call or composite literal, or the type of an element of a structured variable. Variables of interface type also have a distinct dynamic type, which is the concrete type of the value assigned to the variable at run time (unless the value is the predeclared identifier nil, which has no type). The dynamic type may vary during execution but values stored in interface variables are always assignable to the static type of the variable. 
+
+Example:
 
 ```go
 package main
@@ -1839,6 +1845,7 @@ func main() {
 	fmt.Println(vx)
 }
 ```
+
 ##### Types
 ---
 
@@ -1900,4 +1907,16 @@ uintptr  an unsigned integer large enough to store the uninterpreted bits of a p
 
 To avoid portability issues all numeric types are defined types and thus distinct except byte, which is an alias for uint8, and rune, which is an alias for int32. Conversions are required when different numeric types are mixed in an expression or assignment. For instance, int32 and int are not the same type even though they may have the same size on a particular architecture. 
 
+##### String types
 
+A string type represents the set of string values. A string value is a (possibly empty) sequence of bytes. Strings are immutable: once created, it is impossible to change the contents of a string. The predeclared string type is string; it is a defined type.
+
+The length of a string s (its size in bytes) can be discovered using the built-in function len. The length is a compile-time constant if the string is a constant. A string's bytes can be accessed by integer indices 0 through len(s)-1. It is illegal to take the address of such an element; if s[i] is the i'th byte of a string, &s[i] is invalid. 
+
+```go
+var name string
+var := "your-name"
+type P struct { 
+    Name string 
+}
+```
