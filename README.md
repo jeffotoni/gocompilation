@@ -68,6 +68,7 @@ and here the package [Package](https://golang.org/src/).
     - [Iota](#iota)
     - [Variables](#Variables)
    - [Types](#Types)
+     - [Boolean Types](#boolean-types)
      - [Numeric Types](#numeric-types)
      - [String Types](#string-types)
      - [Array Types](#array-types)
@@ -78,7 +79,7 @@ and here the package [Package](https://golang.org/src/).
      - [Interface Types](#interface-types)
      - [Map Types](#map-types)
      - [Channel Types](#channel-types)
-     - [Boolean Types](#boolean-types)
+     - [Properties of types and values](#properties-of-types-and-values)
   - [Scopo](#scopo)
 - [Constants](#constants)
   - [Control structures](#controlstructures)
@@ -1933,6 +1934,32 @@ type (
 
 The underlying type of string, A1, A2, B1, and B2 is string. The underlying type of []B1, B3, and B4 is []B1. 
 
+#### Boolean Types
+
+A boolean type represents the set of Boolean truth values denoted by the predeclared constants true and false. The predeclared boolean type is bool; it is a defined type.
+
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+  var Bool bool
+  fmt.Println(Bool)
+
+  Bool2 := true
+  fmt.Println(Bool2)
+}
+```
+
+Output:
+```bash
+false
+true
+```
+
+
 #### Numeric Types
 
 A numeric type represents sets of integer or floating-point values. The predeclared architecture-independent numeric types are: 
@@ -2570,21 +2597,203 @@ package main
 import "fmt"
 
 func main() {
-
   // Required to initialize
   // the map with values
   var m1 map[string]int
   var m2 = make(map[string]int)
   var m3 = map[string]int{"population": 500000}
-  var m4 = map[string]int{"population": 500000}
-  var m5 = m4
-  var m6 map[string]string
+  var m4 = m3
+  var m5 map[string]string
   /* create a map*/
-  m6 = make(map[string]string)
-  fmt.Println(m1, m2, m3, m5, m6)
+  m5 = make(map[string]string)
+  fmt.Println(m1, m2, m3, m4, m5)
 }
 ```
 Output:
 ```bash
 map[] map[] map[population:500000] map[population:500000] map[]
 ```
+
+#### Channel Types
+
+A channel provides a mechanism for concurrently executing functions to communicate by sending and receiving values of a specified element type. The value of an uninitialized channel is nil.
+
+```bash
+ChannelType = ( "chan" | "chan" "<-" | "<-" "chan" ) ElementType .
+```
+
+The optional <- operator specifies the channel direction, send or receive. If no direction is given, the channel is bidirectional. A channel may be constrained only to send or only to receive by conversion or assignment.
+
+```bash
+chan T          // can be used to send and receive values of type T
+chan<- float64  // can only be used to send float64s
+<-chan int      // can only be used to receive ints
+```
+
+The <- operator associates with the leftmost chan possible:
+
+```bash
+chan<- chan int    // same as chan<- (chan int)
+chan<- <-chan int  // same as chan<- (<-chan int)
+<-chan <-chan int  // same as <-chan (<-chan int)
+chan (<-chan int)
+```
+
+A new, initialized channel value can be made using the built-in function make, which takes the channel type and an optional capacity as arguments:
+
+```bash
+make(chan int, 100)
+```
+
+The capacity, in number of elements, sets the size of the buffer in the channel. If the capacity is zero or absent, the channel is unbuffered and communication succeeds only when both a sender and receiver are ready. Otherwise, the channel is buffered and communication succeeds without blocking if the buffer is not full (sends) or not empty (receives). A nil channel is never ready for communication.
+
+A channel may be closed with the built-in function close. The multi-valued assignment form of the receive operator reports whether a received value was sent before the channel was closed.
+
+A single channel may be used in send statements, receive operations, and calls to the built-in functions cap and len by any number of goroutines without further synchronization. Channels act as first-in-first-out queues. For example, if one goroutine sends values on a channel and a second goroutine receives them, the values are received in the order sent.
+
+Let me show you an example:
+```go
+
+package main
+
+import (
+  "fmt"
+  "os"
+  "time"
+)
+
+type Promise struct {
+  Result chan string
+  Error  chan error
+}
+
+var (
+  ch1  = make(chan *Promise)  // received a pointer from the structure
+  ch2  = make(chan string, 1) // allows only 1 channels
+  ch3  = make(chan int, 2)    // allows only 2 channels
+  ch4  = make(chan float64)   // has not been set can freely receive
+  ch5  = make(chan []byte)    // by default the capacity is 0
+  ch6  = make(chan bool, 1)   // non-zero capacity
+  ch7  = make(chan time.Time, 2)
+  ch8  = make(chan struct{}, 2)
+  ch9  = make(chan struct{})
+  ch10 = make(map[string](chan int)) // map channel
+  ch11 = make(chan error)
+  ch12 = make(chan error, 2)
+  // receives a zero struct
+  ch14 <-chan struct{}
+  ch15 = make(<-chan bool)          // can only read from
+  ch16 = make(chan<- []os.FileInfo) // // can only write to
+  // holds another channel as its value
+  ch17 = make(chan<- chan bool) // // can read and write to
+)
+
+// Parameters of Func
+// (jobs <-chan int, results chan<- int)
+
+// Receives Value, only read
+// jobs <-chan int //receives the value
+
+// Receives Channel, only write
+// results chan<- int // receive channel
+// or
+// results chan int // receive channel
+
+// Receives Channel variadic
+// results ...<-chan int
+
+func main() {
+
+  ch2 <- "okay"
+  defer close(ch2)
+  fmt.Println(ch2, &ch2, <-ch2)
+
+  ch7 <- time.Now()
+  ch7 <- time.Now()
+  fmt.Println(ch7, &ch7, <-ch7)
+  fmt.Println(ch7, &ch7, <-ch7)
+  defer close(ch7)
+
+  ch3 <- 1 // okay
+  ch3 <- 2 // okay
+  // deadlock
+  // ch3 <- 3 // does not accept any more values, if you do it will error : deadlock
+  defer close(ch3)
+  fmt.Println(ch3, &ch3, <-ch3)
+  fmt.Println(ch3, &ch3, <-ch3)
+
+  ch10["lambda"] = make(chan int, 2)
+  ch10["lambda"] <- 100
+  defer close(ch10["lambda"])
+  fmt.Println(<-ch10["lambda"])
+}
+```
+
+Output:
+```bash
+0xc000056180 0x55bb00 okay
+0xc0000561e0 0x55bb28 2019-01-25 15:11:41.982906669 -0200 -02 m=+0.000147197
+0xc0000561e0 0x55bb28 2019-01-25 15:11:41.982906922 -0200 -02 m=+0.000147409
+0xc00001e0e0 0x55bb08 1
+0xc00001e0e0 0x55bb08 2
+100
+```
+
+#### Properties of types and values
+
+Two types are either identical or different.
+A defined type is always different from any other type. Otherwise, two types are identical if their underlying type literals are structurally equivalent; that is, they have the same literal structure and corresponding components have identical types.
+
+Given the declarations 
+
+```go
+package main
+
+import "fmt"
+
+type (
+  A0 = []string
+  A1 = A0
+  A2 = struct{ a, b int }
+  A3 = int
+  A4 = func(A3, float64) *A0
+  A5 = func(x int, _ float64) *[]string
+)
+
+type (
+  B0 A0
+  B1 []string
+  B2 struct{ a, b int }
+  B3 struct{ a, c int }
+  B4 func(int, float64) *B0
+  B5 func(x int, y float64) *A1
+)
+
+type C0 = B0
+
+func main() {
+  var str C0
+  str = append(str, "@jeffotoni")
+  fmt.Pr
+```
+
+Output:
+```bash
+types [@jeffotoni]
+```
+
+these types are identical:
+
+```bash
+A0, A1, and []string
+A2 and struct{ a, b int }
+A3 and int
+A4, func(int, float64) *[]string, and A5
+
+B0 and C0
+[]int and []int
+struct{ a, b *T5 } and struct{ a, b *T5 }
+func(x int, y float64) *[]string, func(int, float64) (result *[]string), and A5
+```
+
+B0 and B1 are different because they are new types created by distinct type definitions; func(int, float64) *B0 and func(x int, y float64) *[]string are different because B0 is different from []string.
