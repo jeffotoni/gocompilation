@@ -18,10 +18,11 @@ And this page is where we found all the specifications of Golang, it is very com
 and here the package [Package](https://golang.org/src/).
 
 Here are some channels that I can participate in and can find me online.
-Telegram:
-  - @go_br
-Slack: 
- - [gophers.slack.com](#https://gophers.slack.com)
+
+#### Telegram:
+    - @go_br
+#### Slack: 
+    - [gophers.slack.com](#https://gophers.slack.com)
 
 ## Contents
 
