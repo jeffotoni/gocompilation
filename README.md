@@ -20,9 +20,9 @@ and here the package [Package](https://golang.org/src/).
 Here are some channels that I can participate in and can find me online.
 
 #### Telegram:
-   - @go_br
+   - [gobr](https://t.me/go_br)
 #### Slack: 
-   - [gophers.slack.com](#https://gophers.slack.com)
+   - [gophers.slack.com](https://gophers.slack.com)
 
 ## Contents
 
