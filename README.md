@@ -2774,7 +2774,8 @@ type C0 = B0
 func main() {
   var str C0
   str = append(str, "@jeffotoni")
-  fmt.Pr
+  fmt.Println(str)
+}
 ```
 
 Output:
