@@ -2304,3 +2304,93 @@ var x *int = nil
 &*x  // causes a run-time panic
 ```
 
+#### Function type
+
+A function type denotes the set of all functions with the same parameter and result types. The value of an uninitialized variable of function type is nil.
+
+```bash
+FunctionType   = "func" Signature .
+Signature      = Parameters [ Result ] .
+Result         = Parameters | Type .
+Parameters     = "(" [ ParameterList [ "," ] ] ")" .
+ParameterList  = ParameterDecl { "," ParameterDecl } .
+ParameterDecl  = [ IdentifierList ] [ "..." ] Type .
+```
+ Within a list of parameters or results, the names (IdentifierList) must either all be present or all be absent. If present, each name stands for one item (parameter or result) of the specified type and all non-blank names in the signature must be unique. If absent, each type stands for one item of that type. Parameter and result lists are always parenthesized except that if there is exactly one unnamed result it may be written as an unparenthesized type.
+
+The final incoming parameter in a function signature may have a type prefixed with .... A function with such a parameter is called variadic and may be invoked with zero or more arguments for that parameter.
+
+```bash
+func()
+func(x int) int
+func(a, _ int, z float32) bool
+func(a, b int, z float32) (bool)
+func(prefix string, values ...int)
+func(a, b int, z float64, opt ...interface{}) (success bool)
+func(int, int, float64) (float64, *[]int)
+func(n int) func(p *T)
+```
+
+Example 1:
+```go
+package main
+
+func main() {
+
+}
+```
+Output:
+```bash
+
+```
+
+Example 2:
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+	FaaS("Lambda")
+}
+
+func FaaS(n string) {
+	fmt.Println(n)
+}
+```
+
+Output:
+```bash
+Lambda
+```
+
+Example 3:
+```go
+package main
+
+import (
+	"fmt"
+	"math"
+)
+
+func compute(fn func(float64, float64) float64) float64 {
+	return fn(2, 3)
+}
+
+func main() {
+	hypot := func(x, y float64) float64 {
+		return math.Sqrt(x*x + y*y)
+	}
+	fmt.Println(hypot(4, 10))
+
+	fmt.Println(compute(hypot))
+	fmt.Println(compute(math.Pow))
+}
+```
+Output:
+```bash
+10.770329614269007
+3.605551275463989
+8
+```
