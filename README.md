@@ -79,7 +79,8 @@ Here are some channels that I can participate in and can find me online.
     - [String literals](#String-literals)
     - [Constants](#Constants)
     - [Iota](#iota)
-    - [Variables](#Variables)
+    - [Variables](#variables)
+    - [Variable declarations](#variable-declarations)
    - [Types](#Types)
      - [Boolean Types](#boolean-types)
      - [Numeric Types](#numeric-types)
@@ -93,9 +94,12 @@ Here are some channels that I can participate in and can find me online.
      - [Map Types](#map-types)
      - [Channel Types](#channel-types)
      - [Properties of types and values](#properties-of-types-and-values)
-  - [Scopo](#scopo)
-- [Constants](#constants)
-  - [Control structures](#controlstructures)
+     - [Predeclared identifiers](#predeclared-identifiers)
+     - [Declarations and scope](#declarations-and-scope)
+     - [Label scopes](#label-scopes)
+     - [Blank identifier](#blank-identifier)
+- [Control structures](#control-structures)
+  - [Control](#control)
     - [if/else](#ifelse)
     - [for](#for)
     - [range](#range)
@@ -1613,7 +1617,7 @@ Programs are constructed from packages, whose properties allow efficient managem
 
 The grammar is compact and regular, allowing for easy analysis by automatic tools such as integrated development environments.
 
-#### Golang language
+### Golang language
 ---
 
 #### Keywords
@@ -1920,9 +1924,72 @@ Output:
 {2}
 {10}
 ```
+#### Variable declarations
 
+A variable declaration creates one or more variables, binds corresponding identifiers to them, and gives each a type and an initial value.
 
-#### Types
+```bash
+VarDecl     = "var" ( VarSpec | "(" { VarSpec ";" } ")" ) .
+VarSpec     = IdentifierList ( Type [ "=" ExpressionList ] | "=" ExpressionList ) .
+
+var i int
+var U, V, W float64
+var k = 0
+var x, y float32 = -1, -2
+var (
+  i       int
+  u, v, s = 2.0, 3.0, "bar"
+)
+var re, im = complexSqrt(-1)
+var _, found = entries[name]  // map lookup; only interested in "found"
+```
+
+If a list of expressions is given, the variables are initialized with the expressions following the rules for assignments. Otherwise, each variable is initialized to its zero value.
+
+If a type is present, each variable is given that type. Otherwise, each variable is given the type of the corresponding initialization value in the assignment. If that value is an untyped constant, it is first converted to its default type; if it is an untyped boolean value, it is first converted to type bool. The predeclared value nil cannot be used to initialize a variable with no explicit type.
+
+```bash
+var d = math.Sin(0.5)  // d is float64
+var i = 42             // i is int
+var t, ok = x.(T)      // t is T, ok is bool
+var n = nil            // illegal
+```
+
+Implementation restriction: A compiler may make it illegal to declare a variable inside a function body if the variable is never used. 
+
+#### Short variable declarations
+
+A short variable declaration uses the syntax:
+
+```bash
+ShortVarDecl = IdentifierList ":=" ExpressionList .
+```
+
+It is shorthand for a regular variable declaration with initializer expressions but no types:
+
+```bash
+"var" IdentifierList = ExpressionList .
+```
+
+```bash
+i, j := 0, 10
+f := func() int { return 7 }
+ch := make(chan int)
+r, w := os.Pipe(fd)  // os.Pipe() returns two values
+_, y, _ := coord(p)  // coord() returns three values; only interested in y coordinate
+```
+
+Unlike regular variable declarations, a short variable declaration may redeclare variables provided they were originally declared earlier in the same block (or the parameter lists if the block is the function body) with the same type, and at least one of the non-blank variables is new. As a consequence, redeclaration can only appear in a multi-variable short declaration. Redeclaration does not introduce a new variable; it just assigns a new value to the original.
+
+```bash
+field1, offset := nextField(str, 0)
+field2, offset := nextField(str, offset)  // redeclares offset
+a, a := 1, 2                              // illegal: double declaration of a or no new variable if a was declared elsewhere
+```
+
+Short variable declarations may appear only inside functions. In some contexts such as the initializers for "if", "for", or "switch" statements, they can be used to declare local temporary variables. 
+
+### Types
 ---
 
 A type determines a set of values together with operations and methods specific to those values. A type may be denoted by a type name, if it has one, or specified using a type literal, which composes a type from existing types. 
@@ -2811,3 +2878,112 @@ func(x int, y float64) *[]string, func(int, float64) (result *[]string), and A5
 ```
 
 B0 and B1 are different because they are new types created by distinct type definitions; func(int, float64) *B0 and func(x int, y float64) *[]string are different because B0 is different from []string.
+
+
+#### Predeclared identifiers
+
+The following identifiers are implicitly declared in the universe block:
+
+```bash
+Types:
+  bool byte complex64 complex128 error float32 float64
+  int int8 int16 int32 int64 rune string
+  uint uint8 uint16 uint32 uint64 uintptr
+
+Constants:
+  true false iota
+
+Zero value:
+  nil
+
+Functions:
+  append cap close complex copy delete imag len
+  make new panic print println real recover
+```
+
+#### Declarations and scope
+
+A declaration binds a non-blank identifier to a constant, type, variable, function, label, or package. Every identifier in a program must be declared. No identifier may be declared twice in the same block, and no identifier may be declared in both the file and package block.
+
+The blank identifier may be used like any other identifier in a declaration, but it does not introduce a binding and thus is not declared. In the package block, the identifier init may only be used for init function declarations, and like the blank identifier it does not introduce a new binding.
+
+```bash
+Declaration   = ConstDecl | TypeDecl | VarDecl .
+TopLevelDecl  = Declaration | FunctionDecl | MethodDecl .
+```
+
+The scope of a declared identifier is the extent of source text in which the identifier denotes the specified constant, type, variable, function, label, or package.
+
+Go is lexically scoped using blocks:
+
+```bash
+    The scope of a predeclared identifier is the universe block.
+    The scope of an identifier denoting a constant, type, variable, or function (but not method) declared at top level (outside any function) is the package block.
+    The scope of the package name of an imported package is the file block of the file containing the import declaration.
+    The scope of an identifier denoting a method receiver, function parameter, or result variable is the function body.
+    The scope of a constant or variable identifier declared inside a function begins at the end of the ConstSpec or VarSpec (ShortVarDecl for short variable declarations) and ends at the end of the innermost containing block.
+    The scope of a type identifier declared inside a function begins at the identifier in the TypeSpec and ends at the end of the innermost containing block.
+```
+
+An identifier declared in a block may be redeclared in an inner block. While the identifier of the inner declaration is in scope, it denotes the entity declared by the inner declaration.
+
+The package clause is not a declaration; the package name does not appear in any scope. Its purpose is to identify the files belonging to the same package and to specify the default package name for import declarations.
+
+
+#### Label scopes
+
+Labels are declared by labeled statements and are used in the **"break", "continue"**, and **"goto"** statements. It is illegal to define a label that is never used. In contrast to other identifiers, labels are not block scoped and do not conflict with identifiers that are not labels. The scope of a label is the body of the function in which it is declared and excludes the body of any nested function.
+
+
+#### Blank identifier
+
+The blank identifier is represented by the underscore character _. It serves as an anonymous placeholder instead of a regular (non-blank) identifier and has special meaning in declarations, as an operand, and in assignments.
+
+### Control structures
+---
+
+#### Control
+
+Statements control execution.
+
+```bash
+Statement =
+  Declaration | LabeledStmt | SimpleStmt |
+  GoStmt | ReturnStmt | BreakStmt | ContinueStmt | GotoStmt |
+  FallthroughStmt | Block | IfStmt | SwitchStmt | SelectStmt | ForStmt |
+  DeferStmt .
+
+SimpleStmt = EmptyStmt | ExpressionStmt | SendStmt | IncDecStmt | Assignment | ShortVarDecl .
+```
+
+A terminating statement prevents execution of all statements that lexically appear after it in the same block. The following statements are terminating:
+
+  1. A "return" or "goto" statement.
+  2. A call to the built-in function panic.
+  3. A block in which the statement list ends in a terminating statement.
+  4. An "if" statement in which:
+      - the "else" branch is present, and
+      - both branches are terminating statements.
+  5. A "for" statement in which:
+      - there are no "break" statements referring to the "for" statement, and
+      - the loop condition is absent.
+  6. A "switch" statement in which:
+      - there are no "break" statements referring to the "switch" statement,
+      - there is a default case, and
+      - the statement lists in each case, including the default, end in a terminating statement, or a possibly labeled "fallthrough" statement.
+  7. A "select" statement in which:
+      - there are no "break" statements referring to the "select" statement, and
+      - the statement lists in each case, including the default if present, end in a terminating statement.
+  8. A labeled statement labeling a terminating statement.
+
+All other statements are not terminating.
+
+A statement list ends in a terminating statement if the list is not empty and its final non-empty statement is terminating. 
+
+A "for" statement with a "range" clause iterates through all entries of an array, slice, string or map, or values received on a channel. For each entry it assigns iteration values to corresponding iteration variables if present and then executes the block. 
+
+```bash
+RangeClause = [ ExpressionList "=" | IdentifierList ":=" ] "range" Expression .
+```
+
+The expression on the right in the "range" clause is called the range expression, which may be an array, pointer to an array, slice, string, map, or channel permitting receive operations. As with an assignment, if present the operands on the left must be addressable or map index expressions; they denote the iteration variables. If the range expression is a channel, at most one iteration variable is permitted, otherwise there may be up to two. If the last iteration variable is the blank identifier, the range clause is equivalent to the same clause without that identifier. 
