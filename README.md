@@ -424,13 +424,13 @@ $ mkdir $HOME/go/src/project1/my-handler
 $GOPATH/
   |-src
     |-github.com/user/project1/
-      	|-cmd (of project1)
-        	|-main.go
-      	|-vendor
-      	|-logs
-      	|-models
-      	|-repo
-      	|-handler
+        |-cmd (of project1)
+          |-main.go
+        |-vendor
+        |-logs
+        |-models
+        |-repo
+        |-handler
     |-github.com/user/project2/
       ....
       ....
@@ -513,7 +513,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Printf("hello, Gophers\n")
+  fmt.Printf("hello, Gophers\n")
 }
 
 ```
@@ -749,43 +749,43 @@ The build flags are shared by the build, clean, get, install, list, run, and tes
 
 ```bash
 - a
-	force rebuilding of packages that are already up-to-date.
-	
+  force rebuilding of packages that are already up-to-date.
+  
 -race
-	enable data race detection.
-	Supported only on linux/amd64, freebsd/amd64, darwin/amd64 and windows/amd64.
-	
+  enable data race detection.
+  Supported only on linux/amd64, freebsd/amd64, darwin/amd64 and windows/amd64.
+  
 -work
-	print the name of the temporary work directory and
-	do not delete it when exiting.
-	
+  print the name of the temporary work directory and
+  do not delete it when exiting.
+  
 -buildmode mode
-	build mode to use. See 'go help buildmode' for more.
-	
+  build mode to use. See 'go help buildmode' for more.
+  
 -compiler name
-	name of compiler to use, as in runtime.Compiler (gccgo or gc).
-	
+  name of compiler to use, as in runtime.Compiler (gccgo or gc).
+  
 -gccgoflags '[pattern=]arg list'
-	arguments to pass on each gccgo compiler/linker invocation.
+  arguments to pass on each gccgo compiler/linker invocation.
 
 -gcflags '[pattern=]arg list'
-	arguments to pass on each go tool compile invocation.
+  arguments to pass on each go tool compile invocation.
 
 -ldflags '[pattern=]arg list'
-	arguments to pass on each go tool link invocation.
+  arguments to pass on each go tool link invocation.
 
 -linkshared
-	link against shared libraries previously created with
-	-buildmode=shared.
+  link against shared libraries previously created with
+  -buildmode=shared.
 
 -mod mode
-	module download mode to use: readonly or vendor.
-	See 'go help modules' for more.
+  module download mode to use: readonly or vendor.
+  See 'go help modules' for more.
 
 -tags 'tag list'
-	a space-separated list of build tags to consider satisfied during the
-	build. For more information about build tags, see the description of
-	build constraints in the documentation for the go/build package.
+  a space-separated list of build tags to consider satisfied during the
+  build. For more information about build tags, see the description of
+  build constraints in the documentation for the go/build package.
  
 ```
 
@@ -798,25 +798,25 @@ package main
 // @jeffotoni
 // aws lambda
 import (
-	"github.com/aws/aws-lambda-go/lambda"
+  "github.com/aws/aws-lambda-go/lambda"
 )
 
 type MyResponse struct {
-	Body string `json:"body"`
+  Body string `json:"body"`
 }
 
 type MyEvent struct {
-	Name string `json:"name"`
+  Name string `json:"name"`
 }
 
 func HandleRequest(event MyEvent) (*MyResponse, error) {
 
-	return &MyResponse{Body: event.Name}, nil
+  return &MyResponse{Body: event.Name}, nil
 }
 
 func main() {
 
-	lambda.Start(HandleRequest)
+  lambda.Start(HandleRequest)
 }
 ```
 
@@ -870,12 +870,12 @@ package main
 import "fmt"
 
 var (
-	version string
-	date    string
+  version string
+  date    string
 )
 
 func main() {
-	fmt.Printf("version=%s, date=%s", version, date)
+  fmt.Printf("version=%s, date=%s", version, date)
 }
 ```
 
@@ -897,7 +897,7 @@ package main
 import "fmt"
 
 func main() {
-	fmt.Println("vim-go, hello.")
+  fmt.Println("vim-go, hello.")
 }
 ```
 
@@ -940,43 +940,43 @@ are:
 
 ```bash
 -buildmode=archive
-	Build the listed non-main packages into .a files. Packages named
-	main are ignored.
+  Build the listed non-main packages into .a files. Packages named
+  main are ignored.
 
 -buildmode=c-archive
-	Build the listed main package, plus all packages it imports,
-	into a C archive file. The only callable symbols will be those
-	functions exported using a cgo //export comment. Requires
-	exactly one main package to be listed.
+  Build the listed main package, plus all packages it imports,
+  into a C archive file. The only callable symbols will be those
+  functions exported using a cgo //export comment. Requires
+  exactly one main package to be listed.
 
 -buildmode=c-shared
-	Build the listed main package, plus all packages it imports,
-	into a C shared library. The only callable symbols will
-	be those functions exported using a cgo //export comment.
-	Requires exactly one main package to be listed.
+  Build the listed main package, plus all packages it imports,
+  into a C shared library. The only callable symbols will
+  be those functions exported using a cgo //export comment.
+  Requires exactly one main package to be listed.
 
 -buildmode=default
-	Listed main packages are built into executables and listed
-	non-main packages are built into .a files (the default
-	behavior).
+  Listed main packages are built into executables and listed
+  non-main packages are built into .a files (the default
+  behavior).
 
 -buildmode=shared
-	Combine all the listed non-main packages into a single shared
-	library that will be used when building with the -linkshared
-	option. Packages named main are ignored.
+  Combine all the listed non-main packages into a single shared
+  library that will be used when building with the -linkshared
+  option. Packages named main are ignored.
 
 -buildmode=exe
-	Build the listed main packages and everything they import into
-	executables. Packages not named main are ignored.
+  Build the listed main packages and everything they import into
+  executables. Packages not named main are ignored.
 
 -buildmode=pie
-	Build the listed main packages and everything they import into
-	position independent executables (PIE). Packages not named
-	main are ignored.
+  Build the listed main packages and everything they import into
+  position independent executables (PIE). Packages not named
+  main are ignored.
 
 -buildmode=plugin
-	Build the listed main packages, plus all packages that they
-	import, into a Go plugin. Packages not named main are ignored.
+  Build the listed main packages, plus all packages that they
+  import, into a Go plugin. Packages not named main are ignored.
 ```
 
 #### Go Plugin
@@ -995,14 +995,14 @@ Check out the example below (lower.go):
 package main
 
 import (
-	"strings"
+  "strings"
 )
 
 type lower string
 
 func (t lower) MustLower(name string) string {
 
-	return strings.ToLower(name)
+  return strings.ToLower(name)
 }
 ```
 
@@ -1020,47 +1020,47 @@ Check out the example below (main.go):
 package main
 
 import (
-	"fmt"
-	"os"
-	"plugin"
+  "fmt"
+  "os"
+  "plugin"
 )
 
 var (
-	mod = "./tolower.so"
+  mod = "./tolower.so"
 )
 
 type Tolower interface {
-	MustLower(name string) string
+  MustLower(name string) string
 }
 
 func main() {
-	// load module
-	// 1. open the so file to load the symbols
-	plug, err := plugin.Open(mod)
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+  // load module
+  // 1. open the so file to load the symbols
+  plug, err := plugin.Open(mod)
+  if err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
 
-	// 2. look up a symbol (an exported function or variable)
-	// in this case, variable Greeter
-	l, err := plug.Lookup("Tolower")
-	if err != nil {
-		fmt.Println(err)
-		os.Exit(1)
-	}
+  // 2. look up a symbol (an exported function or variable)
+  // in this case, variable Greeter
+  l, err := plug.Lookup("Tolower")
+  if err != nil {
+    fmt.Println(err)
+    os.Exit(1)
+  }
 
-	// 3. Assert that loaded symbol is of a desired type
-	// in this case interface type Greeter (defined above)
-	var lower Tolower
-	lower, ok := l.(Tolower)
-	if !ok {
-		fmt.Println("unexpected type from module symbol")
-		os.Exit(1)
-	}
+  // 3. Assert that loaded symbol is of a desired type
+  // in this case interface type Greeter (defined above)
+  var lower Tolower
+  lower, ok := l.(Tolower)
+  if !ok {
+    fmt.Println("unexpected type from module symbol")
+    os.Exit(1)
+  }
 
-	// 4. use the module
-	fmt.Println(lower.MustLower("@JEFFOTONI/LAMBDAMAN"))
+  // 4. use the module
+  fmt.Println(lower.MustLower("@JEFFOTONI/LAMBDAMAN"))
 }
 ```
 ```go
@@ -1277,8 +1277,8 @@ For example, this go.mod declares that the directory containing it is the root o
 go mod init github.com/user/gomyproject
 
 require (
-	golang.org/x/text v0.3.0
-	gopkg.in/yaml.v2 v2.1.0
+  golang.org/x/text v0.3.0
+  gopkg.in/yaml.v2 v2.1.0
 )
 ```
 The go.mod file can also specify replacements and excluded versions that only apply when building the module directly; they are ignored when the module is incorporated into a larger build. For more about the go.mod file, see 'go help go.mod'.
@@ -1333,12 +1333,12 @@ Init initializes and writes a new **go.mod** to the current directory, in effect
 go mod init github.com/user/gomyproject2
 
 require (
-	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/didip/tollbooth v4.0.0+incompatible
-	github.com/go-sql-driver/mysql v1.4.1
-	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
-	golang.org/x/crypto v0.0.0-20190103213133-ff983b9c42bc
-	golang.org/x/time v0.0.0-20181108054448-85acf8d2951c // indirect
+  github.com/dgrijalva/jwt-go v3.2.0+incompatible
+  github.com/didip/tollbooth v4.0.0+incompatible
+  github.com/go-sql-driver/mysql v1.4.1
+  github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
+  golang.org/x/crypto v0.0.0-20190103213133-ff983b9c42bc
+  golang.org/x/time v0.0.0-20181108054448-85acf8d2951c // indirect
 )
 ```
 
@@ -1440,35 +1440,35 @@ General-purpose environment variables:
 
 ```bash
 GCCGO
-	The gccgo command to run for 'go build -compiler=gccgo'.
+  The gccgo command to run for 'go build -compiler=gccgo'.
 GOARCH
-	The architecture, or processor, for which to compile code.
-	Examples are amd64, 386, arm, ppc64.
+  The architecture, or processor, for which to compile code.
+  Examples are amd64, 386, arm, ppc64.
 GOBIN
-	The directory where 'go install' will install a command.
+  The directory where 'go install' will install a command.
 GOCACHE
-	The directory where the go command will store cached
-	information for reuse in future builds.
+  The directory where the go command will store cached
+  information for reuse in future builds.
 GOFLAGS
-	A space-separated list of -flag=value settings to apply
-	to go commands by default, when the given flag is known by
-	the current command. Flags listed on the command-line
-	are applied after this list and therefore override it.
+  A space-separated list of -flag=value settings to apply
+  to go commands by default, when the given flag is known by
+  the current command. Flags listed on the command-line
+  are applied after this list and therefore override it.
 GOOS
-	The operating system for which to compile code.
-	Examples are linux, darwin, windows, netbsd.
+  The operating system for which to compile code.
+  Examples are linux, darwin, windows, netbsd.
 GOPATH
-	For more details see: 'go help gopath'.
+  For more details see: 'go help gopath'.
 GOPROXY
-	URL of Go module proxy. See 'go help goproxy'.
+  URL of Go module proxy. See 'go help goproxy'.
 GORACE
-	Options for the race detector.
-	See https://golang.org/doc/articles/race_detector.html.
+  Options for the race detector.
+  See https://golang.org/doc/articles/race_detector.html.
 GOROOT
-	The root of the go tree.
+  The root of the go tree.
 GOTMPDIR
-	The directory where the go command will write
-	temporary source files, packages, and binaries.
+  The directory where the go command will write
+  temporary source files, packages, and binaries.
 ```
 
 Each entry in the GOFLAGS list must be a standalone flag. Because the entries are space-separated, flag values must not contain spaces. In some cases, you can provide multiple flag values instead: for example, to set '-ldflags=-s -w' you can use 'GOFLAGS=-ldflags=-s -ldflags=-w'.
@@ -1477,17 +1477,17 @@ Architecture-specific environment variables:
 
 ```bash
 GOARM
-	For GOARCH=arm, the ARM architecture for which to compile.
-	Valid values are 5, 6, 7.
+  For GOARCH=arm, the ARM architecture for which to compile.
+  Valid values are 5, 6, 7.
 GO386
-	For GOARCH=386, the floating point instruction set.
-	Valid values are 387, sse2.
+  For GOARCH=386, the floating point instruction set.
+  Valid values are 387, sse2.
 GOMIPS
-	For GOARCH=mips{,le}, whether to use floating point instructions.
-	Valid values are hardfloat (default), softfloat.
+  For GOARCH=mips{,le}, whether to use floating point instructions.
+  Valid values are hardfloat (default), softfloat.
 GOMIPS64
-	For GOARCH=mips64{,le}, whether to use floating point instructions.
-	Valid values are hardfloat (default), softfloat.
+  For GOARCH=mips64{,le}, whether to use floating point instructions.
+  Valid values are hardfloat (default), softfloat.
 ```
 
 ### Comments and C-style
@@ -1503,20 +1503,20 @@ Go provides C-style /* */ block comments and C++-style // line comments. Line co
 package main
 
 import (
-	"flag"
-	"fmt"
-	"os"
+  "flag"
+  "fmt"
+  "os"
 
-	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/awserr"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/ec2"
+  "github.com/aws/aws-sdk-go/aws"
+  "github.com/aws/aws-sdk-go/aws/awserr"
+  "github.com/aws/aws-sdk-go/aws/session"
+  "github.com/aws/aws-sdk-go/service/ec2"
 )
 
 // define flags
 var (
-	flagRegion   = flag.String("region", "", "example: us-east-1")
-	flagInstance = flag.String("instance", "", "example: i-05bef719c14d68d10")
+  flagRegion   = flag.String("region", "", "example: us-east-1")
+  flagInstance = flag.String("instance", "", "example: i-05bef719c14d68d10")
 )
 */
 ```
@@ -1697,13 +1697,13 @@ Example:
 package main
 
 const (
-	PATH        = "/myhome/app"
-	KB     int  = 1 << (10 * iota) // 1Kb
-	MB     int  = 1 << (10 * iota) // 1MB
-	GB     int  = 1 << (10 * iota) // 1G
-	MALE   bool = true
-	FEMALE      = true
-	DOLLAR      = 3.99
+  PATH        = "/myhome/app"
+  KB     int  = 1 << (10 * iota) // 1Kb
+  MB     int  = 1 << (10 * iota) // 1MB
+  GB     int  = 1 << (10 * iota) // 1G
+  MALE   bool = true
+  FEMALE      = true
+  DOLLAR      = 3.99
 )
 
 // EXPRESSIONS PERMITTED
@@ -1726,59 +1726,59 @@ const Σ = 1 - 0.707i     //            (untyped complex constant)
 const Δ = Σ + 2.0e-4     //            (untyped complex constant)
 const Φ = iota*1i - 1/1i //            (untyped complex constant)
 const (
-	Sunday = iota
-	Monday
-	Tuesday
-	Wednesday
-	Thursday
-	Friday
-	Partyday
-	numberOfDays // this constant is not exported
+  Sunday = iota
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Partyday
+  numberOfDays // this constant is not exported
 )
 
 const Pi float64 = 3.14159265358979323846
 const zero = 0.0 // untyped floating-point constant
 const (
-	size int64 = 1024
-	eof        = -1 // untyped integer constant
+  size int64 = 1024
+  eof        = -1 // untyped integer constant
 )
 const xa, xb, xc = 3, 4, "foo" // a = 3, b = 4, c = "foo", untyped integer and string constants
 const xu, xv float32 = 0, 3    // u = 0.0, v = 3.0
 
 func main() {
 
-	println("###############")
-	println(Sunday)
-	println(Monday)
-	println(Tuesday)
-	println(Wednesday)
-	println(Thursday)
-	println(Friday)
-	println(Partyday)
-	println(numberOfDays)
-	println(PATH)
-	println(KB)
-	println(MB)
-	println(GB)
-	println(MALE)
-	println(FEMALE)
-	println(DOLLAR)
-	println("###############")
-	println("")
-	println(a)
-	println(b)
-	println(c)
-	println(d)
-	println(e)
-	println(h)
-	println(j)
-	println(k)
-	println(l)
-	println(m)
-	println(Σ)
-	println(Δ)
-	println(Φ)
-	println("###############")
+  println("###############")
+  println(Sunday)
+  println(Monday)
+  println(Tuesday)
+  println(Wednesday)
+  println(Thursday)
+  println(Friday)
+  println(Partyday)
+  println(numberOfDays)
+  println(PATH)
+  println(KB)
+  println(MB)
+  println(GB)
+  println(MALE)
+  println(FEMALE)
+  println(DOLLAR)
+  println("###############")
+  println("")
+  println(a)
+  println(b)
+  println(c)
+  println(d)
+  println(e)
+  println(h)
+  println(j)
+  println(k)
+  println(l)
+  println(m)
+  println(Σ)
+  println(Δ)
+  println(Φ)
+  println("###############")
 }
 ```
 
@@ -1826,22 +1826,22 @@ Example:
 
 ```bash
 const (
-	c0 = iota  // c0 == 0
-	c1 = iota  // c1 == 1
-	c2 = iota  // c2 == 2
+  c0 = iota  // c0 == 0
+  c1 = iota  // c1 == 1
+  c2 = iota  // c2 == 2
 )
 
 const (
-	a = 1 << iota  // a == 1  (iota == 0)
-	b = 1 << iota  // b == 2  (iota == 1)
-	c = 3          // c == 3  (iota == 2, unused)
-	d = 1 << iota  // d == 8  (iota == 3)
+  a = 1 << iota  // a == 1  (iota == 0)
+  b = 1 << iota  // b == 2  (iota == 1)
+  c = 3          // c == 3  (iota == 2, unused)
+  d = 1 << iota  // d == 8  (iota == 3)
 )
 
 const (
-	u         = iota * 42  // u == 0     (untyped integer constant)
-	v float64 = iota * 42  // v == 42.0  (float64 constant)
-	w         = iota * 42  // w == 84    (untyped integer constant)
+  u         = iota * 42  // u == 0     (untyped integer constant)
+  v float64 = iota * 42  // v == 42.0  (float64 constant)
+  w         = iota * 42  // w == 84    (untyped integer constant)
 )
 
 const x = iota  // x == 0
@@ -1872,30 +1872,30 @@ var v *T          // v has value nil, static type *T
 type tv T
 
 var (
-	Float32    float32
-	Float64    float64
-	Boolean    bool
-	Int        int
-	String     = "@jeffotoni"
-	Byte       = []byte("string here")
-	Uint8      uint8
-	Rune       rune
-	Complex128 complex128
+  Float32    float32
+  Float64    float64
+  Boolean    bool
+  Int        int
+  String     = "@jeffotoni"
+  Byte       = []byte("string here")
+  Uint8      uint8
+  Rune       rune
+  Complex128 complex128
 )
 
 func main() {
 
-	x = 42 // x has value 42 and dynamic type int
-	fmt.Println(x)
+  x = 42 // x has value 42 and dynamic type int
+  fmt.Println(x)
 
-	x = v // x has value (*T)(nil) and dynamic type *T
-	fmt.Println(x)
+  x = v // x has value (*T)(nil) and dynamic type *T
+  fmt.Println(x)
 
-	x = T{y: 2}
-	fmt.Println(x)
+  x = T{y: 2}
+  fmt.Println(x)
 
-	vx := tv{y: 10}
-	fmt.Println(vx)
+  vx := tv{y: 10}
+  fmt.Println(vx)
 }
 ```
 
@@ -1983,27 +1983,27 @@ import "fmt"
 type S string
 
 var (
-	String = "@jeffotoni"
+  String = "@jeffotoni"
 )
 
 func main() {
-	var text string
-	var str S
+  var text string
+  var str S
 
-	mypicture := "@Photograph-jeffotoni"
-	str = "@workshop-devOpsBh"
-	text = "@jeffotoni-golang"
+  mypicture := "@Photograph-jeffotoni"
+  str = "@workshop-devOpsBh"
+  text = "@jeffotoni-golang"
 
-	fmt.Println(str)
-	fmt.Println(String)
-	fmt.Println(text)
-	fmt.Println(mypicture)
+  fmt.Println(str)
+  fmt.Println(String)
+  fmt.Println(text)
+  fmt.Println(mypicture)
 
-	// example string
-	s := "日本語"
-	fmt.Printf("Glyph:             %q\n", s)
-	fmt.Printf("UTF-8:             [% x]\n", []byte(s))
-	fmt.Printf("Unicode codepoint: %U\n", []rune(s))
+  // example string
+  s := "日本語"
+  fmt.Printf("Glyph:             %q\n", s)
+  fmt.Printf("UTF-8:             [% x]\n", []byte(s))
+  fmt.Printf("Unicode codepoint: %U\n", []rune(s))
 }
 ```
 Output:
@@ -2048,16 +2048,16 @@ import "fmt"
 
 func main() {
 
-	// var a []string // wrong
+  // var a []string // wrong
 
-	// An array of 10 integers
-	var a1 [5]int
-	a1[0] = 5
-	a1[1] = 4
-	a1[2] = 3
-	a1[3] = 2
-	a1[4] = 1
-	fmt.Println(a1)
+  // An array of 10 integers
+  var a1 [5]int
+  a1[0] = 5
+  a1[1] = 4
+  a1[2] = 3
+  a1[3] = 2
+  a1[4] = 1
+  fmt.Println(a1)
 }
 ```
 
@@ -2096,10 +2096,10 @@ package main
 import "fmt"
 
 func main() {
-	primes := [7]int{2, 3, 5, 7, 11, 13, 14}
-	
-	var p []int = primes[2:5]
-	fmt.Println(p)
+  primes := [7]int{2, 3, 5, 7, 11, 13, 14}
+  
+  var p []int = primes[2:5]
+  fmt.Println(p)
 }
 ```
 Output:
@@ -2137,15 +2137,15 @@ package main
 import "fmt"
 
 func main() {
-	a := make([]int,4)
-	a[0]=12
-	fmt.Println("a", a)
+  a := make([]int,4)
+  a[0]=12
+  fmt.Println("a", a)
 
-	b := make([]int, 0, 5)
-	fmt.Println("b", b)
-	
-	c := b[:2]
-	fmt.Println("c", c)
+  b := make([]int, 0, 5)
+  fmt.Println("b", b)
+  
+  c := b[:2]
+  fmt.Println("c", c)
 }
 ```
 Output:
@@ -2170,11 +2170,11 @@ struct {}
 
 // A struct with 6 fields.
 struct {
-	x, y int
-	u float32
-	_ float32  // padding
-	A *[]int
-	F func()
+  x, y int
+  u float32
+  _ float32  // padding
+  A *[]int
+  F func()
 }
 ```
 
@@ -2183,11 +2183,11 @@ A field declared with a type but no explicit field name is called an embedded fi
 ```bash
 // A struct with four embedded fields of types T1, *T2, P.T3 and *P.T4
 struct {
-	T1        // field name is T1
-	*T2       // field name is T2
-	P.T3      // field name is T3
-	*P.T4     // field name is T4
-	x, y int  // field names are x and y
+  T1        // field name is T1
+  *T2       // field name is T2
+  P.T3      // field name is T3
+  *P.T4     // field name is T4
+  x, y int  // field names are x and y
 }
 ```
 
@@ -2195,9 +2195,9 @@ The following declaration is illegal because field names must be unique in a str
 
 ```bash
 struct {
-	T     // conflicts with embedded field *T and *P.T
-	*T    // conflicts with embedded field T and *P.T
-	*P.T  // conflicts with embedded field T and *T
+  T     // conflicts with embedded field *T and *P.T
+  *T    // conflicts with embedded field T and *P.T
+  *P.T  // conflicts with embedded field T and *T
 }
 ```
 A struct is a collection of fields. 
@@ -2208,14 +2208,14 @@ package main
 import "fmt"
 
 type Vertex struct {
-	X int
-	Y int
+  X int
+  Y int
 }
 
 func main() {
-	v := Vertex{10, 201}
-	v.X = 4
-	fmt.Println(v)
+  v := Vertex{10, 201}
+  v.X = 4
+  fmt.Println(v)
 }
 ```
 
@@ -2248,16 +2248,16 @@ package main
 import "fmt"
 
 type Vertex struct {
-	X int
-	Y int
+  X int
+  Y int
 }
 
 func main() {
-	v := Vertex{1, 2}
-	p := &v
-	p.X = 1e9
-	fmt.Println(v)
-	fmt.Println(p.Y)
+  v := Vertex{1, 2}
+  p := &v
+  p.X = 1e9
+  fmt.Println(v)
+  fmt.Println(p.Y)
 }
 ```
 Output:
@@ -2275,17 +2275,17 @@ package main
 
 func main() {
 
-	var a int
-	inc := &a
-	*inc = 2
-	*inc++
-	println("inc:\tValue Of[", inc, "]\tAddr Of[", &inc, "]\tValue Points To[", *inc, "]")
+  var a int
+  inc := &a
+  *inc = 2
+  *inc++
+  println("inc:\tValue Of[", inc, "]\tAddr Of[", &inc, "]\tValue Points To[", *inc, "]")
 }
 ```
 
 Output:
 ```bash
-inc:	Value Of[ 0xc000036778 ]  Addr Of[ 0xc000036780 ]  Value Points To[ 3 ]
+inc:  Value Of[ 0xc000036778 ]  Addr Of[ 0xc000036780 ]  Value Points To[ 3 ]
 ```
 
 For an operand x of type T, the address operation &x generates a pointer of type *T to x. The operand must be addressable, that is, either a variable, pointer indirection, or slice indexing operation; or a field selector of an addressable struct operand; or an array indexing operation of an addressable array. As an exception to the addressability requirement, x may also be a (possibly parenthesized) composite literal. If the evaluation of x would cause a run-time panic, then the evaluation of &x does too.
@@ -2352,11 +2352,11 @@ import "fmt"
 
 func main() {
 
-	FaaS("Lambda")
+  FaaS("Lambda")
 }
 
 func FaaS(n string) {
-	fmt.Println(n)
+  fmt.Println(n)
 }
 ```
 
@@ -2370,22 +2370,22 @@ Example 3:
 package main
 
 import (
-	"fmt"
-	"math"
+  "fmt"
+  "math"
 )
 
 func compute(fn func(float64, float64) float64) float64 {
-	return fn(2, 3)
+  return fn(2, 3)
 }
 
 func main() {
-	hypot := func(x, y float64) float64 {
-		return math.Sqrt(x*x + y*y)
-	}
-	fmt.Println(hypot(4, 10))
+  hypot := func(x, y float64) float64 {
+    return math.Sqrt(x*x + y*y)
+  }
+  fmt.Println(hypot(4, 10))
 
-	fmt.Println(compute(hypot))
-	fmt.Println(compute(math.Pow))
+  fmt.Println(compute(hypot))
+  fmt.Println(compute(math.Pow))
 }
 ```
 
@@ -2412,9 +2412,9 @@ As with all method sets, in an interface type, each method must have a unique no
 ```go
 // A simple File interface
 interface {
-	Read(b Buffer) bool
-	Write(b Buffer) bool
-	Close()
+  Read(b Buffer) bool
+  Write(b Buffer) bool
+  Close()
 }
 ```
 
@@ -2438,8 +2438,8 @@ Similarly, consider this interface specification, which appears within a type de
 
 ```go
 type Locker interface {
-	Lock()
-	Unlock()
+  Lock()
+  Unlock()
 }
 ```
 
@@ -2456,20 +2456,20 @@ An interface T may use a (possibly qualified) interface type name E in place of 
 
 ```go
 type ReadWriter interface {
-	Read(b Buffer) bool
-	Write(b Buffer) bool
+  Read(b Buffer) bool
+  Write(b Buffer) bool
 }
 
 type File interface {
-	ReadWriter  // same as adding the methods of ReadWriter
-	Locker      // same as adding the methods of Locker
-	Close()
+  ReadWriter  // same as adding the methods of ReadWriter
+  Locker      // same as adding the methods of Locker
+  Close()
 }
 
 type LockedFile interface {
-	Locker
-	File        // illegal: Lock, Unlock not unique
-	Lock()      // illegal: Lock not unique
+  Locker
+  File        // illegal: Lock, Unlock not unique
+  Lock()      // illegal: Lock not unique
 }
 ```
 
@@ -2478,14 +2478,113 @@ An interface type T may not embed itself or any interface type that embeds T, re
 ```go
 // illegal: Bad cannot embed itself
 type Bad interface {
-	Bad
+  Bad
 }
 
 // illegal: Bad1 cannot embed itself using Bad2
 type Bad1 interface {
-	Bad2
+  Bad2
 }
 type Bad2 interface {
-	Bad1
+  Bad1
 }
+```
+
+Example: 
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type R struct {
+  R string
+}
+
+type Iread interface {
+  Read() string
+}
+
+func (r *R) Read() string {
+  return fmt.Sprintf("Only: call Read")
+}
+
+func Call(ir Iread) string {
+  return fmt.Sprintf("Read: %s", ir.Read())
+}
+
+func main() {
+  var iread Iread
+  r := R{"hello interface"}
+  // A way to use Interface
+  iread = &r
+  fmt.Println(iread, r)
+  fmt.Println(iread.Read())
+
+  // Second way to access interface
+  r2 := R{"hello interface call"}
+  fmt.Println(Call(&r2))
+}
+```
+
+Output:
+```bash
+&{hello interface} {hello interface}
+Only: call Read
+Read: Only: call Read
+```
+
+#### Map types
+
+A map is an unordered group of elements of one type, called the element type, indexed by a set of unique keys of another type, called the key type. The value of an uninitialized map is nil.
+
+```bash
+MapType     = "map" "[" KeyType "]" ElementType .
+KeyType     = Type .
+```
+
+The comparison operators == and != must be fully defined for operands of the key type; thus the key type must not be a function, map, or slice. If the key type is an interface type, these comparison operators must be defined for the dynamic key values; failure will cause a run-time panic.
+
+```bash
+map[string]int
+map[*T]struct{ x, y float64 }
+map[string]interface{}
+```
+
+The number of map elements is called its length. For a map m, it can be discovered using the built-in function len and may change during execution. Elements may be added during execution using assignments and retrieved with index expressions; they may be removed with the delete built-in function.
+
+A new, empty map value is made using the built-in function make, which takes the map type and an optional capacity hint as arguments:
+
+```bash
+make(map[string]int)
+make(map[string]int, 100)
+```
+
+The initial capacity does not bound its size: maps grow to accommodate the number of items stored in them, with the exception of nil maps. A nil map is equivalent to an empty map except that no elements may be added.
+
+Some examples of map initialization:
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+  // Required to initialize
+  // the map with values
+  var m1 map[string]int
+  var m2 = make(map[string]int)
+  var m3 = map[string]int{"population": 500000}
+  var m4 = map[string]int{"population": 500000}
+  var m5 = m4
+  var m6 map[string]string
+  /* create a map*/
+  m6 = make(map[string]string)
+  fmt.Println(m1, m2, m3, m5, m6)
+}
+```
+Output:
+```bash
+map[] map[] map[population:500000] map[population:500000] map[]
 ```
