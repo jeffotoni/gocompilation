@@ -16,6 +16,13 @@ This site is one of the most important, it is here that we find and we take a lo
 Here is where we will find all the documentation [Doc Golang](https://golang.org/doc/) on this page is complete with everything we need in Golang, here is the faq [Faq Golang](https://golang.org/doc/faq) here we will find several cool things.
 And this page is where we found all the specifications of Golang, it is very complete [Spec Golang](https://golang.org/ref/spec)
 and here the package [Package](https://golang.org/src/).
+
+Here are some channels that I can participate in and can find me online.
+Telegram:
+  - @go_br
+Slack: 
+ - [gophers.slack.com](#https://gophers.slack.com)
+
 ## Contents
 
 - [Overview](#overview)
