@@ -1865,7 +1865,7 @@ const (
 const x = iota  // x == 0
 const y = iota  // y == 0
 ```
-#### Variable
+#### Variables
 
  A variable is a storage location for holding a value. The set of permissible values is determined by the variable's type.
  
