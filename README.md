@@ -23,7 +23,12 @@ Here are some channels that I can participate in and can find me online.
    - [gobr](https://t.me/go_br)
 #### Slack: 
    - [gophers.slack.com](https://gophers.slack.com)
-
+      - brazil
+      - brasil
+      - general
+      - go-kit
+      - gotimefm
+      
 ## Contents
 
 - [Overview](#overview)
