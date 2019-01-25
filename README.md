@@ -69,16 +69,16 @@ and here the package [Package](https://golang.org/src/).
     - [Variables](#Variables)
    - [Types](#Types)
      - [Numeric Types](#numeric-types)
-     - [String Type](#string-type)
-     - [Array Type](#array-type)
-     - [Slice Type](#slice-type)
-     - [Struct Type](#struct-type)
-     - [Pointer Type](#pointer-type)
-     - [Function Type](#function-type)
-     - [Interface Type](#interface-type)
-     - [Map Type](#map-type)
-     - [Channel Type](#channel-type)
-     - [Boolean Type](#boolean-type)
+     - [String Types](#string-types)
+     - [Array Types](#array-types)
+     - [Slice Types](#slice-types)
+     - [Struct Types](#struct-types)
+     - [Pointer Types](#pointer-types)
+     - [Function Types](#function-types)
+     - [Interface Types](#interface-types)
+     - [Map Types](#map-types)
+     - [Channel Types](#channel-types)
+     - [Boolean Types](#boolean-types)
   - [Scopo](#scopo)
 - [Constants](#constants)
   - [Control structures](#controlstructures)
@@ -1969,7 +1969,7 @@ uintptr  an unsigned integer large enough to store the uninterpreted bits of a p
 
 To avoid portability issues all numeric types are defined types and thus distinct except byte, which is an alias for uint8, and rune, which is an alias for int32. Conversions are required when different numeric types are mixed in an expression or assignment. For instance, int32 and int are not the same type even though they may have the same size on a particular architecture. 
 
-#### String type
+#### String types
 
 A string type represents the set of string values. A string value is a (possibly empty) sequence of bytes. Strings are immutable: once created, it is impossible to change the contents of a string. The predeclared string type is string; it is a defined type.
 
@@ -2018,7 +2018,7 @@ UTF-8:             [e6 97 a5 e6 9c ac e8 aa 9e]
 Unicode codepoint: [U+65E5 U+672C U+8A9E]
 ```
 
-#### Array type
+#### Array types
 
 An array is a numbered sequence of elements of a single type, called the element type. The number of elements is called the length and is never negative.
 
@@ -2066,7 +2066,7 @@ Output:
 [5 4 3 2 1]
 ```
 
-#### Slice Type
+#### Slice Types
 
 A slice is a descriptor for a contiguous segment of an underlying array and provides access to a numbered sequence of elements from that array. A slice type denotes the set of all slices of arrays of its element type. The value of an uninitialized slice is nil. 
 
@@ -2155,7 +2155,7 @@ b []
 c [0 0]
 ```
 
-#### Struct type
+#### Struct types
 
 A struct is a sequence of named elements, called fields, each of which has a name and a type. Field names may be specified explicitly (IdentifierList) or implicitly (EmbeddedField). Within a struct, non-blank field names must be unique.
 
@@ -2223,7 +2223,7 @@ Output:
 ```bash
 {4 201}
 ```
-#### Pointer type
+#### Pointer types
 
 Struct fields can be accessed through a struct pointer.
 
@@ -2304,7 +2304,7 @@ var x *int = nil
 &*x  // causes a run-time panic
 ```
 
-#### Function type
+#### Function types
 
 A function type denotes the set of all functions with the same parameter and result types. The value of an uninitialized variable of function type is nil.
 
@@ -2388,9 +2388,104 @@ func main() {
 	fmt.Println(compute(math.Pow))
 }
 ```
+
 Output:
 ```bash
 10.770329614269007
 3.605551275463989
 8
+```
+
+#### Interface types
+
+An interface type specifies a method set called its interface. A variable of interface type can store a value of any type with a method set that is any superset of the interface. Such a type is said to implement the interface. The value of an uninitialized variable of interface type is nil.
+
+```bash
+InterfaceType      = "interface" "{" { MethodSpec ";" } "}" .
+MethodSpec         = MethodName Signature | InterfaceTypeName .
+MethodName         = identifier .
+InterfaceTypeName  = TypeName .
+```
+
+As with all method sets, in an interface type, each method must have a unique non-blank name.
+
+```go
+// A simple File interface
+interface {
+	Read(b Buffer) bool
+	Write(b Buffer) bool
+	Close()
+}
+```
+
+More than one type may implement an interface. For instance, if two types S1 and S2 have the method set
+
+```bash
+func (p T) Read(b Buffer) bool { return … }
+func (p T) Write(b Buffer) bool { return … }
+func (p T) Close() { … }
+```
+
+(where T stands for either S1 or S2) then the File interface is implemented by both S1 and S2, regardless of what other methods S1 and S2 may have or share.
+
+A type implements any interface comprising any subset of its methods and may therefore implement several distinct interfaces. For instance, all types implement the empty interface:
+
+```bash
+interface{}
+```
+
+Similarly, consider this interface specification, which appears within a type declaration to define an interface called Locker:
+
+```go
+type Locker interface {
+	Lock()
+	Unlock()
+}
+```
+
+If S1 and S2 also implement
+
+```bash
+func (p T) Lock() { … }
+func (p T) Unlock() { … }
+```
+
+they implement the Locker interface as well as the File interface.
+
+An interface T may use a (possibly qualified) interface type name E in place of a method specification. This is called embedding interface E in T; it adds all (exported and non-exported) methods of E to the interface T.
+
+```go
+type ReadWriter interface {
+	Read(b Buffer) bool
+	Write(b Buffer) bool
+}
+
+type File interface {
+	ReadWriter  // same as adding the methods of ReadWriter
+	Locker      // same as adding the methods of Locker
+	Close()
+}
+
+type LockedFile interface {
+	Locker
+	File        // illegal: Lock, Unlock not unique
+	Lock()      // illegal: Lock not unique
+}
+```
+
+An interface type T may not embed itself or any interface type that embeds T, recursively.
+
+```go
+// illegal: Bad cannot embed itself
+type Bad interface {
+	Bad
+}
+
+// illegal: Bad1 cannot embed itself using Bad2
+type Bad1 interface {
+	Bad2
+}
+type Bad2 interface {
+	Bad1
+}
 ```
