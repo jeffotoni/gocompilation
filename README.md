@@ -3067,9 +3067,9 @@ The blank identifier is represented by the underscore character **_**. It serves
 Example:
 ```bash
 // function statement
-func f() (int, string, float32)
+func f() (int, string, error)
 
-//function return
+// function return
 _, _, _ := f()
 ```
 

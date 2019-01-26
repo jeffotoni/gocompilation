@@ -13,8 +13,7 @@ func main() {
 	var m1 map[string]int
 	var m2 = make(map[string]int)
 	var m3 = map[string]int{"population": 500000}
-	var m4 = map[string]int{"population": 500000}
-	var m5 = m4
+	var m5 = m3
 	var m6 map[string]string
 	/* create a map*/
 	m6 = make(map[string]string)
