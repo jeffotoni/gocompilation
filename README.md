@@ -3057,6 +3057,71 @@ else here.. n > 100
       - there are no "break" statements referring to the "for" statement, and
       - the loop condition is absent.
       - there are "continue"
+      - A "break" statement terminates execution of the innermost "for", "switch", or "select" statement within the same 
+
+```go
+package main
+
+func main() {
+  // will be looping infinitely
+  // for {
+  // }
+
+  // will run only once and exit
+  for {
+    break
+  }
+
+  n := 5
+  for n > 0 {
+    n--
+    println(n)
+  }
+  // Output:
+  // 4
+  // 3
+  // 2
+  // 1
+  // 0
+
+  // declaring i no and increasing i
+  for i := 0; i < 5; i++ {
+    println(i)
+  }
+  // Output:
+  // 0
+  // 1
+  // 2
+  // 3
+  // 4
+
+  n = 5
+  for i := 0; i < n; i++ {
+    if i <= 2 {
+      continue
+    } else {
+      println("i > 2 = ", i)
+    }
+  }
+
+  // Output:
+  // i > 2 =  3
+  // i > 2 =  4
+
+  n = 5
+  for i := 0; i < n; i++ {
+    if i == 2 {
+      break
+    } else {
+      println("i: ", i)
+    }
+  }
+  // Output:
+  // i:  0
+  // i:  1
+
+}
+```
 
 4. A "switch" statement in which:
       - there are no "break" statements referring to the "switch" statement,
@@ -3064,7 +3129,7 @@ else here.. n > 100
       - the statement lists in each case, including the default, end in a terminating statement, or a possibly labeled "fallthrough" statement.
 
   
-  5. A labeled statement labeling a terminating statement.
+5. A labeled statement labeling a terminating statement.
 
 All other statements are not terminating.
 
