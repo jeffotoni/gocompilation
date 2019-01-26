@@ -60,4 +60,22 @@ func main() {
 	for i, v := range a {
 		fmt.Println(i, v.nick)
 	}
+
+	// struct pointer
+	var testdata *struct {
+		a *[3]int
+	}
+	for i := range testdata.a {
+		// testdata.a is never evaluated; len(testdata.a) is constant
+		// i ranges from 0 to 2
+		fmt.Println(i)
+	}
+
+	// new example interface and range
+	var key string
+	var val interface{} // element type of m is assignable to val
+	m := map[string]int{"mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4, "sat": 5, "sun": 6}
+	for key, val = range m {
+		fmt.Println(key, val)
+	}
 }

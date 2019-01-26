@@ -2985,8 +2985,17 @@ Labels are declared by labeled statements and are used in the **"break", "contin
 
 The blank identifier is represented by the underscore character _. It serves as an anonymous placeholder instead of a regular (non-blank) identifier and has special meaning in declarations, as an operand, and in assignments.
 
+
 ### Control structures
 ---
+
+#### Control
+
+The control structures are:
+
+__For, If, else, else if__
+
+And some statments between them: __break, continue, switch, case and goto__.
 
 #### Control Return
 
@@ -3289,8 +3298,18 @@ RangeClause = [ ExpressionList "=" | IdentifierList ":=" ] "range" Expression .
 
 The expression on the right in the "range" clause is called the range expression, which may be an array, pointer to an array, slice, string, map, or channel permitting receive operations. As with an assignment, if present the operands on the left must be addressable or map index expressions; they denote the iteration variables. If the range expression is a channel, at most one iteration variable is permitted, otherwise there may be up to two. If the last iteration variable is the blank identifier, the range clause is equivalent to the same clause without that identifier. 
 
+```bash
+Range expression                          1st value          2nd value
+
+array or slice  a  [n]E, *[n]E, or []E    index    i  int    a[i]       E
+string          s  string type            index    i  int    see below  rune
+map             m  map[K]V                key      k  K      m[k]       V
+channel         c  chan E, <-chan E       element  e  E
+```
+
 See an example below, with various uses using Range:
 ```go
+
 package main
 
 import "fmt"
@@ -3349,6 +3368,24 @@ func main() {
   for i, v := range a {
     fmt.Println(i, v.nick)
   }
+
+  // struct pointer
+  var testdata *struct {
+    a *[3]int
+  }
+  for i := range testdata.a {
+    // testdata.a is never evaluated; len(testdata.a) is constant
+    // i ranges from 0 to 2
+    fmt.Println(i)
+  }
+
+  // new example interface and range
+  var key string
+  var val interface{} // element type of m is assignable to val
+  m := map[string]int{"mon": 0, "tue": 1, "wed": 2, "thu": 3, "fri": 4, "sat": 5, "sun": 6}
+  for key, val = range m {
+    fmt.Println(key, val)
+  }
 }
 ```
 
@@ -3371,4 +3408,14 @@ Capital of Japan is Tokyo
 2 @awsbrasil
 3 @go_br
 4 @devopsbh
+0
+1
+2
+sat 5
+sun 6
+mon 0
+tue 1
+wed 2
+thu 3
+fri 4
 ```
