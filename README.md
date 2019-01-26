@@ -2553,6 +2553,11 @@ Output:
 
 An interface type specifies a method set called its interface. A variable of interface type can store a value of any type with a method set that is any superset of the interface. Such a type is said to implement the interface. The value of an uninitialized variable of interface type is nil.
 
+**An interface is two things:**
+ - it is a set of methods
+ - but it is also a type
+
+
 ```bash
 InterfaceType      = "interface" "{" { MethodSpec ";" } "}" .
 MethodSpec         = MethodName Signature | InterfaceTypeName .
@@ -2687,6 +2692,8 @@ Output:
 Only: call Read
 Read: Only: call Read
 ```
+
+var val interface{} // element type of m is assignable to val
 
 #### Map types
 
