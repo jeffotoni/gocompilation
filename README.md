@@ -2551,11 +2551,32 @@ Output:
 
 #### Interface types
 
-An interface type specifies a method set called its interface. A variable of interface type can store a value of any type with a method set that is any superset of the interface. Such a type is said to implement the interface. The value of an uninitialized variable of interface type is nil.
-
 **An interface is two things:**
  - it is a set of methods
  - but it is also a type
+
+The __interface{} type__, the empty interface is the interface that has __no methods__
+
+Since there is no implements keyword, all types implement at least zero methods, and satisfying an interface is done automatically, all types satisfy the empty interface.
+That means that if you write a function that takes an interface{} value as a parameter, you can supply that function with any value.
+
+Example:
+```go
+func DoSomething(v interface{}) {
+   // ...
+}
+
+var Msg interface{}
+
+type Stringer interface {
+    String() string
+}
+```
+----
+
+#### Here's an interface as a method
+
+An interface type specifies a method set called its interface. A variable of interface type can store a value of any type with a method set that is any superset of the interface. Such a type is said to implement the interface. The value of an uninitialized variable of interface type is nil.
 
 
 ```bash
@@ -2632,7 +2653,6 @@ type LockedFile interface {
 ```
 
 An interface type T may not embed itself or any interface type that embeds T, recursively.
-
 ```go
 // illegal: Bad cannot embed itself
 type Bad interface {
@@ -2692,8 +2712,58 @@ Output:
 Only: call Read
 Read: Only: call Read
 ```
+####  Interface as type
 
+Interfaces as type __interface{}__ means you can put value of any type, including your own custom type. All types in Go satisfy an empty interface (interface{} is an empty interface).
+In your example, Msg field can have value of any type. 
+
+
+```go
 var val interface{} // element type of m is assignable to val
+``` 
+
+```go
+type Empty interface {
+    /* it has no methods */
+}
+
+// Because, Empty interface has no methods, 
+// following types satisfy the Empty interface
+var a Empty
+
+a = 60
+a = 10.5
+a = "Lambda Man"
+```
+
+Interfaces as types looks at another example below:
+```go
+package main
+
+import (
+  "fmt"
+)
+
+type MyStruct struct {
+  Msg interface{}
+}
+
+func main() {
+  b := MyStruct{}
+  // string
+  b.Msg = "5"
+  fmt.Printf("%#v %T \n", b.Msg, b.Msg) // Output: "5" string
+
+  // int
+  b.Msg = 5
+  fmt.Printf("%#v %T", b.Msg, b.Msg) //Output:  5 int
+
+  // map
+  b.Msg = map[string]string{"population": "500000", "language": "sueco"}
+  fmt.Printf("%#v %T", b.Msg, b.Msg) //Output:  5 int
+}
+```
+
 
 #### Map types
 
