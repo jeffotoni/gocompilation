@@ -3119,7 +3119,16 @@ func main() {
   // Output:
   // i:  0
   // i:  1
-
+  
+  // infinitely
+  for ; ; i++ {
+    println("i: ", i)
+  }
+  // Output:
+  // i:  1
+  // i:  2
+  // ..
+  // ..
 }
 ```
 
@@ -3128,6 +3137,55 @@ func main() {
       - there is a default "case", and
       - the statement lists in each case, including the default, end in a terminating statement, or a possibly labeled "fallthrough" statement.
 
+```go
+package main
+
+func main() {
+  j := 10
+  i := 0
+  switch j {
+  case 11:
+    println("here: 11")
+    break
+  default:
+    println("here default")
+    break
+  }
+
+  // infinitely
+  for ; ; i++ {
+
+    switch i {
+    case 5:
+      goto LABELS
+    case i:
+      println("i: ", i)
+      break
+    default:
+      println("default: ", i)
+    }
+  }
+
+LABELS:
+  f()
+
+}
+
+func f() {
+  println("goto fim")
+}
+```
+
+Output:
+```bash
+here default
+i:  0
+i:  1
+i:  2
+i:  3
+i:  4
+goto fim
+`` `
   
 5. A labeled statement labeling a terminating statement.
 

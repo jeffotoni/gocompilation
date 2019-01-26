@@ -62,4 +62,9 @@ func main() {
 	// i:  0
 	// i:  1
 
+	// infinitely
+	for ; ; i++ {
+		println("i: ", i)
+	}
+
 }
