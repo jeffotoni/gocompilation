@@ -1,6 +1,6 @@
 <h1 align="center">
   <br />
-  <img src="https://github.com/jeffotoni/gocompilation/blob/master/godevops.png" alt="logo" width="700" />
+  <img src="https://github.com/jeffotoni/gocompilation/blob/master/golang-compilation.png" alt="logo" width="700" />
   <br />
   <br />
   <br />
