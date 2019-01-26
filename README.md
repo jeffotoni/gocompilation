@@ -2411,6 +2411,48 @@ var x *int = nil
 &*x  // causes a run-time panic
 ```
 
+See the example below:
+```go
+package main
+
+import "fmt"
+
+func main() {
+  var a int = 100  /* actual variable declaration */
+  var pa *int      /* pointer variable declaration */
+  var pointer *int /* pointer variable declaration */
+
+  pa = &a /* store address of a in pointer variable*/
+
+  fmt.Printf("Address of a variable: %x\n", &a)
+
+  /* address stored in pointer variable */
+  fmt.Printf("Address stored in ip variable: %x\n", pa)
+
+  /* access the value using the pointer */
+  fmt.Printf("Value of *ip variable: %d\n", *pa)
+
+  /* succeeds if p is not nil */
+  if pa != nil {
+    fmt.Println("success is not nil")
+  }
+
+  /* succeeds if p is null */
+  if (pointer) == nil {
+    fmt.Println("success pointer is nil")
+  }
+}
+```
+
+Output:
+```bash
+Address of a variable: c0000160c8
+Address stored in ip variable: c0000160c8
+Value of *ip variable: 100
+success is not nil
+success pointer is nil
+```
+
 #### Function types
 
 A function type denotes the set of all functions with the same parameter and result types. The value of an uninitialized variable of function type is nil.
@@ -3189,6 +3231,36 @@ goto fim
   
 5. A labeled statement labeling a terminating statement.
 
+```go
+package main
+
+func main() {
+  i := 0
+  // infinitely
+  for ; ; i++ {
+    for {
+      if i == 10 {
+        goto LABEL
+      }
+      i++
+    }
+  }
+
+LABEL:
+  f(i)
+
+}
+
+func f(i int) {
+  println("label fim i:", i)
+}
+```
+
+Output:
+```bash
+label fim i: 10
+```
+
 All other statements are not terminating.
 
 A statement list ends in a terminating statement if the list is not empty and its final non-empty statement is terminating. 
@@ -3200,3 +3272,87 @@ RangeClause = [ ExpressionList "=" | IdentifierList ":=" ] "range" Expression .
 ```
 
 The expression on the right in the "range" clause is called the range expression, which may be an array, pointer to an array, slice, string, map, or channel permitting receive operations. As with an assignment, if present the operands on the left must be addressable or map index expressions; they denote the iteration variables. If the range expression is a channel, at most one iteration variable is permitted, otherwise there may be up to two. If the last iteration variable is the blank identifier, the range clause is equivalent to the same clause without that identifier. 
+
+See an example below, with various uses using Range:
+```go
+package main
+
+import "fmt"
+
+func main() {
+
+  // string arrays / slice
+  var lang = [...]string{"Erlang", "Elixir", "Haskell", "Clojure", "Scala"}
+
+  // screen list
+  fmt.Println(lang)
+
+  // list the positions srtring arrays
+  for k, v := range lang {
+    fmt.Println(k, v)
+  }
+
+  /* create a map*/
+  countryCapitalMap := map[string]string{"Brasil": "Brasilia", "EUA AMERICA": "Washington, D.C.", "France": "Paris", "Italy": "Roma", "Japan": "Tokyo"}
+
+  /* print map using key-value*/
+  for country, capital := range countryCapitalMap {
+    fmt.Println("Capital of", country, "is", capital)
+  }
+
+  // channel
+  jobs := make(chan int, 3)
+
+  // for channel
+  for j := 1; j <= 3; j++ {
+    jobs <- j
+  }
+  // println(<-jobs)
+  // println(<-jobs)
+  // println(<-jobs)
+
+  // close
+  /* date is required for range to work*/
+  close(jobs)
+
+  /* This syntax is valid too. */
+  for range jobs {
+  }
+
+  /* it is mandatory to close the channels to be able to scroll */
+  for ch := range jobs {
+    println(ch)
+  }
+
+  // it is not an array struct, it will range from error.
+  sa := struct{ nick string }{"@jeffotoni"}
+  fmt.Println(sa.nick)
+
+  // here the range will be able to list all struct
+  a := []struct{ nick string }{{"@devopsbr"}, {"@go_br"}, {"@awsbrasil"}, {"@go_br"}, {"@devopsbh"}}
+  for i, v := range a {
+    fmt.Println(i, v.nick)
+  }
+}
+```
+
+Output:
+```bash
+[Erlang Elixir Haskell Clojure Scala]
+0 Erlang
+1 Elixir
+2 Haskell
+3 Clojure
+4 Scala
+Capital of Brasil is Brasilia
+Capital of EUA AMERICA is Washington, D.C.
+Capital of France is Paris
+Capital of Italy is Roma
+Capital of Japan is Tokyo
+@jeffotoni
+0 @devopsbr
+1 @go_br
+2 @awsbrasil
+3 @go_br
+4 @devopsbh
+```
