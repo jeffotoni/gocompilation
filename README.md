@@ -3062,8 +3062,16 @@ Labels are declared by labeled statements and are used in the **"break", "contin
 
 #### Blank identifier
 
-The blank identifier is represented by the underscore character _. It serves as an anonymous placeholder instead of a regular (non-blank) identifier and has special meaning in declarations, as an operand, and in assignments.
+The blank identifier is represented by the underscore character **_**. It serves as an anonymous placeholder instead of a regular (non-blank) identifier and has special meaning in declarations, as an operand, and in assignments.
 
+Example:
+```bash
+// function statement
+func f() (int, string, float32)
+
+//function return
+_, _, _ := f()
+```
 
 ### Control structures
 ---
