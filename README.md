@@ -9,7 +9,7 @@
 # Golang Compilation
 
 This is a guide in Golang, a compilation of the manuals and experience I have had in recent years in projects using Golang. The guide aims to present an overview of the language from the basic to the intermediate. In this guide we cover all the concepts that we believe are important for those who start or even those who already program in Golang can use this guide as a reference and help in some way dozens or even hundreds of golang users.
-There are thousands of references today regarding Golang, let's start at the beginning and we could not stop talking about [Golang Tour] (https://tour.golang.org).
+There are thousands of references today regarding Golang, let's start at the beginning and we could not stop talking about [Golang Tour](https://tour.golang.org).
 
 This site is one of the most important, it is here that we find and we take a lot of our doubts [Blog Golang](https://blog.golang.org/) it is simply fantastic.
 
