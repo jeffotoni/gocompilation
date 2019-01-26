@@ -100,9 +100,13 @@ Here are some channels that I can participate in and can find me online.
      - [Blank identifier](#blank-identifier)
 - [Control structures](#control-structures)
   - [Control](#control)
-    - [if/else](#ifelse)
-    - [for](#for)
-    - [range](#range)
+    - [Control Return](#control-return)
+    - [Control Goto](#control-goto)
+    - [Control if else](#control-if-else)
+    - [Control for break continue](#control-for-break-continue)
+    - [Control Switch case break](#control-switch-case-break)
+    - [Control Label](#control-label)
+    - [Control Range](#control-range)
 - [Functions](#functions)
   - [introduction](#)
     - [return multiple values](#returnmulti) 
@@ -2984,7 +2988,7 @@ The blank identifier is represented by the underscore character _. It serves as 
 ### Control structures
 ---
 
-#### Control
+#### Control Return
 
 Statements control execution.
 
@@ -3021,6 +3025,8 @@ Output:
 ```bash
 Lambda
 ```
+
+#### Control Goto
 
 Goto:
 ```go
@@ -3067,6 +3073,8 @@ n 9 LOOP1 here...
 fim
 ```
 
+#### Control if else
+
 2. An "if" statement in which:
       - the "else" branch is present, and
       - both branches are terminating statements.
@@ -3094,6 +3102,8 @@ Output:
 ```bash
 else here.. n > 100
 ```
+
+#### Control For break continue
 
 3. A "for" statement in which:
       - there are no "break" statements referring to the "for" statement, and
@@ -3174,6 +3184,8 @@ func main() {
 }
 ```
 
+#### Control Switch case break
+
 4. A "switch" statement in which:
       - there are no "break" statements referring to the "switch" statement,
       - there is a default "case", and
@@ -3227,8 +3239,10 @@ i:  2
 i:  3
 i:  4
 goto fim
-`` `
-  
+```
+
+#### Control Label
+
 5. A labeled statement labeling a terminating statement.
 
 ```go
@@ -3270,6 +3284,8 @@ A "for" statement with a "range" clause iterates through all entries of an array
 ```bash
 RangeClause = [ ExpressionList "=" | IdentifierList ":=" ] "range" Expression .
 ```
+
+#### Control Range
 
 The expression on the right in the "range" clause is called the range expression, which may be an array, pointer to an array, slice, string, map, or channel permitting receive operations. As with an assignment, if present the operands on the left must be addressable or map index expressions; they denote the iteration variables. If the range expression is a channel, at most one iteration variable is permitted, otherwise there may be up to two. If the last iteration variable is the blank identifier, the range clause is equivalent to the same clause without that identifier. 
 
