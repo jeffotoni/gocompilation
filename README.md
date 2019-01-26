@@ -91,6 +91,8 @@ Here are some channels that I can participate in and can find me online.
      - [Pointer Types](#pointer-types)
      - [Function Types](#function-types)
      - [Interface Types](#interface-types)
+         -[Here's an interface as a method](#Heres-an-interface-as-a-method)
+         -[Interface as type](#interface-as-type)
      - [Map Types](#map-types)
      - [Channel Types](#channel-types)
      - [Properties of types and values](#properties-of-types-and-values)
