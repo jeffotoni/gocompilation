@@ -2958,23 +2958,113 @@ SimpleStmt = EmptyStmt | ExpressionStmt | SendStmt | IncDecStmt | Assignment | S
 
 A terminating statement prevents execution of all statements that lexically appear after it in the same block. The following statements are terminating:
 
-  1. A "return" or "goto" statement.
-  2. A call to the built-in function panic.
-  3. A block in which the statement list ends in a terminating statement.
-  4. An "if" statement in which:
+1. A "return" or "goto" statement.
+
+Return:
+```go
+package main
+
+func main() {
+  println(Lambda())
+  return
+}
+
+func Lambda() string {
+
+  return "Lambda"
+}
+```
+
+Output:
+```bash
+Lambda
+```
+
+Goto:
+```go
+package main
+
+import "fmt"
+
+func main() {
+  n := 0
+
+LOOP1:
+  n++
+  if n == 10 {
+    println("fim")
+    return
+  }
+
+  if n%2 == 0 {
+    goto LOOP2
+  } else {
+
+    fmt.Println("n", n, "LOOP1 here...")
+    goto LOOP1
+  }
+
+LOOP2:
+  fmt.Println("n", n, "LOOP2 here...")
+  goto LOOP1
+
+}
+```
+
+Output:
+```bash
+n 1 LOOP1 here...
+n 2 LOOP2 here...
+n 3 LOOP1 here...
+n 4 LOOP2 here...
+n 5 LOOP1 here...
+n 6 LOOP2 here...
+n 7 LOOP1 here...
+n 8 LOOP2 here...
+n 9 LOOP1 here...
+fim
+```
+
+2. An "if" statement in which:
       - the "else" branch is present, and
       - both branches are terminating statements.
-  5. A "for" statement in which:
+```go
+package main
+
+func main() {
+  n := 100
+  if n > 0 && n <= 55 {
+    println("n > 0 or n <= 55")
+  } else if n > 56 && n < 70 {
+    println("n > 56 and n < 70")
+  } else {
+
+    if n >= 100 {
+      println(" else here.. n > 100")
+    } else {
+      println(" else here.. n > 70")
+    }
+  }
+}
+```
+
+Output:
+```bash
+else here.. n > 100
+```
+
+3. A "for" statement in which:
       - there are no "break" statements referring to the "for" statement, and
       - the loop condition is absent.
-  6. A "switch" statement in which:
+      - there are "continue"
+
+4. A "switch" statement in which:
       - there are no "break" statements referring to the "switch" statement,
-      - there is a default case, and
+      - there is a default "case", and
       - the statement lists in each case, including the default, end in a terminating statement, or a possibly labeled "fallthrough" statement.
-  7. A "select" statement in which:
-      - there are no "break" statements referring to the "select" statement, and
-      - the statement lists in each case, including the default if present, end in a terminating statement.
-  8. A labeled statement labeling a terminating statement.
+
+  
+  5. A labeled statement labeling a terminating statement.
 
 All other statements are not terminating.
 
