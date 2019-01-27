@@ -70,7 +70,7 @@ Here are some channels that I can participate in and can find me online.
   - [go doc](#go-doc)
   - [Go mod](#go-mod)
     - [GO111MODULE](#go111module)
-    - [go mod init](#gomodinit)
+    - [go mod init](#go-mod-init)
     - [edit go.mod](#edit-go.mod-from-tools-or-scripts)
     - [download modules to local cache](#download-modules-to-local-cache )
     - [go mod verify](#go-mod-verify)
@@ -147,7 +147,7 @@ Here are some channels that I can participate in and can find me online.
     - [Type Struct Json](#structjson)
     - [Anonymus Struct](#structanonymus)
     - [Struct Reflect](#structreflect)
-- [Erros](#erros)
+- [Errors](#Errors)
   - [introduction](#)
     - [How Error Control Works](#)
     - [Log.fatal](#)
@@ -1617,7 +1617,7 @@ For more fine-grained control, the module support in Go 1.11 respects a temporar
 
 In module-aware mode, GOPATH no longer defines the meaning of imports during a build, but it still stores downloaded dependencies (in GOPATH/pkg/mod) and installed commands (in GOPATH/bin, unless GOBIN is set).
 
-#### Go Init
+#### Go Mod Init
 
 Initialize new module in current directory
 
@@ -2321,7 +2321,6 @@ Output:
 false
 true
 ```
-
 
 #### Numeric Types
 
