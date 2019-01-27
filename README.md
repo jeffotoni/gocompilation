@@ -1076,7 +1076,7 @@ func (t lower) MustLower(name string) string {
 }
 ```
 
-```go
+```bash
 $ go build -buildmode=plugin -o lower.so lower.go
 ```
 
@@ -1133,7 +1133,7 @@ func main() {
   fmt.Println(lower.MustLower("@JEFFOTONI/LAMBDAMAN"))
 }
 ```
-```go
+```bash
 $ go run main.go
 ```
 output
@@ -1147,7 +1147,7 @@ Let's discuss Exploring shared objects in Go in the next topics, it's an interes
 
 It would be something like this:
 
-```go
+```bash
 $ go install -buildmode=shared -linkshared github.com/user/dso/lib
 ```
 
@@ -1160,8 +1160,8 @@ Install packages and dependencies
 
 Usage:
 
-```go
-go install [-i] [build flags] [packages]
+```bash
+$ go install [-i] [build flags] [packages]
 ```
 Install compiles and installs the packages named by the import paths.
 
@@ -1178,7 +1178,7 @@ Test packages
 Usage:
 
 ```go
-go test [build/test flags] [packages] [build/test flags & test binary flags]
+$ go test [build/test flags] [packages] [build/test flags & test binary flags]
 ```
 
 Go **test** automates testing the packages named by the import paths. It prints a summary of the test results in the format: 
@@ -1188,7 +1188,8 @@ ok   archive/tar   0.011s
 FAIL archive/zip   0.022s
 ok   compress/gzip 0.033s
 ```
- followed by detailed output for each failed package.
+
+Followed by detailed output for each failed package.
 
 'Go test' recompiles each package along with any files with names matching the file pattern "*_test.go". These additional files can contain test functions, benchmark functions, and example functions. See 'go help testfunc' for more. Each listed package causes the execution of a separate test binary. Files whose names begin with "_" (including "_test.go") or "." are ignored.
 
@@ -1258,7 +1259,7 @@ func TestWhatever(t *testing.T) {
 ```
 
 ```bash
-go test -v
+$ go test -v
 ```
 
 Output:
@@ -1286,7 +1287,7 @@ func TestSum(t *testing.T) {
 ```
 
 ```bash
-go test -v
+$ go test -v
 ```
 
 Output:
@@ -1315,7 +1316,7 @@ func TestSum(t *testing.T) {
 ```
 
 ```bash
-go test -run TestSum myprog2_test.go
+$ go test -run TestSum myprog2_test.go
 ```
 
 Output:
@@ -1400,6 +1401,11 @@ func TestSum(t *testing.T) {
 }
 ```
 
+```bash
+$ cd pkg/math/
+$ go test -v
+```
+
 Output:
 ```bash
 === RUN   TestSum
@@ -1420,6 +1426,13 @@ exit status 1
 FAIL  github.com/jeffotoni/gocompilation/examples/tests/pkg/pkg/math  0.001s
 ```
 
+It converts to json the output of the tests
+
+```bash
+$ go test -v -json
+```
+
+check your output on your terminal screen
 
 ### Go Clean
 ---
