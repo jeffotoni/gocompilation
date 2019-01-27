@@ -1333,7 +1333,7 @@ From a check in our code below / main.go:
 import "strconv"
 
 import (
-  "github.com/jeffotoni/goworkshopdevops/examples/tests/pkg/math"
+  "github.com/jeffotoni/gocompilation/examples/tests/pkg/math"
 )
 
 var (
@@ -1417,7 +1417,7 @@ Output:
         sum_test.go:29: Sum() = 16, want 15
 FAIL
 exit status 1
-FAIL  github.com/jeffotoni/goworkshopdevops/examples/tests/pkg/pkg/math  0.001s
+FAIL  github.com/jeffotoni/gocompilation/examples/tests/pkg/pkg/math  0.001s
 ```
 
 It converts to json the output of the tests
@@ -1435,16 +1435,16 @@ But first let's run go mod to manage our packages and versions correctly.
 
 Check the command below:
 ```bash
-$ go mod init github.com/jeffotoni/goworkshopdevops/examples/tests/pkg
+$ go mod init github.com/jeffotoni/gocompilation/examples/tests/pkg
 ```
 
 Output:
 ```bash
-go: finding github.com/jeffotoni/goworkshopdevops/examples/tests/pkg/math latest
-go: finding github.com/jeffotoni/goworkshopdevops/examples/tests latest
-go: finding github.com/jeffotoni/goworkshopdevops/examples latest
-go: finding github.com/jeffotoni/goworkshopdevops latest
-go: downloading github.com/jeffotoni/goworkshopdevops v0.0.0-20190127023912-a2fa53299867
+go: finding github.com/jeffotoni/gocompilation/examples/tests/pkg/math latest
+go: finding github.com/jeffotoni/gocompilation/examples/tests latest
+go: finding github.com/jeffotoni/gocompilation/examples latest
+go: finding github.com/jeffotoni/gocompilation latest
+go: downloading github.com/jeffotoni/gocompilation v0.0.0-20190127023912-a2fa53299867
 0
 ```
 
