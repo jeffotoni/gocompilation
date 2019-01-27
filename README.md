@@ -8,14 +8,22 @@
 
 # Golang Compilation
 
-This is a guide in Golang, a compilation of the manuals and experience I have had in recent years in projects using Golang. The guide aims to present an overview of the language from the basic to the intermediate. In this guide we cover all the concepts that we believe are important for those who start or even those who already program in Golang can use this guide as a reference and help in some way dozens or even hundreds of golang users.
-There are thousands of references today regarding Golang, let's start at the beginning and we could not stop talking about [Golang Tour](https://tour.golang.org).
+This is a guide in Golang, a compilation of the manuals and experience I have had in recent years in projects using Golang. 
+The guide aims to present an overview of the language from the basic to the intermediate. 
+In this guide we cover all the concepts that we believe are important for those who start or even those 
+who already program in Golang can use this guide as a reference and help in some way dozens or even hundreds of golang users.
+
+There are thousands of references today regarding Golang, let's start at the beginning and 
+we could not stop talking about [Golang Tour](https://tour.golang.org).
 
 This site is one of the most important, it is here that we find and we take a lot of our doubts [Blog Golang](https://blog.golang.org/) it is simply fantastic.
 
 Here is where we will find all the documentation [Doc Golang](https://golang.org/doc/) on this page is complete with everything we need in Golang, here is the faq [Faq Golang](https://golang.org/doc/faq) here we will find several cool things.
+
 And this page is where we found all the specifications of Golang, it is very complete [Spec Golang](https://golang.org/ref/spec)
 and here the package [Package](https://golang.org/src/).
+
+Well that site here [Play Golang](https://play.golang.org) we can play Golang online.
 
 Here are some channels that I can participate in and can find me online.
 
@@ -704,6 +712,7 @@ $HOME/
 
 ### Go commands
 ---
+
 #### Go commands introduction
 
 In golang we have an arsenal to help us when it comes to compiling, testing, documenting, managing Profiling etc.
@@ -746,7 +755,44 @@ The Go language has always been defined by a spec, not an implementation. The Go
 
 if you install the go command from a standard Go release, it already supports gccgo via the -compiler option: go build -compiler gccgo myprog.go 
 
-#### go bug
+#### Go run
+
+Usage:
+```bash
+go run [build flags] [-exec xprog] package [arguments...]
+```
+
+Run compiles and runs the named main Go package. Typically the package is specified as a list of .go source files, but it may also be an import path, file system path, or pattern matching a single known package, as in 'go run .' or 'go run my/cmd'.
+
+By default, 'go run' runs the compiled binary directly: 'a.out arguments...'. If the -exec flag is given, 'go run' invokes the binary using xprog: 
+
+If the -exec flag is not given, GOOS or GOARCH is different from the system default, and a program named go_$GOOS_$GOARCH_exec can be found on the current search path, 'go run' invokes the binary using that program, for example 'go_nacl_386_exec a.out arguments...'. This allows execution of cross-compiled programs when a simulator or other execution method is available.
+
+The exit status of Run is not the exit status of the compiled binary.
+
+For more about build flags, see 'go help build'. For more about specifying packages, see 'go help packages'.
+
+See below an example:
+
+```go
+// test println
+package main
+
+func main() {
+   println("Debugging my system with println")
+}
+```
+Go run:
+```bash
+go run println.go
+```
+
+Output:
+```bash
+Debugging my system with println
+```
+
+#### Go bug
 
 Bug opens the default browser and starts a new bug report. The report includes useful system information.
 In this link: [Issue Go](https://github.com/golang/go/issues)
@@ -755,7 +801,7 @@ In this link: [Issue Go](https://github.com/golang/go/issues)
 $ go bug
 ```
 
-#### go build
+#### Go build
 
 Build compiles the packages named by the import paths, along with their dependencies, but it does not install the results. 
 
@@ -1191,6 +1237,91 @@ In addition to the build flags, the flags handled by 'go test' itself are:
     The test still runs (unless -c or -i is specified).
 ```
 For more about build flags, see 'go help build'. For more about specifying packages, see 'go help packages'. 
+
+The test package runs side-by-side with the go test command.
+The package test should have the suffix "\_test.go". 
+We can split the tests into several files following this convention.
+  For example: "myprog1_test.go" and "myprog2_test.go".
+We should put our test functions in these test files.
+
+Each test function is an exported public function whose name begins with "Test", accepts a pointer to a testing.T object, and returns nothing. Like this:
+
+Example one / myprog1_test:
+```go
+package main
+
+import "testing"
+
+func TestWhatever(t *testing.T) {
+    // Your test code goes here
+}
+```
+
+```bash
+go test -v
+```
+
+Output:
+```bash
+=== RUN   TestWhatever
+--- PASS: TestWhatever (0.00s)
+PASS
+ok    command-line-arguments  0.001s
+```
+
+The T object provides several methods that we can use to indicate failures or log errors.
+
+Example two / myprog2_test:
+```go
+package main
+
+import "testing"
+
+func TestSum(t *testing.T) {
+  x := 1 + 1
+  if x != 11 { // forcing the error
+    t.Error("Error! 1 + 1 is not equal to 2, I got", x)
+  }
+}
+```
+
+```bash
+go test -v
+```
+
+Output:
+```bash
+=== RUN   TestSum
+-- FAIL: TestSum (0.00s)
+    myprog1_test.go:12: Error! 1 + 1 is not equal to 2, I got 2
+FAIL
+FAIL  command-line-arguments  0.001s
+```
+The t (lowercase) is an instance of testing.T. The testing module has several types. Let's start with T. You can know about type T by doing: **"godoc testing T"**
+
+
+Example three/ myprog3_test:
+```go
+package main
+
+import "testing"
+
+func TestSum(t *testing.T) {
+  x := 1 + 1
+  if x != 2 {
+    t.Error("Error! 1 + 1 is not equal to 2, I got", x)
+  }
+}
+```
+
+```bash
+go test -run TestSum myprog2_test.go
+```
+
+Output:
+```bash
+ok    command-line-arguments  0.001s
+```
 
 ### Go Clean
 ---
