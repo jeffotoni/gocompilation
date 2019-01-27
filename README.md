@@ -1323,6 +1323,104 @@ Output:
 ok    command-line-arguments  0.001s
 ```
 
+In this example we will make an examination as it would be in our projects.
+
+In this program I will pass parameter at compile time or in our execution to facilitate and also serve as an example the use of **"ldflags"** that we can use in both **go run -ldflags ** and **go build -ldflags**
+
+From a check in our code below:
+```go
+import "strconv"
+
+import (
+  "github.com/jeffotoni/gocompilation/examples/tests/pkg/math"
+)
+
+var (
+  x, y   string
+  xi, yi int
+)
+
+func init() {
+  xi, _ = strconv.Atoi(x)
+  yi, _ = strconv.Atoi(y)
+}
+
+func main() {
+  println(math.Sum(xi, yi))
+}
+```
+
+For this to work we will need to add in our go mod init our github repository as I do here
+
+```bash
+go mod init github.com/jeffotoni/gocompilation/examples/tests/pkg
+```
+
+Now we have a Sum function in a pkg that we create in **pkg/math/sum.go**
+
+```go
+package math
+
+func Sum(x, y int) int {
+  return x + y
+}
+```
+
+We created our test file in **pkg/math/sum_test.go**
+
+```go
+package math
+
+import "testing"
+
+func TestSum(t *testing.T) {
+  type args struct {
+    x int
+    y int
+  }
+  tests := []struct {
+    name string
+    args args
+    want int
+  }{
+    // TODO: Add test cases.
+    {"test_1: ", args{2, 2}, 4},
+    {"test_2: ", args{-2, 6}, 4},
+    {"test_3: ", args{-4, 8}, 4},
+    {"test_4: ", args{5, 7}, 12},
+    {"test_5: ", args{8, 8}, 15}, // forcing the error
+  }
+  for _, tt := range tests {
+    t.Run(tt.name, func(t *testing.T) {
+      if got := Sum(tt.args.x, tt.args.y); got != tt.want {
+        t.Errorf("Sum() = %v, want %v", got, tt.want)
+      }
+    })
+  }
+}
+```
+
+Output:
+```bash
+=== RUN   TestSum
+=== RUN   TestSum/test_1:_
+=== RUN   TestSum/test_2:_
+=== RUN   TestSum/test_3:_
+=== RUN   TestSum/test_4:_
+=== RUN   TestSum/test_5:_
+--- FAIL: TestSum (0.00s)
+    --- PASS: TestSum/test_1:_ (0.00s)
+    --- PASS: TestSum/test_2:_ (0.00s)
+    --- PASS: TestSum/test_3:_ (0.00s)
+    --- PASS: TestSum/test_4:_ (0.00s)
+    --- FAIL: TestSum/test_5:_ (0.00s)
+        sum_test.go:29: Sum() = 16, want 15
+FAIL
+exit status 1
+FAIL  github.com/jeffotoni/gocompilation/examples/tests/pkg/pkg/math  0.001s
+```
+
+
 ### Go Clean
 ---
 

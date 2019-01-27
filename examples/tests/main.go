@@ -1,14 +1,14 @@
 // Go in action
 // @jeffotoni
 // 2019-01-24
+//go run -ldflags "-X main.x=2 -X main.y=3" main.go
 
-//-ldflags "-X main.x=2 -X main.y=3"
 package main
 
 import "strconv"
 
 import (
-	"github.com/jeffotoni/gocompilation/example/tests/pkg/math"
+	"github.com/jeffotoni/gocompilation/examples/tests/pkg/math"
 )
 
 var (
@@ -22,6 +22,5 @@ func init() {
 }
 
 func main() {
-
 	println(math.Sum(xi, yi))
 }
